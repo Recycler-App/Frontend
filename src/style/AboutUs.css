@@ -44,13 +44,20 @@ body {
 }
 @media (min-width: 1024px) {
   .panaImage1 {
-    margin-top: -3rem;
     margin-left: 2rem;
-    width: 16rem;
+    width: 32rem;
   }
   .headingText {
     font-weight: 600;
     font-size: 28px;
     line-height: 150%;
+  }
+  .mainP {
+    font-size: 24px;
+    line-height: 42px;
+  }
+  .mainPP {
+    font-size: 20px;
+    line-height: 27.7px;
   }
 }

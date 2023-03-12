@@ -11,5 +11,28 @@
 }
 .footerIcon {
   font-size: 1.2rem;
-  color: #555555;
+}
+@media (min-width: 768px) {
+  .sec-one {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+  .griid1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+  .copyright {
+    transform: translateX(50%);
+  }
+}
+@media (min-width: 1024px) {
+  .griid1 {
+    display: flex;
+    margin-left: 14rem;
+  }
+  .sec-two {
+    margin-left: 6rem;
+  }
 }
