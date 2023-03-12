@@ -9,27 +9,47 @@ a {
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  height: 8vh;
-  background: rgb(0, 33, 65);
+  justify-content: space-between;
+  height: 18vh;
+  background: #ffffff;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25);
 }
 .nav__brand {
   text-transform: uppercase;
+}
+.navicon img {
+  width: 2rem;
+}
+.iconText {
+  font-size: 22px;
+  font-weight: 700;
+}
+.nav__item {
+  font-weight: 500;
+}
+.nav__itemhome {
+  font-weight: 500;
+}
+.buttn {
+  border: 1px solid #0fa958;
+  width: 9rem;
+  background-color: #0fa958;
+  color: white;
 }
 
 .nav__menu {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 3rem;
+  gap: 2rem;
 }
 .nav__toggler {
   display: none;
 }
 .nav__toggler div {
-  width: 2.5rem;
+  width: 2rem;
   height: 0.2rem;
-  margin: 0.4rem;
+  margin: 0.3rem;
   background: rgb(204, 204, 204);
   transition: 0.3s ease-in;
 }
@@ -41,14 +61,25 @@ a {
   }
   .nav__menu {
     position: fixed;
-    top: 7vh;
+    top: 18vh;
     right: 0;
     height: 93vh;
     width: 50vw;
-    background: rgb(0, 33, 65);
+    gap: 1rem;
+    background: #ffffff;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25);
     flex-direction: column;
     transform: translateX(100%);
     transition: 0.5s ease-in;
+  }
+  .iconText {
+    font-size: 20px;
+  }
+  .nav__item {
+    margin-top: -12rem;
+  }
+  .nav__itemhome {
+    margin-top: -4rem;
   }
 }
 /* Active Class */
@@ -59,7 +90,7 @@ a {
 /* Toggle Icon Animation */
 
 .toggle .line1 {
-  transform: rotate(-45deg) translate(-4px, 5px);
+  transform: rotate(-45deg) translate(-6px, 7px);
 }
 .toggle .line2 {
   opacity: 0;
