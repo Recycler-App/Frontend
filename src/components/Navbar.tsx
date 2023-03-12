@@ -15,7 +15,7 @@ function Navbar() {
     } else setIcon('nav__toggler')
   }
   return (
-    <nav className='nav p-2 p-md-4'>
+    <nav className='nav p-3 p-md-4'>
       <div className='d-flex navicon'>
         <img src={recyclericon} alt='recyclericon' />
         <p className='ms-1 iconText'>Recycler</p>
@@ -25,7 +25,7 @@ function Navbar() {
           <Link to='/'>home</Link>
         </li>
         <li className='nav__item text-uppercase'>
-          <Link to='/'>about us</Link>
+          <Link to='/AboutUs'>about us</Link>
         </li>
         <li className='nav__item text-uppercase'>
           <Link to='/'>gallery</Link>
