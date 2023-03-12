@@ -1,0 +1,15 @@
+.sec-one {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 169, 88, 0.51) 0%,
+    #0fa958 99.99%,
+    #0fa958 100%
+  );
+}
+.footerText {
+  color: white;
+}
+.footerIcon {
+  font-size: 1.2rem;
+  color: #555555;
+}
