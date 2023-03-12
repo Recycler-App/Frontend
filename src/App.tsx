@@ -6,11 +6,15 @@ import {
   Link,
   VStack,
   Code,
-  Grid,
-  theme,
+  Grid
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import { Logo } from "./Logo"
+import '@fontsource/quicksand/400.css'
+import '@fontsource/quicksand/500.css'
+import '@fontsource/quicksand/600.css'
+import '@fontsource/quicksand/700.css'
+import theme from './theme'
 
 export const App = () => (
   <ChakraProvider theme={theme}>
