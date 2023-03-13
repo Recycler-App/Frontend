@@ -38,6 +38,10 @@ body {
 .teamImg img {
   margin: 0 auto;
 }
+.teamimg {
+  width: 317px;
+  height: 260px;
+}
 .div-one h3 {
   font-size: 20px;
   font-weight: 700;
@@ -55,10 +59,17 @@ body {
     grid-gap: 10px;
   }
   .section-one {
-    border: 1px solid red;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
+    grid-gap: 15px;
+  }
+  .teamimg {
+    width: 317px;
+    height: 142px;
+  }
+  .div-one h3 {
+    font-size: 16px;
+    font-weight: 600;
   }
 }
 @media (min-width: 1024px) {
@@ -78,5 +89,8 @@ body {
   .mainPP {
     font-size: 20px;
     line-height: 27.7px;
+  }
+  .teamimg {
+    height: 260px;
   }
 }
