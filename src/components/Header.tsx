@@ -34,7 +34,7 @@ function Header() {
           LOGIN
         </Button>
         <Button bg="primary" color="light" w="150px" borderRadius={0}>
-          REGISTER
+          <Link to="/Register">REGISTER</Link>
         </Button>
       </Flex>
     </Flex>

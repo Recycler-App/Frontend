@@ -39,7 +39,7 @@ function Navbar() {
           </Link>
         </li>
         <li className='nav__item'>
-          <Link to='/'>
+          <Link to='/Register'>
             <button className='buttn p-md-2 p-2 text-uppercase'>
               register
             </button>
