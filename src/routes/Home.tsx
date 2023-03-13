@@ -1,11 +1,9 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
-import Header from "../components/Header";
 
 function Home() {
   return (
     <>
-      <Header />
       <Box px={10}>
         <Text fontSize="32px" fontWeight="500" color="primary">We focus on waste recycling and the health of the ecosystem</Text>
         <Flex alignItems="center" justify="space-between">

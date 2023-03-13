@@ -9,24 +9,31 @@ import theme from "./theme";
 import { RouterProvider } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./routes/Home";
-import AboutUs from "./components/AboutUs";
+import AboutUs from "./routes/AboutUs";
+import ExternalLayout from "./layouts/ExternalLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-    // errorElement: <ErrorPage />,
-  },
-  {
-    path: "/AboutUs",
-    element: <AboutUs />,
-  },
+    element: <ExternalLayout />,
+    children:[   
+    {
+      path: "/",
+      element: <Home/>,
+    },
+    {
+      path: "/AboutUs",
+      element: <AboutUs/>,
+    },
+      
+    ]
+  }
 ]);
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box minH="100vh">
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </Box>
   </ChakraProvider>
 );

@@ -26,7 +26,7 @@ function Header() {
         alignItems="center"
       >
         <Link to="/">HOME</Link>
-        <Link to="/AboutUs">ABOUT US</Link>
+        <Link to="AboutUs">ABOUT US</Link>
         <Link to="/">GALLERY</Link>
         <Link to="/">CONTACT US</Link>
         <Link to="/">OUR BLOG</Link>
