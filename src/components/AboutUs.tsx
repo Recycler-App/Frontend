@@ -5,7 +5,8 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import pana from '../assets/pana.png'
 import chisom from '../assets/chisom.jpg'
-import maureen from '../assets/maureen.jpg'
+import maureen from '../assets/maureen.png'
+import lydia from '../assets/lydia.png'
 
 const AboutUs = () => {
   return (
@@ -49,9 +50,35 @@ const AboutUs = () => {
         </main>
         <main className='mt-2 p-3'>
           <p className='text-uppercase headingText'>meet the team</p>
-          <section className='mt-2 teamImg'>
-            <img src={chisom} alt='chisom' />
-            <img className='mt-3' src={maureen} alt='maureen' />
+          <section className='mt-4 section-one'>
+            <div className='teamImg text-center'>
+              <img className='mt-3' src={maureen} alt='maureen' />
+              <div className='p-3 div-one'>
+                <h3>Anyanwu Maureen</h3>
+                <p>Front-end Engineer</p>
+              </div>
+            </div>
+            <div className='teamImg text-center mt-3'>
+              <img className='mt-3' src={chisom} alt='chisom' />
+              <div className='p-3 div-one'>
+                <h3>Chukwuma Chisom</h3>
+                <p>Front-end Engineer</p>
+              </div>
+            </div>
+            <div className='teamImg text-center mt-3'>
+              <img className='mt-3' src={lydia} alt='lydia' />
+              <div className='p-3 div-one'>
+                <h3>Umeh chinonye lydia</h3>
+                <p>Product Designer</p>
+              </div>
+            </div>
+            <div className='teamImg text-center mt-3'>
+              <img className='mt-3' src={lydia} alt='lydia' />
+              <div className='p-3 div-one'>
+                <h3>Umeh Chinonye Lydia</h3>
+                <p>Back-end Engineer</p>
+              </div>
+            </div>
           </section>
         </main>
         <Footer />
