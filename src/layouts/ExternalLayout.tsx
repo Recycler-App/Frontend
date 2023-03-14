@@ -9,7 +9,9 @@ function ExternalLayout() {
     return (
         <Box minH="100vh">
             <Header/>
-                <Outlet/>
+                <Box mt="120px">
+                    <Outlet/>
+                </Box>
             <Footer/>
         </Box>
     )

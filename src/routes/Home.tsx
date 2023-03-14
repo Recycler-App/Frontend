@@ -94,7 +94,7 @@ function Home() {
         color="light"
         position="relative"
       >
-        <Box w="60%" ml="100px" pt="calc(50vh - 242px)">
+        <Box w="80%" ml="100px" pt="calc(50vh - 242px)">
           <Flex alignItems="center" mb={5}>
             <Logo />
             <Text fontWeight={500} fontSize="32px">
