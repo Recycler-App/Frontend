@@ -92,5 +92,6 @@ body {
   }
   .teamimg {
     height: 260px;
+    object-fit: cover;
   }
 }

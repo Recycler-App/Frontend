@@ -7,6 +7,7 @@ import pana from '../assets/pana.png'
 import chisom from '../assets/chisom.jpg'
 import maureen from '../assets/maureen.png'
 import lydia from '../assets/lydia.png'
+import annabel from '../assets/Annabel.jpg'
 
 const AboutUs = () => {
   return (
@@ -73,9 +74,9 @@ const AboutUs = () => {
               </div>
             </div>
             <div className='teamImg text-center mt-3'>
-              <img className='mt-3 mt-md-2' src={lydia} alt='lydia' />
+              <img className='mt-3 mt-md-2 teamimg' src={annabel} alt='annabel' />
               <div className='p-3 div-one'>
-                <h3>Umeh Chinonye Lydia</h3>
+                <h3>Nnawuihe Annabel Adaeze</h3>
                 <p>Back-end Engineer</p>
               </div>
             </div>

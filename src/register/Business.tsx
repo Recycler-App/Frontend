@@ -10,7 +10,7 @@ const Business = () => {
         <Side />
       </article>
       <article className='text-center p-4 mt-3 reg-ind'>
-        <h4>Register here as an individual user</h4>
+        <h4>Register here as a business</h4>
         <div className='div-ind mt-4 mt-md-2'>
           <h2>REGISTER</h2>
           <img className='text-center' src={line2} alt='line2' />
@@ -19,7 +19,7 @@ const Business = () => {
           <form>
             <div className='mb-3'>
               <label htmlFor='exampleInputEmail1' className='form-label'>
-                Your Name <span className='text-danger fs-5'>*</span>
+                Business Name <span className='text-danger fs-5'>*</span>
               </label>
               <input
                 type='text'
@@ -30,7 +30,8 @@ const Business = () => {
             </div>
             <div className='mb-3'>
               <label htmlFor='exampleInputPassword1' className='form-label'>
-                Phone Number <span className='text-danger fs-5'>*</span>
+                Business Mobile Number{' '}
+                <span className='text-danger fs-5'>*</span>
               </label>
               <input
                 type='number'
@@ -40,7 +41,8 @@ const Business = () => {
             </div>
             <div className='mb-3'>
               <label htmlFor='exampleInputPassword1' className='form-label'>
-                Email Address <span className='text-danger fs-5'>*</span>
+                Business Email Address{' '}
+                <span className='text-danger fs-5'>*</span>
               </label>
               <input
                 type='email'
