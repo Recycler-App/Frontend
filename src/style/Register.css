@@ -30,6 +30,38 @@
 .reg-img {
   margin-top: 6rem;
 }
+.regImg-ind {
+  margin-top: 3rem;
+}
+.reg-ind {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.reg-ind h4 {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 35px;
+  text-align: center;
+  color: #1e1e1e;
+}
+.div-ind h2 {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 50px;
+  color: #0fa958;
+}
+.div-ind img {
+  margin: 0 auto;
+}
+.ind-buttn {
+  width: 270px;
+  height: 46px;
+  background: #0fa958;
+  color: white;
+  margin: 0 auto !important;
+  text-align: center;
+}
 @media (min-width: 768px) {
   .reg-sec {
     display: block;
@@ -46,13 +78,24 @@
   .reg-img {
     margin-top: 8rem;
   }
+  .reg-ind {
+    margin-top: -0.1rem !important;
+  }
+  .sideicon {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 35px;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 3.5rem;
+  }
 }
 @media (min-width: 1024px) {
   .main-img {
     margin: 0 auto;
   }
   .side-div {
-    margin-bottom: 2rem !important;
+    margin-bottom: 1rem !important;
   }
   .side-div button {
     width: 250px;
@@ -76,5 +119,8 @@
   .reg-buttn {
     width: 340px;
     height: 60px;
+  }
+  .reg-ind {
+    margin: 0 auto;
   }
 }
