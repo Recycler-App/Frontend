@@ -13,6 +13,8 @@ import AboutUs from "./components/AboutUs";
 import Register from "./register/Register";
 import Business from "./register/Business";
 import Individual from "./register/Individual";
+import ContactUs from "./components/ContactUs";
+import Gallery from "./components/Gallery";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
   {
     path: "/Individual",
     element: <Individual />,
+  },
+  {
+    path: "/ContactUs",
+    element: <ContactUs />,
+  },
+  {
+    path: "/Gallery",
+    element: <Gallery />,
   },
 ]);
 

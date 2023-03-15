@@ -28,10 +28,10 @@ function Navbar() {
           <Link to='/AboutUs'>about us</Link>
         </li>
         <li className='nav__item text-uppercase'>
-          <Link to='/'>gallery</Link>
+          <Link to='/Gallery'>gallery</Link>
         </li>
         <li className='nav__item text-uppercase'>
-          <Link to='/'>contact us</Link>
+          <Link to='/ContactUs'>contact us</Link>
         </li>
         <li className='nav__item'>
           <Link to='/'>

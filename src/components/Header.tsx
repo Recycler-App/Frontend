@@ -27,8 +27,8 @@ function Header() {
       >
         <Link to="/">HOME</Link>
         <Link to="/AboutUs">ABOUT US</Link>
-        <Link to="/">GALLERY</Link>
-        <Link to="/">CONTACT US</Link>
+        <Link to="/Gallery">GALLERY</Link>
+        <Link to="/ContactUs">CONTACT US</Link>
         <Link to="/">OUR BLOG</Link>
         <Button bg="primary" color="light" w="150px" borderRadius={0}>
           LOGIN
