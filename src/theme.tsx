@@ -6,7 +6,8 @@ const theme = extendTheme({
         dark:"#1E1E1E",
         light:"#ffffff",
         accent:"#363636",
-        darkAlt:"#455A64"
+        darkAlt:"#455A64",
+        error: "#FF0000"
     },
     fonts: {
         heading: `"Quicksand", sans-serif`,

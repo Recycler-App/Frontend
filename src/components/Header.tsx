@@ -1,9 +1,10 @@
 import { Button, Flex, Text, Link } from "@chakra-ui/react";
 import React from "react";
-import { Link as ReactLink} from "react-router-dom";
+import { Link as ReactLink, useNavigate} from "react-router-dom";
 import Logo from "../svg/Logo";
 
 function Header() {
+  const navigate = useNavigate()
   return (
     <Flex
       justify="space-between"
@@ -35,7 +36,7 @@ function Header() {
         <Link as={ReactLink} to="/" _hover={{color:"primary"}}>GALLERY</Link>
         <Link as={ReactLink} to="/" _hover={{color:"primary"}}>CONTACT US</Link>
         <Link as={ReactLink} to="/" _hover={{color:"primary"}}>OUR BLOG</Link>
-        <Button bg="primary" color="light" w="150px" borderRadius={0}>
+        <Button bg="primary" color="light" w="150px" borderRadius={0} onClick={() => navigate("/login")}>
           LOGIN
         </Button>
         <Button bg="primary" color="light" w="150px" borderRadius={0}>
