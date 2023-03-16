@@ -3,13 +3,15 @@
   background: #ffffff;
   box-shadow: 2px 2px 20px 4px rgba(15, 169, 88, 0.1);
 }
-.con-main h4 {
+.con-main h4,
+.sec-gal h4 {
   font-weight: 500;
   font-size: 22px;
   line-height: 138.5%;
   color: #0fa958;
 }
-.con-main p {
+.con-main p,
+.sec-gal p {
   font-weight: 400;
   font-size: 16px;
   line-height: 138.5%;
