@@ -1,0 +1,14 @@
+import React from "react";
+
+function Houses({
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="99" height="92" viewBox="0 0 99 107" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M70.3333 74.6667H61V106.417H47V79.9584H28.3333V106.417H14.3333V74.6667H4.99998L37.6666 42.9167L70.3333 74.6667ZM19 0.583374L37.6666 21.75H33V37.625H23.6666V21.75H14.3333V37.625H4.99998V21.75H0.333313L19 0.583374ZM75 5.87504L98.3333 32.3334H93.6666V53.5H79.6666V37.625H70.3333V53.5H62.5866L56.3333 47.5205V32.3334H51.6666L75 5.87504Z" fill="#455A64"/>
+    </svg>
+    
+  );
+}
+
+export default Houses;

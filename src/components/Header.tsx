@@ -1,44 +1,68 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text, Link } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as ReactLink, useNavigate} from "react-router-dom";
 import Logo from "../svg/Logo";
 
 function Header() {
+  const navigate = useNavigate()
   return (
     <Flex
-      justify="space-between"
+      justify='space-between'
       p={10}
-      color="dark"
-      boxShadow="0px 2px 20px rgba(0, 0, 0, 0.25)"
+      color='dark'
+      boxShadow='0px 2px 20px rgba(0, 0, 0, 0.25)'
+      position='fixed'
+      top={0}
+      backgroundColor='light'
+      zIndex={2}
+      w='100%'
     >
       <Flex>
         <Logo />
-        <Text fontWeight={500} fontSize="25px">
-          {" "}
+        <Text fontWeight={500} fontSize='25px'>
+          {' '}
           Recycler
         </Text>
       </Flex>
       <Flex
-        fontSize="16px"
+        fontSize='16px'
         fontWeight={600}
-        w="65vw"
-        justify="space-evenly"
-        alignItems="center"
+        w='65vw'
+        justify='space-evenly'
+        alignItems='center'
       >
-        <Link to="/">HOME</Link>
-        <Link to="/AboutUs">ABOUT US</Link>
-        <Link to="/Gallery">GALLERY</Link>
-        <Link to="/ContactUs">CONTACT US</Link>
-        <Link to="/">OUR BLOG</Link>
-        <Button bg="primary" color="light" w="150px" borderRadius={0}>
+        <Link as={ReactLink} to='/' _hover={{ color: 'primary' }}>
+          HOME
+        </Link>
+        <Link as={ReactLink} to='AboutUs' _hover={{ color: 'primary' }}>
+          ABOUT US
+        </Link>
+        <Link as={ReactLink} to='/Gallery' _hover={{ color: 'primary' }}>
+          GALLERY
+        </Link>
+        <Link as={ReactLink} to='/ContactUs' _hover={{ color: 'primary' }}>
+          CONTACT US
+        </Link>
+        <Link as={ReactLink} to='/' _hover={{ color: 'primary' }}>
+          OUR BLOG
+        </Link>
+        <Button
+          bg='primary'
+          color='light'
+          w='150px'
+          borderRadius={0}
+          onClick={() => navigate('/login')}
+        >
           LOGIN
         </Button>
-        <Button bg="primary" color="light" w="150px" borderRadius={0}>
-          <Link to="/Register">REGISTER</Link>
+        <Button bg='primary' color='light' w='150px' borderRadius={0}>
+          <Link as={ReactLink} to='/Register'>
+            REGISTER
+          </Link>
         </Button>
       </Flex>
     </Flex>
-  );
+  )
 }
 
 export default Header;

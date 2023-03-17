@@ -1,8 +1,4 @@
 import React from 'react'
-import '../style/Navbar.css'
-import '../style/Footer.css'
-import Navbar from './Navbar'
-import Footer from './Footer'
 import pana from '../assets/pana.png'
 import chisom from '../assets/chisom.jpg'
 import maureen from '../assets/maureen.png'
@@ -13,7 +9,6 @@ const AboutUs = () => {
   return (
     <div>
       <section>
-        <Navbar />
         <main className='mt-4 p-3 p-md-4 mt-md-5'>
           <p className='text-uppercase headingText'>about us</p>
           <article className='mt-3'>
@@ -82,7 +77,6 @@ const AboutUs = () => {
             </div>
           </section>
         </main>
-        <Footer />
       </section>
     </div>
   )

@@ -1,63 +1,61 @@
-import React from 'react'
-import recyclericon from '../assets/Vector.png'
-import { FaPhoneAlt } from 'react-icons/fa'
-import { AiOutlineInstagram } from 'react-icons/ai'
-import { FaTwitterSquare } from 'react-icons/fa'
-import { FaFacebookF } from 'react-icons/fa'
-import { FaLinkedin } from 'react-icons/fa'
+import { Box, Flex, Text } from "@chakra-ui/react";
+import React from "react";
+import Logo from "../svg/Logo";
+import {  } from "react-icons/bs"
+import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineLinkedin, AiOutlineTwitter } from "react-icons/ai"
+import { FiPhone } from "react-icons/fi"
 
 const Footer = () => {
   return (
-    <section className='mt-2 sec-one'>
-      <article className='mt-4 p-3 mt-md-5'>
-        <div className='d-flex navicon mt-3'>
-          <img src={recyclericon} alt='recyclericon' />
-          <h4 className='ms-1 iconText'>Recycler</h4>
-        </div>
-        <p className='mt-2 mainP mainPP'>
+    <Flex 
+      bg="linear-gradient(180deg, rgba(15, 169, 88, 0.51) 0%, #0FA958 99.99%, #0FA958 100%)" 
+      justify="space-between" 
+      p="50px" 
+      flexWrap="wrap"
+      alignItems='center'
+    >
+      <Box w="40%" p={5}>
+        <Flex mb={5} alignItems="center">
+          <Logo />
+          <Text fontWeight={500} fontSize="32px">
+            {" "}
+            Recycler
+          </Text>
+        </Flex>
+        <Text fontWeight={500} fontSize="20px">
           Recycler is an innovative and unique platform that has revolutionized
           the way recycling companies and individuals handle plastic waste
           materials.
-        </p>
-      </article>
-      <article className='mt-1 p-3 griid1'>
-        <section className='mt-md-4'>
-          <h4 className='text-uppercase footerText mb-1'>support</h4>
-          <p className='mt-3'>Contact Us</p>
-          <p className='mt-3'>Privacy Policy</p>
-          <p className='mt-3'>Cookies</p>
-          <p className='mt-3'>Customers</p>
-          <p className='mt-3'>FAQ</p>
-        </section>
-        <section className='mt-4 sec-two'>
-          <h4 className='text-uppercase footerText mb-1'>connect with us</h4>
-          <div className='d-flex mt-3'>
-            <FaPhoneAlt className='footerIcon' />
-            <p className='ms-1'>+234 888 909 6654</p>
-          </div>
-          <div className='d-flex navicon mt-3'>
-            <AiOutlineInstagram className='footerIcon' />
-            <p className='ms-1'>recycler</p>
-          </div>
-          <div className='d-flex navicon mt-3'>
-            <FaTwitterSquare className='footerIcon' />
-            <p className='ms-1'>recycler_ng</p>
-          </div>
-          <div className='d-flex navicon mt-3'>
-            <FaFacebookF className='footerIcon' />
-            <p className='ms-1'>Recycler Nigeria</p>
-          </div>
-          <div className='d-flex navicon mt-3'>
-            <FaLinkedin className='footerIcon' />
-            <p className='ms-1'>Recycler Nigeria</p>
-          </div>
-        </section>
-      </article>
-      <footer className='text-center copyright p-2 p-md-3'>
-        <small>Copyright @ 2023 All rights reserved</small>
-      </footer>
-    </section>
-  )
-}
+        </Text>
+      </Box>
 
-export default Footer
+      <Box fontSize="20px" fontWeight={500} color="accent" w="20%">
+        <Text fontSize="24px" fontWeight={700} color="light" mb={2}>
+          SUPPORT
+        </Text>
+        <Text mb={2}>Contact Us</Text>
+        <Text mb={2}>Privacy Policy</Text>
+        <Text mb={2}>Cookies</Text>
+        <Text mb={2}>Customers</Text>
+        <Text mb={2}>FAQ</Text>
+      </Box>
+
+      <Box fontSize="20px" fontWeight={500} color="accent" w="20%">
+        <Text fontSize="24px" fontWeight={700} color="light" mb={2}>
+          CONNECT WITH US
+        </Text>
+        <Text display="flex" alignItems="center" mb={2}><FiPhone/>&nbsp;+234 888 909 6654s</Text>
+        <Text display="flex" alignItems="center" mb={2}><AiOutlineInstagram/>&nbsp;recycler</Text>
+        <Text display="flex" alignItems="center" mb={2}><AiOutlineTwitter/>&nbsp;recycler_ng</Text>
+        <Text display="flex" alignItems="center" mb={2}><AiOutlineFacebook/>&nbsp;Recycler Nigeria</Text>
+        <Text display="flex" alignItems="center" mb={2}><AiOutlineLinkedin/>&nbsp;Recycler Nigeria</Text>
+      </Box>
+      <Box w="100%" mt={10} textAlign="center">
+        <Text fontSize="16px" fontWeight={500} color="accent" opacity={0.5}>Copyright @ 2023 All rights reserved</Text>
+      </Box>
+    </Flex>
+
+  );
+};
+
+export default Footer;

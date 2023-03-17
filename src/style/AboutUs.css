@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 body {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   color: black;
   width: 100%;
   max-width: 1440px;

@@ -1,6 +1,4 @@
 import React from 'react'
-import Footer from './Footer'
-import Navbar from './Navbar'
 import '../style/Gallery.css'
 import plastic1 from '../assets/plastic1.png'
 import plastic2 from '../assets/plastic2.png'
@@ -16,7 +14,6 @@ import plastic10 from '../assets/plastic10.png'
 const Gallery = () => {
   return (
     <section>
-      <Navbar />
       <main className='p-4'>
         <section className='mt-3 sec-gal'>
           <h4>OUR GALLERY</h4>
@@ -108,7 +105,6 @@ const Gallery = () => {
           </article>
         </section>
       </main>
-      <Footer />
     </section>
   )
 }

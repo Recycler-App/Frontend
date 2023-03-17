@@ -1,13 +1,10 @@
 import React from 'react'
-import Footer from './Footer'
-import Navbar from './Navbar'
 import '../style/ContactUs.css'
 import amico from '../assets/amico.png'
 
 const ContactUs = () => {
   return (
     <section>
-      <Navbar />
       <section className='p-4'>
         <div className='con-main p-3'>
           <main className='mt-4'>
@@ -52,7 +49,6 @@ const ContactUs = () => {
           </article>
         </div>
       </section>
-      <Footer />
     </section>
   )
 }
