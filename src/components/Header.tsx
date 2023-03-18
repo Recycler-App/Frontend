@@ -55,10 +55,8 @@ function Header() {
         >
           LOGIN
         </Button>
-        <Button bg='primary' color='light' w='150px' borderRadius={0}>
-          <Link as={ReactLink} to='/Register'>
+        <Button bg='primary' color='light' w='150px' borderRadius={0} onClick={() => navigate('/Register')}>
             REGISTER
-          </Link>
         </Button>
       </Flex>
     </Flex>

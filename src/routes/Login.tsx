@@ -3,12 +3,14 @@ import React from "react";
 import Logo from "../svg/Logo";
 import Img from "../assets/bro.svg";
 import Input from "../components/Input";
+import { useNavigate } from "react-router";
 
 function Login() {
+    const navigate = useNavigate()
   return (
     <Flex w="100vw" h="100vh">
       <Box w="40%" bg="primary" h="100%" p={10}>
-        <Flex>
+        <Flex onClick={() => navigate('/')} cursor="pointer">
           <Logo color="#fff" />
           <Text fontWeight={500} fontSize="25px">
             {" "}
@@ -26,6 +28,7 @@ function Login() {
             w="150px"
             borderRadius={0}
             mt="50px"
+            onClick={() => navigate('/Register')}
           >
             REGISTER
           </Button>

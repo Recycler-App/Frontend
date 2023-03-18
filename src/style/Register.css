@@ -65,6 +65,7 @@
 @media (min-width: 768px) {
   .reg-sec {
     display: block;
+    height:100vh;
   }
   .reg-art {
     transform: translateY(0%);

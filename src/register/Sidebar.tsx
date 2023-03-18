@@ -20,7 +20,7 @@ const Sidebar = () => {
           <p>Hey, welcome back it’s good to have you back onboard!</p>
           <div className='mt-4 side-div mb-4'>
             <button className='text-uppercase'>
-              <Link to='/Login'>login</Link>
+              <Link to='/login'>login</Link>
             </button>
           </div>
         </section>
