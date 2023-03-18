@@ -1,10 +1,11 @@
 import { Button, Flex, Text, Link } from "@chakra-ui/react";
 import React from "react";
-import { Link as ReactLink, useNavigate} from "react-router-dom";
+import { Link as ReactLink, useLocation, useNavigate} from "react-router-dom";
 import Logo from "../svg/Logo";
 
 function Header() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <Flex
       justify='space-between'
@@ -31,19 +32,19 @@ function Header() {
         justify='space-evenly'
         alignItems='center'
       >
-        <Link as={ReactLink} to='/' _hover={{ color: 'primary' }}>
+        <Link as={ReactLink} to='/' _hover={{ color: 'primary' }} color={location.pathname ==="/"? "primary": "dark"}>
           HOME
         </Link>
-        <Link as={ReactLink} to='AboutUs' _hover={{ color: 'primary' }}>
+        <Link as={ReactLink} to='AboutUs' _hover={{ color: 'primary' }} color={location.pathname ==="/AboutUs"? "primary": "dark"}>
           ABOUT US
         </Link>
-        <Link as={ReactLink} to='/Gallery' _hover={{ color: 'primary' }}>
+        <Link as={ReactLink} to='/Gallery' _hover={{ color: 'primary' }} color={location.pathname ==="/Gallery"? "primary": "dark"}>
           GALLERY
         </Link>
-        <Link as={ReactLink} to='/ContactUs' _hover={{ color: 'primary' }}>
+        <Link as={ReactLink} to='/ContactUs' _hover={{ color: 'primary' }} color={location.pathname ==="/ContactUs"? "primary": "dark"}>
           CONTACT US
         </Link>
-        <Link as={ReactLink} to='/' _hover={{ color: 'primary' }}>
+        <Link as={ReactLink} to='/blog' _hover={{ color: 'primary' }} color={location.pathname ==="/blog"? "primary": "dark"}>
           OUR BLOG
         </Link>
         <Button

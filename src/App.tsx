@@ -17,6 +17,7 @@ import Gallery from './routes/Gallery'
 import AboutUs from './routes/AboutUs'
 import ExternalLayout from './layouts/ExternalLayout'
 import Login from './routes/Login'
+import Blog from './routes/Blog'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/Gallery',
         element: <Gallery />,
+      },
+      {
+        path: '/blog',
+        element: <Blog />,
       }
     ],
   },
