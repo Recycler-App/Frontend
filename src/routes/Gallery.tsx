@@ -14,8 +14,8 @@ import plastic10 from '../assets/plastic10.png'
 const Gallery = () => {
   return (
     <section>
-      <main className='p-4'>
-        <section className='mt-3 sec-gal'>
+      <main className='p-5'>
+        <section className='mt-2 sec-gal'>
           <h4>OUR GALLERY</h4>
           <p className='mt-1'>Dangers of not recycling your waste</p>
           <article className='mt-4 gal-art'>

@@ -26,6 +26,10 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 10px;
   }
+  .con-main h4 {
+    font-size: 28px;
+    line-height: 40px;
+  }
   .con-art {
     display: block;
   }
@@ -34,4 +38,7 @@
   }
 }
 @media (min-width: 1024px) {
+  .con-art img {
+    width: 70%;
+  }
 }
