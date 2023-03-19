@@ -5,7 +5,7 @@ import amico from '../assets/amico.png'
 const ContactUs = () => {
   return (
     <section>
-      <section className='p-4'>
+      <section className='p-4 p-md-5 mt-md-3'>
         <div className='con-main p-3'>
           <main className='mt-4'>
             <h4>Get in Touch</h4>

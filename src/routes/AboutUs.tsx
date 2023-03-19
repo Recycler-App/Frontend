@@ -9,7 +9,7 @@ const AboutUs = () => {
   return (
     <div>
       <section>
-        <main className='mt-4 p-3 p-md-4 mt-md-5'>
+        <main className='mt-5 p-4 p-md-5 mt-md-5'>
           <p className='text-uppercase headingText'>about us</p>
           <article className='mt-3'>
             <img className='panaImage' src={pana} alt='pana' />
@@ -44,7 +44,7 @@ const AboutUs = () => {
             </p>
           </article>
         </main>
-        <main className='mt-2 p-3'>
+        <main className='mt-2 p-4 p-md-5 mt-md-n5'>
           <p className='text-uppercase headingText'>meet the team</p>
           <section className='mt-4 section-one mt-md-3'>
             <div className='teamImg text-center mt-md-3'>
