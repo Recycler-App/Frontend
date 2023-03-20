@@ -1,9 +1,9 @@
 import React from 'react'
-import pana from '../assets/pana.png'
-import chisom from '../assets/chisom.jpg'
-import maureen from '../assets/maureen.png'
-import lydia from '../assets/lydia.png'
-import annabel from '../assets/Annabel.jpg'
+// import pana from '../assets/pana.png'
+// import chisom from '../assets/chisom.jpg'
+// import maureen from '../assets/maureen.png'
+// import lydia from '../assets/lydia.png'
+// import annabel from '../assets/Annabel.jpg'
 
 const AboutUs = () => {
   return (
@@ -12,7 +12,11 @@ const AboutUs = () => {
         <main className='mt-5 p-4 p-md-5 mt-md-5'>
           <p className='text-uppercase headingText'>about us</p>
           <article className='mt-3'>
-            <img className='panaImage' src={pana} alt='pana' />
+            <img
+              className='panaImage'
+              src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/pana.png'
+              alt='pana'
+            />
             <section className='gridd'>
               <p className='mainP mt-3'>
                 Founded in 2023, our mission is to connect recycling companies
@@ -23,7 +27,11 @@ const AboutUs = () => {
                 our users, while also making sure that our users are able to
                 make informed decisions regarding their plastic waste materials.{' '}
               </p>
-              <img className='panaImage1' src={pana} alt='pana' />
+              <img
+                className='panaImage1'
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/pana.png'
+                alt='pana'
+              />
             </section>
           </article>
           <article>
@@ -48,28 +56,44 @@ const AboutUs = () => {
           <p className='text-uppercase headingText'>meet the team</p>
           <section className='mt-4 section-one mt-md-3'>
             <div className='teamImg text-center mt-md-3'>
-              <img className='mt-3 mt-md-2' src={maureen} alt='maureen' />
+              <img
+                className='mt-3 mt-md-2'
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/maureen.png'
+                alt='maureen'
+              />
               <div className='p-3 div-one'>
                 <h3>Anyanwu Maureen</h3>
                 <p>Front-end Engineer</p>
               </div>
             </div>
             <div className='teamImg text-center mt-3'>
-              <img className='mt-3 mt-md-2 teamimg' src={chisom} alt='chisom' />
+              <img
+                className='mt-3 mt-md-2 teamimg'
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/chisom.jpg'
+                alt='chisom'
+              />
               <div className='p-3 div-one'>
                 <h3>Chukwuma Chisom</h3>
                 <p>Front-end Engineer</p>
               </div>
             </div>
             <div className='teamImg text-center mt-3'>
-              <img className='mt-3 mt-md-2' src={lydia} alt='lydia' />
+              <img
+                className='mt-3 mt-md-2'
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/lydia.png'
+                alt='lydia'
+              />
               <div className='p-3 div-one'>
                 <h3>Umeh chinonye lydia</h3>
                 <p>Product Designer</p>
               </div>
             </div>
             <div className='teamImg text-center mt-3'>
-              <img className='mt-3 mt-md-2 teamimg' src={annabel} alt='annabel' />
+              <img
+                className='mt-3 mt-md-2 teamimg'
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/Annabel.jpg'
+                alt='annabel'
+              />
               <div className='p-3 div-one'>
                 <h3>Nnawuihe Annabel Adaeze</h3>
                 <p>Back-end Engineer</p>

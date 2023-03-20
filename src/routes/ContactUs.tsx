@@ -1,6 +1,6 @@
 import React from 'react'
 import '../style/ContactUs.css'
-import amico from '../assets/amico.png'
+// import amico from '../assets/amico.png'
 
 const ContactUs = () => {
   return (
@@ -45,7 +45,10 @@ const ContactUs = () => {
             </section>
           </main>
           <article className='con-art mt-md-4'>
-            <img src={amico} alt='amico' />
+            <img
+              src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/amico.png'
+              alt='amico'
+            />
           </article>
         </div>
       </section>

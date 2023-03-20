@@ -1,15 +1,15 @@
 import React from 'react'
 import '../style/Gallery.css'
-import plastic1 from '../assets/plastic1.png'
-import plastic2 from '../assets/plastic2.png'
-import plastic3 from '../assets/plastic3.png'
-import plastic4 from '../assets/plastic4.png'
-import plastic5 from '../assets/plastic5.png'
-import plastic6 from '../assets/plastic6.png'
-import plastic7 from '../assets/plastic7.png'
-import plastic8 from '../assets/plastic8.png'
-import plastic9 from '../assets/plastic9.png'
-import plastic10 from '../assets/plastic10.png'
+// import plastic1 from '../assets/plastic1.png'
+// import plastic2 from '../assets/plastic2.png'
+// import plastic3 from '../assets/plastic3.png'
+// import plastic4 from '../assets/plastic4.png'
+// import plastic5 from '../assets/plastic5.png'
+// import plastic6 from '../assets/plastic6.png'
+// import plastic7 from '../assets/plastic7.png'
+// import plastic8 from '../assets/plastic8.png'
+// import plastic9 from '../assets/plastic9.png'
+// import plastic10 from '../assets/plastic10.png'
 
 const Gallery = () => {
   return (
@@ -20,7 +20,11 @@ const Gallery = () => {
           <p className='mt-1'>Dangers of not recycling your waste</p>
           <article className='mt-4 gal-art'>
             <div className='container gal-div1 mt-md-3'>
-              <img src={plastic1} alt='Avatar' className='imagee' />
+              <img
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic1.png'
+                alt='Avatar'
+                className='imagee'
+              />
               <div className='middle'>
                 <div className='textt'>
                   Increased Soil Pollutants can Enter the Body Through Food
@@ -29,13 +33,21 @@ const Gallery = () => {
               </div>
             </div>
             <div className='container mt-3'>
-              <img src={plastic2} alt='Avatar' className='imagee' />
+              <img
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic2.png'
+                alt='Avatar'
+                className='imagee'
+              />
               <div className='middle'>
                 <div className='textt'>Contamination of Drinking Water</div>
               </div>
             </div>
             <div className='container mt-3 gal-div1'>
-              <img src={plastic3} alt='Avatar' className='imagee' />
+              <img
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic3.png'
+                alt='Avatar'
+                className='imagee'
+              />
               <div className='middle'>
                 <div className='textt'>
                   The Endangerment and Extinction of Species
@@ -43,7 +55,11 @@ const Gallery = () => {
               </div>
             </div>
             <div className='container mt-3 gal-div1'>
-              <img src={plastic4} alt='Avatar' className='imagee' />
+              <img
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic4.png'
+                alt='Avatar'
+                className='imagee'
+              />
               <div className='middle'>
                 <div className='textt'>
                   Increased Human Health Issues Including Cancer, Respiratory
@@ -53,7 +69,11 @@ const Gallery = () => {
               </div>
             </div>
             <div className='container mt-3'>
-              <img src={plastic5} alt='Avatar' className='imagee' />
+              <img
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic5.png'
+                alt='Avatar'
+                className='imagee'
+              />
               <div className='middle'>
                 <div className='textt'>
                   Habitants and Plants where Animals and Plants Wiped out in
@@ -62,7 +82,11 @@ const Gallery = () => {
               </div>
             </div>
             <div className='container mt-3 gal-div1'>
-              <img src={plastic6} alt='Avatar' className='imagee' />
+              <img
+                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic6.png'
+                alt='Avatar'
+                className='imagee'
+              />
               <div className='middle'>
                 <div className='textt'>
                   Increased Air Pollution Which Burning Wastes Contributes to
@@ -76,13 +100,21 @@ const Gallery = () => {
           <article className='gal-grid'>
             <section className='galgrid d-md-flex'>
               <div className='container mt-3 gal-div1'>
-                <img src={plastic7} alt='Avatar' className='imagee' />
+                <img
+                  src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic7.png'
+                  alt='Avatar'
+                  className='imagee'
+                />
                 <div className='middle'>
                   <div className='textt'>John Doe</div>
                 </div>
               </div>
               <div className='container mt-3 gal-div1'>
-                <img src={plastic9} alt='Avatar' className='imagee' />
+                <img
+                  src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic9.png'
+                  alt='Avatar'
+                  className='imagee'
+                />
                 <div className='middle'>
                   <div className='textt'>John Doe</div>
                 </div>
@@ -90,13 +122,21 @@ const Gallery = () => {
             </section>
             <section className='galgrid'>
               <div className='container mt-3'>
-                <img src={plastic8} alt='Avatar' className='imagee' />
+                <img
+                  src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic8.png'
+                  alt='Avatar'
+                  className='imagee'
+                />
                 <div className='middle'>
                   <div className='textt'>John Doe</div>
                 </div>
               </div>
               <div className='container mt-3 gal-div1'>
-                <img src={plastic10} alt='Avatar' className='imagee' />
+                <img
+                  src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/plastic10.png'
+                  alt='Avatar'
+                  className='imagee'
+                />
                 <div className='middle'>
                   <div className='textt'>John Doe</div>
                 </div>

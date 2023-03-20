@@ -1,7 +1,7 @@
 import React from 'react'
 import Side from './Side'
-import line2 from '../assets/Line2.png'
-import Vector2 from '../assets/Vector2.png'
+// import line2 from '../assets/Line2.png'
+// import Vector2 from '../assets/Vector2.png'
 
 const Individual = () => {
   return (
@@ -13,7 +13,11 @@ const Individual = () => {
         <h4>Register here as an individual user</h4>
         <div className='div-ind mt-4 mt-md-2'>
           <h2>REGISTER</h2>
-          <img className='text-center' src={line2} alt='line2' />
+          <img
+            className='text-center'
+            src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/Line2.png'
+            alt='line2'
+          />
         </div>
         <section className='mt-4 text-start'>
           <form>
@@ -72,7 +76,7 @@ const Individual = () => {
         <footer className='regImg-ind'>
           <img
             className='position-absolute bottom-0 end-0 p-2'
-            src={Vector2}
+            src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/Vector3.svg'
             alt='Vector2'
           />
         </footer>
