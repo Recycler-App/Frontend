@@ -2,8 +2,10 @@ import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import Logo from "../svg/Logo";
 import Img from "../assets/bro.svg";
+import Img2 from "../assets/Group 50.png";
 import Input from "../components/Input";
 import { useNavigate } from "react-router";
+import Help from "../svg/Help";
 
 function Login() {
     const navigate = useNavigate()
@@ -34,8 +36,10 @@ function Login() {
           </Button>
         </Box>
       </Box>
-      <Box backgroundImage={"url('../assets/Group 50.png')"}>
-        <Box textAlign="center" w="70%" mx="auto" mt="calc(50vh - 350px)">
+      <Box position="relative" w="60%">
+      <Image src={Img2} position="absolute" bottom="0"/>
+      <Help style={{position:"absolute", bottom:"50px", right:"50px"}}/>
+        <Box textAlign="center" w="60%" mx="auto" mt="calc(50vh - 350px)">
           <Text fontWeight={500} fontSize="28px" color="dark" mb={10}>
             Hey, welcome back it’s good to have you back onboard!
           </Text>
