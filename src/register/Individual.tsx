@@ -5,7 +5,7 @@ import Side from './Side'
 
 const Individual = () => {
   return (
-    <section className='d-md-flex'>
+    <section className='d-md-flex regg-sec secc'>
       <article>
         <Side />
       </article>

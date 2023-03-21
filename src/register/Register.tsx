@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const Register = () => {
   return (
-    <section className='d-md-flex'>
+    <section className='d-md-flex regg-sec'>
       <article>
         <Sidebar />
       </article>

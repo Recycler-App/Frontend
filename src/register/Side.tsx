@@ -6,7 +6,7 @@ import { MdArrowBack } from 'react-icons/md'
 
 const Side = () => {
   return (
-    <section className='reg-sec p-4'>
+    <section className='reg-sec secc p-4'>
       <nav className='d-flex navicon'>
         <img src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/Vector1.png' alt='Vector1' />
         <p className='ms-1 iconText'>Recycler</p>
