@@ -1,9 +1,37 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { AuthenticationContext } from '../context/AuthenticationContext'
 import Side from './Side'
+import { Link } from 'react-router-dom'
 // import line2 from '../assets/Line2.png'
 // import Vector2 from '../assets/Vector2.png'
 
 const Business = () => {
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  const { auth } = useContext(AuthenticationContext)
+
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user
+        console.log(user)
+        window.alert('successfully registered')
+        window.location.replace('http://localhost:3000/Login')
+        // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message
+        window.alert(errorMessage)
+        // ..
+      })
+  }
+
   return (
     <section className='d-md-flex regg-sec secc'>
       <article>
@@ -27,6 +55,9 @@ const Business = () => {
               </label>
               <input
                 type='text'
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                required
                 className='form-control'
                 id='exampleInputEmail1'
                 aria-describedby='emailHelp'
@@ -39,6 +70,9 @@ const Business = () => {
               </label>
               <input
                 type='number'
+                onChange={(e) => setPhone(e.target.value)}
+                value={phone}
+                required
                 className='form-control'
                 id='exampleInputPassword1'
               />
@@ -50,6 +84,9 @@ const Business = () => {
               </label>
               <input
                 type='email'
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
                 className='form-control'
                 id='exampleInputPassword1'
               />
@@ -60,6 +97,9 @@ const Business = () => {
               </label>
               <input
                 type='password'
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
                 className='form-control'
                 id='exampleInputPassword1'
               />
@@ -71,7 +111,11 @@ const Business = () => {
               </small>
             </div>
             <div className='ind-buttn'>
-              <button className='text-uppercase mt-2'>Register</button>
+              <Link to='/Login'>
+                <button className='text-uppercase mt-2' onClick={onSubmit}>
+                  Register
+                </button>
+              </Link>
             </div>
           </form>
         </section>
