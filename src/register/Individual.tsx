@@ -16,6 +16,21 @@ const Individual = () => {
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
+    const res = await fetch(
+      'https://recycler-app-a97f0-default-rtdb.firebaseio.com/Individualform.json',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+        }),
+      }
+    )
+
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -23,12 +38,10 @@ const Individual = () => {
         console.log(user)
         window.alert('successfully registered')
         window.location.replace('http://localhost:3000/Login')
-        // ...
       })
       .catch((error) => {
         const errorMessage = error.message
         window.alert(errorMessage)
-        // ..
       })
   }
 

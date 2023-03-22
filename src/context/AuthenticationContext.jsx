@@ -1,5 +1,6 @@
 import React, { createContext } from 'react'
 import { initializeApp } from 'firebase/app'
+// import { getDatabase } from 'firebase/database'
 import { getAuth } from 'firebase/auth'
 
 export const AuthenticationContext = createContext()
@@ -19,6 +20,7 @@ const AuthenticationContextProvider = ({ children }) => {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
+  // const db = getDatabase(app);
   return (
     <AuthenticationContext.Provider
       value={{
