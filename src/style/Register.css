@@ -138,3 +138,29 @@
     margin: 0 auto;
   }
 }
+@media (min-width: 1440px) {
+  .reg-ind h4 {
+    margin-top: 5rem !important;
+  }
+  .secc {
+    height: fit-content;
+  }
+  .main-img {
+    margin-top: 8rem !important;
+  }
+  .sec-sidebar {
+    margin-top: 4rem !important;
+  }
+  .side-div {
+    margin-top: 3rem !important;
+  }
+  .sideicon {
+    margin-bottom: 3rem !important;
+  }
+  .reg-art {
+    margin: 0 auto;
+  }
+  .reg-art h4 {
+    margin-top: 14rem !important;
+  }
+}
