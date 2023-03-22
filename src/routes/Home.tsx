@@ -217,12 +217,12 @@ function Home() {
         <Image src="./pana.svg" w="35%" />
       </Flex>
 
-      <Flex px={10} my="100px" mx="100px" h="300px">
+      <Flex px={10} my="100px" mx="100px" h="auto">
         <Box bg="primary" color="light" p={10} w="50%">
           <Text fontSize="32px" fontWeight="700" mb={10}>
             What Happens?
           </Text>
-          <Text fontSize="24px" fontWeight="500">
+          <Text fontSize="24px" fontWeight="500" mb={5}>
             After collection, recyclables are sent to a recovery facility to be
             sorted, cleaned, and processed into materials that can be used in
             manufacturing.
