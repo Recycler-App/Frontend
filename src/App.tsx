@@ -16,8 +16,11 @@ import ContactUs from './routes/ContactUs'
 import Gallery from './routes/Gallery'
 import AboutUs from './routes/AboutUs'
 import ExternalLayout from './layouts/ExternalLayout'
+import DashboardLayout from './layouts/DashbboardLayout'
 import Login from './routes/Login'
 import Blog from './routes/Blog'
+import Dashboard from './routes/Dashboard'
+import Profile from './routes/Profile'
 
 const router = createBrowserRouter([
   {
@@ -62,6 +65,21 @@ const router = createBrowserRouter([
     path: '/Individual',
     element: <Individual />,
   },
+  {
+    path:"/dashboard",
+    element: <DashboardLayout/>,
+    children: [
+      {
+        path: '/dashboard',
+        element: <Dashboard />,
+      },
+      {
+        path: '/dashboard/profile',
+        element: <Profile />,
+      }
+    ]
+
+  }
 ])
 
 export const App = () => (

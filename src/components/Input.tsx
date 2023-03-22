@@ -5,11 +5,10 @@ interface Props {
     label?: string,
     required?: boolean,
     helperText?: string,
-    rest?: InputProps,
     helperProps?: FormHelperTextProps,
 }
 
-function Input(props: Props) {
+function Input(props: Props  & InputProps) {
     const {label,required, helperText, helperProps, ...rest} = props
 
     return (
