@@ -14,7 +14,7 @@ function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { auth } = useContext(AuthenticationContext)
+  const { auth, setNamee } = useContext(AuthenticationContext)
 
   const Login = (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -25,6 +25,7 @@ function Login() {
         window.alert('successfully Logged in')
         window.location.replace('http://localhost:3000/dashboard')
         console.log(user)
+        setNamee(email)
       })
       .catch((error) => {
         const errorMessage = error.message

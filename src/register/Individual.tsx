@@ -11,7 +11,7 @@ const Individual = () => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const { auth } = useContext(AuthenticationContext)
+  const { auth, setNamee } = useContext(AuthenticationContext)
 
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()

@@ -1,14 +1,15 @@
-import React, { createContext } from 'react'
+import React, { createContext, useState } from 'react'
 import { initializeApp } from 'firebase/app'
-// import { getDatabase } from 'firebase/database'
 import { getAuth } from 'firebase/auth'
 
 export const AuthenticationContext = createContext()
 
 const AuthenticationContextProvider = ({ children }) => {
+  const [namee, setNamee] = useState('')
+  const [state, setState] = useState([])
   // Your web app's Firebase configuration
   const firebaseConfig = {
-    apiKey: 'AIzaSyB-QBco-p1ZSwPr4JNLi1LwYfr4gxF0JrI',
+    apiKey: process.env.REACT_API_KEY,
     authDomain: 'recycler-app-a97f0.firebaseapp.com',
     databaseURL: 'https://recycler-app-a97f0-default-rtdb.firebaseio.com',
     projectId: 'recycler-app-a97f0',
@@ -20,12 +21,15 @@ const AuthenticationContextProvider = ({ children }) => {
   // Initialize Firebase
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
-  // const db = getDatabase(app);
+
+  console.log(namee);
+
   return (
     <AuthenticationContext.Provider
       value={{
         firebaseConfig,
         auth,
+        setNamee,
       }}
     >
       {children}
