@@ -17,7 +17,7 @@ const Business = () => {
     e.preventDefault()
 
      await fetch(
-      'https://recycler-app-a97f0-default-rtdb.firebaseio.com/Businessform.json',
+      'https://recycler-app-132e2-default-rtdb.firebaseio.com/Businessform.json',
       {
         method: 'POST',
         headers: {

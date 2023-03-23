@@ -17,7 +17,7 @@ const Individual = () => {
     e.preventDefault()
 
     await fetch(
-      'https://recycler-app-a97f0-default-rtdb.firebaseio.com/Individualform.json',
+      'https://recycler-app-132e2-default-rtdb.firebaseio.com/Individualform.json',
       {
         method: 'POST',
         headers: {
