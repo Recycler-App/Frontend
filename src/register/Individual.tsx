@@ -16,7 +16,7 @@ const Individual = () => {
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
-    const res = await fetch(
+    await fetch(
       'https://recycler-app-a97f0-default-rtdb.firebaseio.com/Individualform.json',
       {
         method: 'POST',
