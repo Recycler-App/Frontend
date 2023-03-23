@@ -1,11 +1,19 @@
 import { Box } from '@chakra-ui/react'
-import React from 'react'
-import { Outlet } from 'react-router'
+import React, { useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router'
 import DashboardHeader from '../components/DashboardHeader'
 import Footer from '../components/Footer'
+import { useUser } from '../context/UserContext'
 
 function DashboardLayout() {
-   
+    const { profile }:any = useUser();
+    const navigate = useNavigate();
+
+   useEffect(() => {
+    if(!profile){
+        navigate("/")
+    }
+   },[profile, navigate])
     return (
         <Box minH="100vh">
             <DashboardHeader/>

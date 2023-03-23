@@ -3,10 +3,11 @@ import React from "react";
 import { BsBell } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import Logo from "../svg/Logo";
-import { Link as ReactLink, useLocation } from "react-router-dom";
+import { Link as ReactLink, useLocation, useNavigate } from "react-router-dom";
 
 function DashboardHeader() {
   const location = useLocation();
+  const navigate = useNavigate()
 
   return (
     <Flex
@@ -21,7 +22,7 @@ function DashboardHeader() {
       justify="space-between"
       alignItems="center"
     >
-      <Flex>
+      <Flex onClick={() => navigate("/")} cursor="pointer">
         <Logo />
         <Text fontWeight={500} fontSize="25px">
           {" "}

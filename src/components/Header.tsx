@@ -1,11 +1,32 @@
 import { Button, Flex, Text, Link } from "@chakra-ui/react";
 import React from "react";
 import { Link as ReactLink, useLocation, useNavigate} from "react-router-dom";
+import { useUser } from "../context/UserContext";
 import Logo from "../svg/Logo";
+import { googleLogout } from '@react-oauth/google';
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { profile, type, setProfile, setUser, storage }:any = useUser();
+
+  const handleClick = () => {
+    if(profile){
+      if(type === 'GOOGLE_AUTH_USER'){
+        googleLogout();
+        setProfile(null);
+        setUser(null)
+        storage.removeItem("googleUser")
+      } else if( type === 'FIREBASE_USER'){
+          // logout with firebase
+      } else{
+        return;
+      }
+    } else{
+      navigate('/login')
+    }
+  }
+
   return (
     <Flex
       justify='space-between'
@@ -18,7 +39,7 @@ function Header() {
       zIndex={2}
       w='100%'
     >
-      <Flex>
+      <Flex onClick={() => navigate("/")} cursor="pointer">
         <Logo />
         <Text fontWeight={500} fontSize='25px'>
           {' '}
@@ -52,9 +73,9 @@ function Header() {
           color='light'
           w='150px'
           borderRadius={0}
-          onClick={() => navigate('/login')}
+          onClick={handleClick}
         >
-          LOGIN
+          {profile ? "LOGOUT" : "LOGIN"}
         </Button>
         <Button bg='primary' color='light' w='150px' borderRadius={0} onClick={() => navigate('/Register')}>
             REGISTER

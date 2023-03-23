@@ -1,0 +1,1 @@
+export type LoggedUserType = 'GOOGLE_AUTH_USER' | 'FIREBASE_USER'

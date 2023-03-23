@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
+import { useUser } from "../context/UserContext";
 import Bin from "../svg/Bin";
 import Earn from "../svg/Earn";
 import Order from "../svg/Order";
@@ -7,6 +8,7 @@ import Recycle from "../svg/Recycle";
 import Sad from "../svg/Sad";
 
 function Dashboard() {
+    const { type, profile }:any = useUser()
   const actions = [
     {
         icon: <Bin/>,
@@ -44,17 +46,17 @@ function Dashboard() {
         >
           <Box textAlign="center">
             <Image
-              src=""
+              src={type === 'GOOGLE_AUTH_USER' ? profile.picture : ""}
               alt="user-image"
-              fallbackSrc="https://via.placeholder.com/150"
+            //   fallbackSrc="https://via.placeholder.com/150"
               borderRadius="50%"
               boxSize="120px"
             />
-            <Text textTransform="uppercase" mt={2}>chinonye</Text>
+            <Text textTransform="uppercase" mt={2}>{type === 'GOOGLE_AUTH_USER' ? profile.given_name : ""}</Text>
           </Box>
           <Box>
             <Text>Lagos, Nigeria</Text>
-            <Text>chinonye@gmail.com</Text>
+            <Text>{type === 'GOOGLE_AUTH_USER' ? profile.email : ""}</Text>
             <Text>+234 906 888 9087</Text>
           </Box>
         </Flex>
@@ -101,7 +103,6 @@ function Dashboard() {
             <Text mt={10}>Oops! You don’t have any order history yet.</Text>
 
             <Text>When you start selling your waste you will see your history here.</Text>
-
         </Box>
       </Box>
     </Box>
