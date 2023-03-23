@@ -46,17 +46,17 @@ function Dashboard() {
         >
           <Box textAlign='center'>
             <Image
-              src={type === 'GOOGLE_AUTH_USER' ? profile.picture : ""}
+              src={type === 'GOOGLE_AUTH_USER' ? profile?.picture : ""}
               alt="user-image"
             //   fallbackSrc="https://via.placeholder.com/150"
               borderRadius="50%"
               boxSize="120px"
             />
-            <Text textTransform="uppercase" mt={2}>{type === 'GOOGLE_AUTH_USER' ? profile.given_name : ""}</Text>
+            <Text textTransform="uppercase" mt={2}>{type === 'GOOGLE_AUTH_USER' ? profile?.given_name : ""}</Text>
           </Box>
           <Box>
             <Text>Lagos, Nigeria</Text>
-            <Text>{type === 'GOOGLE_AUTH_USER' ? profile.email : ""}</Text>
+            <Text>{type === 'GOOGLE_AUTH_USER' ? profile?.email : ""}</Text>
             <Text>+234 906 888 9087</Text>
           </Box>
         </Flex>

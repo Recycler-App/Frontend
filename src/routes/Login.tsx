@@ -17,23 +17,31 @@ function Login() {
   const toast = useToast();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const { auth, setNamee } = useContext(AuthenticationContext)
   const { setUser, storage, profile }:any = useUser()
 
   const Login = (e: { preventDefault: () => void }) => {
+    setLoading(true)
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user
-        window.alert('successfully Logged in')
-        window.location.replace('http://localhost:3000/dashboard')
-        console.log(user)
+        setUser(userCredential.user)
+        // setType('FIREBASE_USER')
         setNamee(email)
+        setLoading(false)
       })
       .catch((error) => {
-        const errorMessage = error.message
-        window.alert(errorMessage)
+        toast({
+          title: 'OOPS!',
+          description: error?.message,
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+        setLoading(false)
       })
   }
 
@@ -137,6 +145,7 @@ function Login() {
             borderRadius={0}
             mt='50px'
             onClick={Login}
+            isLoading={loading}
           >
             LOGIN
           </Button>

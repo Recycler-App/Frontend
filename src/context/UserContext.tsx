@@ -10,6 +10,8 @@ const UserContextProvider = ({ children }:any) => {
     const [ user, setUser] = useState<any>(localUser ? JSON.parse(localUser) : null)
     const [ profile, setProfile ] = useState<any>(null);
     const [type, setType] = useState<LoggedUserType>()
+
+    // FETCH GOOGLE USER DETAILS
     useEffect(
         () => {
             if (user) {
@@ -30,6 +32,46 @@ const UserContextProvider = ({ children }:any) => {
         [ user ]
     );
 
+    // FETCH FIREBASE USER DETAILS
+
+    // useEffect(
+    //     () => {
+    //         if (user) {
+    //             fetch(
+    //                 'https://recycler-app-132e2-default-rtdb.firebaseio.com/Individualform.json',
+    //                 {
+    //                   method: 'POST',
+    //                   headers: {
+    //                     'Content-Type': 'application/json',
+    //                   },
+    //                   body: JSON.stringify({
+    //                     name,
+    //                     email,
+    //                     phone,
+    //                   }),
+    //                 }
+    //               )
+    //         }
+    //     },
+    //     [ user ]
+    // );
+
+
+    // await fetch(
+    //     'https://recycler-app-132e2-default-rtdb.firebaseio.com/Individualform.json',
+    //     {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({
+    //         name,
+    //         email,
+    //         phone,
+    //       }),
+    //     }
+    //   )
+
     return (
         <UserContext.Provider
           value={{
@@ -38,7 +80,8 @@ const UserContextProvider = ({ children }:any) => {
             profile,
             setProfile,
             storage,
-            type
+            type,
+            setType
           }}
         >
            {console.log(profile)}
