@@ -19,8 +19,12 @@ import Corporate from "../svg/Corporate";
 import Bottle from "../svg/Bottle";
 import School from "../svg/School";
 import Delete from "../svg/Delete";
+import { useUser } from "../context/UserContext";
+import { useNavigate } from "react-router";
 
 function Home() {
+  const { profile }:any = useUser();
+  const navigate = useNavigate();
   const services = [
     {
       icon: <Houses />,
@@ -113,6 +117,9 @@ function Home() {
             py={7}
             borderRadius={0}
             mt={5}
+            onClick={() => {
+              profile ? navigate("/dashboard") : navigate("/login")
+            }}
           >
             GET STARTED
           </Button>

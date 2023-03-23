@@ -62,7 +62,7 @@ const AboutUs = () => {
                 alt='maureen'
               />
               <div className='p-3 div-one'>
-                <h3>Anyanwu Maureen</h3>
+                <h3 className='text-uppercase'>Anyanwu Maureen</h3>
                 <p>Front-end Engineer</p>
               </div>
             </div>
@@ -73,7 +73,7 @@ const AboutUs = () => {
                 alt='chisom'
               />
               <div className='p-3 div-one'>
-                <h3>Chukwuma Chisom</h3>
+                <h3 className='text-uppercase'>Chukwuma Chisom</h3>
                 <p>Front-end Engineer</p>
               </div>
             </div>
@@ -84,7 +84,7 @@ const AboutUs = () => {
                 alt='lydia'
               />
               <div className='p-3 div-one'>
-                <h3>Umeh chinonye lydia</h3>
+                <h3 className='text-uppercase'>Umeh chinonye lydia</h3>
                 <p>Product Designer</p>
               </div>
             </div>
@@ -95,7 +95,7 @@ const AboutUs = () => {
                 alt='annabel'
               />
               <div className='p-3 div-one'>
-                <h3>Nnawuihe Annabel Adaeze</h3>
+                <h3 className='text-uppercase'>Nnawuihe Annabel Adaeze</h3>
                 <p>Back-end Engineer</p>
               </div>
             </div>
