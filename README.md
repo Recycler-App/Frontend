@@ -1,5 +1,5 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+Recycler is a web application built to help achieve Sustainable Development Goals 12 & 13, enabling people to recycle their recycleable wastes. We act as a middleman between companies that make use of or recycle these wastes and individuals and businesses with wastes to recycle. Using our website, users can can sign up and locate recycling partners closest to their location through Google Maps. Our agents can then pick up these recyclable waste at different collection centres and deliver to the factory. This application is equally designed to help reduce pollution of the enviroments leading to erosion caused by blocked drainage pathways with plastics and other waste materials, inspired by the SDGs targets to strengthen resilience against climate-related hazards and natural disasters, and substantially reduce waste generation through prevention, reduction, recycling and reuse, by 2030. Together, we can make a difference in the environment!
+
 
 ## Available Scripts
 
