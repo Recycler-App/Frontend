@@ -11,9 +11,14 @@ import PartnerOne from "../assets/image 2.png";
 import PartnerTwo from "../assets/image 3.png";
 import PartnerThree from "../assets/image 4.png";
 import PartnerFour from "../assets/image 5.png";
-
+import PartnerFive from "../assets/image 6.png";
+import PartnerSix from "../assets/image 7.png";
+import PartnerSeven from "../assets/image 8.png";
+import PartnerEight from "../assets/image 9.png";
+import PartnerNine from "../assets/image 10.png";
+import PartnerTen from "../assets/image 11.png";
 import Logo from "../svg/Logo";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Houses from "../svg/Houses";
 import Corporate from "../svg/Corporate";
 import Bottle from "../svg/Bottle";
@@ -21,6 +26,10 @@ import School from "../svg/School";
 import Delete from "../svg/Delete";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+import "../style/Slider.css"
 
 function Home() {
   const { profile }:any = useUser();
@@ -85,7 +94,80 @@ function Home() {
       src: PartnerFour,
       text: "Greenhill Recycling Limited",
     },
+    {
+      src: PartnerFive,
+      text: "Street Waste Company Limited (SWCL)",
+    },
+    {
+      src: PartnerSix,
+      text: "Westman Recycle Limited",
+    },
+    {
+      src: PartnerSeven,
+      text: "E-Terra Technologies Limited",
+    },
+    {
+      src: PartnerEight,
+      text: "JDSL RECYCLING",
+    },
+    {
+      src: PartnerNine,
+      text: "Waste–Point Limited",
+    },
+    {
+      src: PartnerTen,
+      text: "Mottainai Limited",
+    },
   ]
+
+  function PrevArrow(props:any) {
+    const { onClick } = props;
+    return (
+      <IconButton
+          aria-label="scroll"
+          icon={<FaChevronLeft />}
+          bg="transparent"
+          color="primary"
+          fontSize="46px"
+          mx="auto"
+          mr={5}
+          _hover={{
+            bg: "transparent",
+          }}
+          onClick={onClick}
+        />
+    );
+  }
+
+  function NextArrow(props:any) {
+    const { onClick } = props;
+    return (
+      <IconButton
+          aria-label="scroll"
+          icon={<FaChevronRight />}
+          bg="transparent"
+          color="primary"
+          fontSize="46px"
+          mx="auto"
+          ml={5}
+          _hover={{
+            bg: "transparent",
+          }}
+          onClick={onClick}
+        />
+    );
+  }
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    prevArrow: <PrevArrow/>,
+    nextArrow: <NextArrow/>
+  };
+
   return (
     <>
       <Box
@@ -98,7 +180,7 @@ function Home() {
         color="light"
         position="relative"
       >
-        <Box w="80%" ml="100px" pt="calc(50vh - 242px)">
+        <Box w="75%" ml="50px" pt="calc(50vh - 279px)">
           <Flex alignItems="center" mb={5}>
             <Logo />
             <Text fontWeight={500} fontSize="32px">
@@ -141,7 +223,7 @@ function Home() {
         />
       </Box>
 
-      <Box px={10} my="100px" mx="100px">
+      <Box px={10} my="100px" mx="50px">
         <Text fontSize="32px" fontWeight="500" color="primary" mb={5}>
           We focus on waste recycling and the health of the ecosystem
         </Text>
@@ -180,7 +262,7 @@ function Home() {
         </Button>
       </Box>
 
-      <Box px={10} my="100px" mx="100px">
+      <Box px={10} my="100px" mx="50px">
         <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
           Get started with us
         </Text>
@@ -206,7 +288,7 @@ function Home() {
         </Flex>
       </Box>
 
-      <Flex px={10} my="100px" mx="100px" alignItems="center" justify="space-between">
+      <Flex px={10} my="100px" mx="50px" alignItems="center" justify="space-between">
         <Box w="60%">
           <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
             Our Services
@@ -224,7 +306,7 @@ function Home() {
         <Image src="./pana.svg" w="35%" />
       </Flex>
 
-      <Flex px={10} my="100px" mx="100px" h="auto">
+      <Flex px={10} my="100px" mx="50px" h="auto">
         <Box bg="primary" color="light" p={10} w="50%">
           <Text fontSize="32px" fontWeight="700" mb={10}>
             What Happens?
@@ -247,16 +329,17 @@ function Home() {
         </Box>
       </Flex>
 
-      <Box px={10} my="100px" mx="100px">
+      <Box px={10} my="100px" mx="50px">
         <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
         Our Partners
         </Text>
-        <Flex justify="space-between">
+        <Slider {...settings}>
           {partners.map((partner, i) => (
             <Box
               w="24%"
-              minW="240px"
-              maxW="260px"
+              minW="220px"
+              maxW="240px"
+              h="200px"
               p={5}
               display="flex"
               flexDirection="column"
@@ -267,17 +350,18 @@ function Home() {
               borderColor="primary"
               bg={i===2 ? "primary" :"light"}
               color={i===2 ? "light" :"dark"}
+              mb={10}
             >
-              <Image src={partner.src} mb={5}/>
+              <Image src={partner.src} mb={5} mx="auto"/>
               <Text fontSize="16px" fontWeight="500" textTransform="uppercase">
                 {partner.text}
               </Text>
             </Box>
           ))}
-        </Flex> 
+        </Slider> 
       </Box>
 
-      <Box px={10} my="100px" mx="100px">
+      <Box px={10} my="100px" mx="50px">
         <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
         Our Collectibles
         </Text>
