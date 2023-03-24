@@ -1,12 +1,14 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export const AuthenticationContext = createContext()
 
 const AuthenticationContextProvider = ({ children }) => {
   const [namee, setNamee] = useState('')
   const [state, setState] = useState([])
+  // const [currentUser, setCurrentUser] = useState(null)
+
   // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -23,6 +25,13 @@ const AuthenticationContextProvider = ({ children }) => {
   const auth = getAuth(app)
 
   console.log(namee)
+
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     setCurrentUser(user)
+  //   })
+  // })
+  // console.log(currentUser)
 
   return (
     <AuthenticationContext.Provider

@@ -8,26 +8,27 @@ import { useNavigate } from 'react-router'
 import Help from '../svg/Help'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AuthenticationContext } from '../context/AuthenticationContext'
-import { FcGoogle } from "react-icons/fc"
+import { FcGoogle } from 'react-icons/fc'
 import { useUser } from '../context/UserContext'
-import { useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google'
 
 function Login() {
-  const navigate = useNavigate();
-  const toast = useToast();
+  const navigate = useNavigate()
+  const toast = useToast()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const { auth, setNamee } = useContext(AuthenticationContext)
-  const { setUser, storage, profile }:any = useUser()
+  const { setUser, storage, profile }: any = useUser()
 
   const Login = (e: { preventDefault: () => void }) => {
     setLoading(true)
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         setUser(userCredential.user)
+        window.alert('successfully Logged in')
+        window.location.replace('http://localhost:3000/dashboard')
         // setType('FIREBASE_USER')
         setNamee(email)
         setLoading(false)
@@ -46,31 +47,29 @@ function Login() {
   }
 
   const loginWithGoogle = useGoogleLogin({
-        onSuccess: (codeResponse) => {
-            setUser(codeResponse)
-            storage.setItem("googleUser", JSON.stringify(codeResponse))
-        },
-        onError: (error: any) => {
-          console.log('Login Failed:', error)
-          toast({
-            title: 'OOPS!',
-            description: error?.message,
-            status: 'error',
-            variant: 'left-accent',
-            duration: 4000,
-            isClosable: true,
-          })
-        }
-    });
+    onSuccess: (codeResponse) => {
+      setUser(codeResponse)
+      storage.setItem('googleUser', JSON.stringify(codeResponse))
+    },
+    onError: (error: any) => {
+      console.log('Login Failed:', error)
+      toast({
+        title: 'OOPS!',
+        description: error?.message,
+        status: 'error',
+        variant: 'left-accent',
+        duration: 4000,
+        isClosable: true,
+      })
+    },
+  })
 
-    useEffect(() => {
-      if(profile){
-        navigate("/dashboard")
-      }
-    },[profile, navigate])
+  useEffect(() => {
+    if (profile) {
+      navigate('/dashboard')
+    }
+  }, [profile, navigate])
 
-  
-  
   return (
     <Flex w='100vw' h='100vh'>
       <Box w='40%' bg='primary' h='100%' p={10}>
@@ -135,9 +134,7 @@ function Login() {
             }}
             helperText='Forgot Password?'
           />
-          <Flex w="100%" justify="space-around" >
-
-          </Flex>
+          <Flex w='100%' justify='space-around'></Flex>
           <Button
             bg='primary'
             color='light'
@@ -153,13 +150,13 @@ function Login() {
           <Button
             bg='light'
             color='primary'
-            border="1px solid"
-            borderColor="primary"
+            border='1px solid'
+            borderColor='primary'
             borderRadius={0}
             mt='50px'
             onClick={() => loginWithGoogle()}
           >
-            <FcGoogle style={{fontSize:"30px"}}/> &nbsp; LOGIN WITH GOOGLE
+            <FcGoogle style={{ fontSize: '30px' }} /> &nbsp; LOGIN WITH GOOGLE
           </Button>
         </Box>
       </Box>
