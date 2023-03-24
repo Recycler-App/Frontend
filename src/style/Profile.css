@@ -6,24 +6,64 @@
 .art-profile img {
   margin: 0 auto;
 }
-.order-s {
-  display: flex;
-}
-.profile-one {
-  margin-left: 4.5rem;
-}
 .profile-two {
   margin-left: 2rem;
+  color: #0fa958;
+  font-weight: 600;
+  line-height: 20px;
 }
 .profile-three {
   margin-left: 1.3rem;
+  color: #fb1b1b;
+  font-weight: 600;
+  line-height: 20px;
 }
-.profile-four {
-  margin-left: 1.9rem;
-}
-.logoutt {
+.logoutt,
+.useracc {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
   color: #0fa958;
+}
+@media (min-width: 768px) {
+  .sec-profile {
+    height: 40rem !important;
+  }
+  .logoutt {
+    margin-top: 36vh !important;
+  }
+  .art-griid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 15px;
+  }
+  .detaiils {
+    margin-top: 3rem !important;
+  }
+  .sec-profile2 {
+    transform: translateX(12px);
+  }
+}
+@media (min-width: 1024px) {
+  .logoutt,
+  .useracc {
+    font-size: 20px;
+  }
+  .sec-profile2 {
+    transform: translateX(12px);
+  }
+}
+@media (min-width: 1440px) {
+  .sec-profile2 {
+    transform: translateX(14px);
+  }
+  .logoutt {
+    margin-top: 28vh !important;
+  }
+  .logoutt,
+  .useracc {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 22px;
+  }
 }

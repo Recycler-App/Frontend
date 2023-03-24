@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 
 const Profile = () => {
   return (
-    <section className='mt-5 p-4'>
-      <main className='sec-profile'>
+    <section className='mt-5 p-4 sec-profile1 row p-md-5'>
+      <main className='sec-profile mt-md-3 col-md-4'>
         <article className='art-profile text-center'>
           <div className='mt-4'>
             <img src={Ellipse1} alt='' />
@@ -16,26 +16,29 @@ const Profile = () => {
           </div>
         </article>
         <article className='mt-3 text-center'>
-          <div className='order-s'>
-            <p className='profile-one'>Complete Orders</p>
-            <p className='profile-two'>25</p>
+          <div>
+            <p>
+              Complete Orders <span className='profile-two'>25</span>
+            </p>
           </div>
-          <div className='order-s'>
-            <p className='profile-one'>Incomplete Orders</p>
-            <p className='profile-three'>25</p>
+          <div>
+            <p>
+              Incomplete Orders <span className='profile-three'>26</span>
+            </p>
           </div>
-          <div className='order-s'>
-            <p className='profile-one'>Cancelled Orders</p>
-            <p className='profile-four'>25</p>
+          <div>
+            <p>
+              Cancelled Orders <span className='profile-two'>27</span>
+            </p>
           </div>
         </article>
         <article className='mt-5 p-3 mb-3'>
           <p className='logoutt'>Log Out</p>
         </article>
       </main>
-      <main className='sec-profile mt-3 p-3'>
-        <h5 className='logoutt mt-3'>Users’ Account</h5>
-        <article>
+      <main className='sec-profile sec-profile2 mt-3 p-3 col-md-8 p-md-4 gx-md-3'>
+        <h5 className='useracc mt-3'>Users’ Account</h5>
+        <article className='art-griid mt-md-3'>
           <div className='mb-3 mt-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
               First Name
@@ -50,7 +53,7 @@ const Profile = () => {
               aria-describedby='emailHelp'
             />
           </div>
-          <div className='mb-3'>
+          <div className='mb-3 mt-md-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
               Last Name
             </label>
@@ -65,7 +68,7 @@ const Profile = () => {
             />
           </div>
         </article>
-        <article>
+        <article className='art-griid'>
           <div className='mb-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
               Email Address
@@ -95,7 +98,7 @@ const Profile = () => {
             />
           </div>
         </article>
-        <article>
+        <article className='art-griid'>
           <div className='mb-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
               Address
@@ -125,7 +128,7 @@ const Profile = () => {
             />
           </div>
         </article>
-        <article>
+        <article className='art-griid'>
           <div className='mb-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
               Postal Code
@@ -155,7 +158,7 @@ const Profile = () => {
             />
           </div>
         </article>
-        <div className='ind-buttn mt-2'>
+        <div className='ind-buttn detaiils mt-2'>
           <Link to='/'>
             <button className='text-uppercase mt-2'>Save Details</button>
           </Link>
