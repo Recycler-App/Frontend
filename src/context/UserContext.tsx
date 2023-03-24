@@ -45,7 +45,7 @@ const UserContextProvider = ({ children }: any) => {
       setType('FIREBASE_USER')
     })
   })
-
+  console.log(profile)
   return (
     <UserContext.Provider
       value={{

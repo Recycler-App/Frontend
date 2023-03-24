@@ -9,11 +9,11 @@ function DashboardLayout() {
     const { profile }:any = useUser();
     const navigate = useNavigate();
 
-   useEffect(() => {
-    if(!profile){
-        navigate("/")
-    }
-   },[profile, navigate])
+//    useEffect(() => {
+//     if(!profile){
+//         navigate("/")
+//     }
+//    },[profile, navigate])
     return (
         <Box minH="100vh">
             <DashboardHeader/>
