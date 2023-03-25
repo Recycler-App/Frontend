@@ -1,50 +1,64 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import { LoggedUserType } from '../types'
 import { AuthenticationContext } from '../context/AuthenticationContext'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, onIdTokenChanged } from 'firebase/auth';
+import { getDatabase, ref, get} from "firebase/database";
+import { useToast } from '@chakra-ui/react';
 
 const UserContext: any = createContext({})
 
 const UserContextProvider = ({ children }: any) => {
-  const storage = window.localStorage
-  const localUser = storage.getItem('googleUser')
-  const [user, setUser] = useState<any>(
-    localUser ? JSON.parse(localUser) : null
-  )
-  const [profile, setProfile] = useState<any>(null)
-  const [type, setType] = useState<LoggedUserType>()
-
+  const toast = useToast()
+  const storage = window.localStorage;
+  const [user, setUser] = useState<any>(null); //firebase user object
+  const [profile, setProfile] = useState<any>(null) //user profile
   const { auth } = useContext(AuthenticationContext)
 
-  // FETCH GOOGLE USER DETAILS
-  useEffect(() => {
-    if (user) {
-      axios
-        .get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.access_token}`,
-              Accept: 'application/json',
-            },
-          }
-        )
-        .then((res) => {
-          setProfile(res.data)
-          setType('GOOGLE_AUTH_USER')
-        })
-        .catch((err) => console.log(err))
-    }
-  }, [user])
-
-  // FETCH FIREBASE USER DETAILS
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setProfile(user)
-      setType('FIREBASE_USER')
+  useEffect(()=> {
+    onIdTokenChanged(auth, async (user) => {
+        if(!user){
+          setUser(null)
+          storage.setItem("recyclerToken", "")
+        }else {
+          const token = await user.getIdToken();
+          setUser(user)
+          storage.setItem("recyclerToken",token)
+        }
+        // setLoading(false)
     })
-  })
+  },[auth, storage])
+
+  useEffect(()=>{
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user)
+        } else {
+          setUser(null)
+        }
+        // setLoading(false)
+      });
+     
+  }, [auth])
+
+  const getUserProfile = (id:string) => {
+    // check if user exists in the database
+    const db:any = getDatabase();
+    const userRef = ref(db, `users/${id}`);
+    get(userRef).then((snapshot:any) => {
+      if(snapshot.exists()) {
+        setProfile(snapshot.val())
+        console.log(snapshot.val())
+      } else {
+        toast({
+          title: 'OOPS!',
+          description: "An error occured trying to fetch profile details",
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+      }
+    })
+  }
 
   return (
     <UserContext.Provider
@@ -54,11 +68,11 @@ const UserContextProvider = ({ children }: any) => {
         profile,
         setProfile,
         storage,
-        type,
-        setType,
+        getUserProfile
       }}
     >
-      {console.log(profile)}
+        {console.log(profile)}
+        {console.log(user)}
       {children}
     </UserContext.Provider>
   )

@@ -5,7 +5,6 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import AuthenticationContextProvider from './context/AuthenticationContext'
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import UserContextProvider from "./context/UserContext"
 
 
@@ -14,7 +13,6 @@ if (!container) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(container)
 
 root.render(
-  <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ""}>
   <AuthenticationContextProvider>
     <UserContextProvider>
     <React.StrictMode>
@@ -23,7 +21,6 @@ root.render(
     </React.StrictMode>
     </UserContextProvider>
   </AuthenticationContextProvider>
-  </GoogleOAuthProvider>
 )
 
 

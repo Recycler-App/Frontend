@@ -6,32 +6,31 @@ import Img2 from '../assets/Group 50.png'
 import Input from '../components/Input'
 import { useNavigate } from 'react-router'
 import Help from '../svg/Help'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import { FcGoogle } from 'react-icons/fc'
 import { useUser } from '../context/UserContext'
-import { useGoogleLogin } from '@react-oauth/google'
+import { getDatabase, ref, get} from "firebase/database";
 
 function Login() {
+  const googleProvider = new GoogleAuthProvider();
   const navigate = useNavigate()
   const toast = useToast()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const { auth, setNamee } = useContext(AuthenticationContext)
-  const { setUser, storage, profile }: any = useUser()
+  const [loading, setLoading] = useState(false);
+  const [loadingTwo, setLoadingTwo] = useState(false)
+  const { auth } = useContext(AuthenticationContext)
+  const { setUser, profile, getUserProfile, setProfile }: any = useUser()
 
   const Login = (e: { preventDefault: () => void }) => {
     setLoading(true)
     e.preventDefault()
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then((userCredential:any) => {
         setUser(userCredential.user)
-        window.alert('successfully Logged in')
-        window.location.replace('http://localhost:3000/dashboard')
-        // setType('FIREBASE_USER')
-        setNamee(email)
         setLoading(false)
+        getUserProfile(userCredential.user.uid);
       })
       .catch((error) => {
         toast({
@@ -46,23 +45,41 @@ function Login() {
       })
   }
 
-  const loginWithGoogle = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      setUser(codeResponse)
-      storage.setItem('googleUser', JSON.stringify(codeResponse))
-    },
-    onError: (error: any) => {
-      console.log('Login Failed:', error)
-      toast({
-        title: 'OOPS!',
-        description: error?.message,
-        status: 'error',
-        variant: 'left-accent',
-        duration: 4000,
-        isClosable: true,
-      })
-    },
-  })
+  const loginWithGoogle = async () => {
+    setLoadingTwo(true)
+    const res:any = await signInWithPopup(auth, googleProvider);
+    const user = res.user;
+    setUser(user)
+    // check if user exists in the database
+    const db:any = getDatabase();
+    const userRef = ref(db, `users/${user.uid}`);
+    get(userRef).then((snapshot:any) => {
+      if (snapshot.exists()) {
+          setProfile(snapshot.val())
+      } else {
+        toast({
+          title: 'OOPS!',
+          description: "This user does not exist. Please signup",
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+      }
+      setLoadingTwo(false)
+      }).catch((error:any) => {
+        toast({
+          title: 'OOPS!',
+          description: error?.message,
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+        setLoadingTwo(false)
+      });
+  }
+
 
   useEffect(() => {
     if (profile) {
@@ -129,23 +146,24 @@ function Login() {
             helperProps={{
               color: 'error',
               textAlign: 'left',
-              fontSize: '24px',
+              fontSize: '20px',
               fontWeight: '400',
             }}
             helperText='Forgot Password?'
           />
-          <Flex w='100%' justify='space-around'></Flex>
           <Button
             bg='primary'
             color='light'
             w='150px'
             borderRadius={0}
-            mt='50px'
+            mt='30px'
             onClick={Login}
             isLoading={loading}
           >
             LOGIN
           </Button>
+
+          <Text fontWeight={600} fontSize='15px' color='accent' my={5}>Or login with</Text>
 
           <Button
             bg='light'
@@ -153,8 +171,8 @@ function Login() {
             border='1px solid'
             borderColor='primary'
             borderRadius={0}
-            mt='50px'
             onClick={() => loginWithGoogle()}
+            isLoading={loadingTwo}
           >
             <FcGoogle style={{ fontSize: '30px' }} /> &nbsp; LOGIN WITH GOOGLE
           </Button>

@@ -1,30 +1,32 @@
-import { Button, Flex, Text, Link } from "@chakra-ui/react";
-import React from "react";
+import { Button, Flex, Text, Link, useDisclosure } from "@chakra-ui/react";
+import React, { useContext } from "react";
 import { Link as ReactLink, useLocation, useNavigate} from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import Logo from "../svg/Logo";
-import { googleLogout } from '@react-oauth/google';
+import { signOut } from 'firebase/auth';
+import { AuthenticationContext } from "../context/AuthenticationContext";
+import Alert from "./Alert";
 
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { profile, type, setProfile, setUser, storage }:any = useUser();
+  const { profile, setProfile, storage }:any = useUser();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { auth } = useContext(AuthenticationContext)
 
   const handleClick = () => {
     if(profile){
-      if(type === 'GOOGLE_AUTH_USER'){
-        googleLogout();
-        setProfile(null);
-        setUser(null)
-        storage.removeItem("googleUser")
-      } else if( type === 'FIREBASE_USER'){
-          // logout with firebase
-      } else{
-        return;
-      }
+      onOpen()
     } else{
       navigate('/login')
     }
+  }
+
+  const handleLogout = () => {
+    signOut(auth);
+    setProfile(null);
+    storage.removeItem("recyclerToken")
+    onClose();
   }
 
   return (
@@ -81,6 +83,15 @@ function Header() {
             REGISTER
         </Button>
       </Flex>
+      <Alert
+        title={"Log out"}
+        body={"Are you sure you want to log out?"}
+        actionText={"Proceed"}
+        action={() => handleLogout()}
+        isOpen={isOpen}
+        onClose={onClose}
+        colorScheme="red"
+      />
     </Flex>
   )
 }

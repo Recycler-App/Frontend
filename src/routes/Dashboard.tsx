@@ -1,5 +1,7 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
+import { AiOutlinePhone } from "react-icons/ai";
+import { MdLocationOn, MdMail } from "react-icons/md";
 import { useUser } from "../context/UserContext";
 import Bin from "../svg/Bin";
 import Earn from "../svg/Earn";
@@ -8,7 +10,7 @@ import Recycle from "../svg/Recycle";
 import Sad from "../svg/Sad";
 
 function Dashboard() {
-    const { type, profile }:any = useUser()
+    const { profile }:any = useUser()
   const actions = [
     {
       icon: <Bin />,
@@ -46,18 +48,17 @@ function Dashboard() {
         >
           <Box textAlign='center'>
             <Image
-              src={type === 'GOOGLE_AUTH_USER' ? profile?.picture : ""}
+              src={profile.img || "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
               alt="user-image"
-            //   fallbackSrc="https://via.placeholder.com/150"
               borderRadius="50%"
               boxSize="120px"
             />
-            <Text textTransform="uppercase" mt={2}>{type === 'GOOGLE_AUTH_USER' ? profile?.given_name : ""}</Text>
+            <Text textTransform="uppercase" mt={2}>{profile.name.split(" ")[0]}</Text>
           </Box>
           <Box>
-            <Text>Lagos, Nigeria</Text>
-            <Text>{type === 'GOOGLE_AUTH_USER' ? profile?.email : ""}</Text>
-            <Text>+234 906 888 9087</Text>
+            <Text display="flex" alignItems="center"><MdLocationOn/>&nbsp;Lagos, Nigeria</Text>
+            <Text display="flex" alignItems="center"><MdMail/> &nbsp;{profile.email}</Text>
+            <Text display="flex" alignItems="center"><AiOutlinePhone/>&nbsp; {profile.phone || "NA"}</Text>
           </Box>
         </Flex>
         <Box

@@ -1,49 +1,97 @@
 import React, { useContext, useState } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import Side from './Side'
-import { Link } from 'react-router-dom'
-// import line2 from '../assets/Line2.png'
-// import Vector2 from '../assets/Vector2.png'
+import { useNavigate } from 'react-router-dom'
+import { Box, Button, Text, useDisclosure, useToast } from '@chakra-ui/react'
+import { FcGoogle } from 'react-icons/fc'
+import { getDatabase, ref, get, set} from "firebase/database";
+import Alert from '../components/Alert'
 
 const Business = () => {
+  const googleProvider = new GoogleAuthProvider();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
-  const { auth } = useContext(AuthenticationContext)
+  const { auth } = useContext(AuthenticationContext);
+  const [loading, setLoading] = useState(false);
+  const [loadingTwo, setLoadingTwo] = useState(false)
+  const navigate = useNavigate()
+  const toast = useToast();
+  const db:any = getDatabase();
 
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
-
-     await fetch(
-      'https://recycler-app-132e2-default-rtdb.firebaseio.com/Businessform.json',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-        }),
-      }
-    )
-
+    setLoading(true)
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user
-        console.log(user)
-        window.alert('successfully registered')
-        window.location.replace('http://localhost:3000/Login')
+        set(ref(db, `users/${user.uid}`), {
+          name: name,
+          email: email,
+          phone: phone,
+          img: null,
+          userType: "business"
+        });
+        onOpen()
+        setLoading(false)
+       
       })
       .catch((error) => {
-        const errorMessage = error.message
-        window.alert(errorMessage)
+        toast({
+          title: 'OOPS!',
+          description: error?.message,
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+        setLoading(false)
       })
   }
+
+  const signupWithGoogle = async () => {
+    setLoadingTwo(true)
+    const res:any = await await signInWithPopup(auth, googleProvider)
+    const user = res.user;
+    // check if user exists in the database
+    const userRef = ref(db, `users/${user.uid}`);
+    get(userRef).then((snapshot:any) => {
+      if (snapshot.exists()) {
+        toast({
+          title: 'OOPS!',
+          description: "This user already exists",
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+      } else {
+        set(ref(db, `users/${user.uid}`), {
+          name: user.displayName,
+          email: user.email,
+          phone: user.phoneNumber,
+          img: user.photoURL,
+          userType: "business"
+        });
+        onOpen()
+      }
+      setLoadingTwo(false)
+      }).catch((error:any) => {
+        toast({
+          title: 'OOPS!',
+          description: error?.message,
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+        setLoadingTwo(false)
+      });
+  }
+
 
   return (
     <section className='d-md-flex regg-sec secc'>
@@ -123,13 +171,31 @@ const Business = () => {
                 letter and symbol
               </small>
             </div>
-            <div className='ind-buttn'>
-              <Link to='/Login'>
-                <button className='text-uppercase mt-2' onClick={onSubmit}>
-                  Register
-                </button>
-              </Link>
-            </div>
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <Button
+                bg='primary'
+                color='light'
+                w='150px'
+                borderRadius={0}
+                onClick={onSubmit}
+                isLoading={loading}
+              >
+                REGISTER
+              </Button>
+              <Text fontWeight={600} fontSize='15px' color='accent' my={5}>Or signup with</Text>
+
+              <Button
+                bg='light'
+                color='primary'
+                border='1px solid'
+                borderColor='primary'
+                borderRadius={0}
+                onClick={() => signupWithGoogle()}
+                isLoading={loadingTwo}
+              >
+                <FcGoogle style={{ fontSize: '30px' }} /> &nbsp; SIGNUP WITH GOOGLE
+              </Button>
+            </Box>
           </form>
         </section>
         <footer className='regImg-ind'>
@@ -140,6 +206,18 @@ const Business = () => {
           />
         </footer>
       </article>
+      <Alert
+        title={"Sign up successful"}
+        body={<Box display="flex" flexDirection="column" alignItems="center">
+          <iframe src="https://embed.lottiefiles.com/animation/73392" title="success"></iframe>
+          <Text>You can proceed to login to your newly created account.</Text>
+        </Box>}
+        actionText={"Proceed"}
+        action={() => navigate("/login")}
+        isOpen={isOpen}
+        onClose={onClose}
+        bg="primary"
+      />
     </section>
   )
 }
