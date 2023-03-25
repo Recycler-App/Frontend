@@ -21,6 +21,7 @@ import Login from './routes/Login'
 import Blog from './routes/Blog'
 import Dashboard from './routes/Dashboard'
 import Profile from './routes/Profile'
+import "./style/Slider.css";
 
 const router = createBrowserRouter([
   {

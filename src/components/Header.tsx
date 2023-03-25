@@ -66,8 +66,8 @@ function Header() {
           onClick={onToggle}
       />
 
-      <SlideFade in={isMenuOpen} offsetY='20px' style={{width:"calc(100vw - 40px)"}}>
-        {isMenuOpen && <Flex direction="column" alignItems="center" mt={7}>
+        {isMenuOpen && <SlideFade in={isMenuOpen} offsetY='20px' className="mobile-menu">
+        <Flex direction="column" alignItems="center" mt={7}>
           <Link as={ReactLink} to='/' _hover={{ color: 'primary' }} color={location.pathname ==="/"? "primary": "dark"} mb={3} onClick={onToggle}>
             HOME
           </Link>
@@ -83,26 +83,29 @@ function Header() {
           <Link  mb={3} as={ReactLink} to='/blog' _hover={{ color: 'primary' }} color={location.pathname ==="/blog"? "primary": "dark"} onClick={onToggle}>
             OUR BLOG
           </Link>
+          {profile && <Link  mb={3} as={ReactLink} to='/dashboard' _hover={{ color: 'primary' }} color={location.pathname ==="/blog"? "primary": "dark"} onClick={onToggle}>
+            DASHBOARD
+          </Link>}
           <Button
             bg='primary'
             color='light'
-            w='150px'
+            w="150px"
             borderRadius={0}
             onClick={handleClick}
             mb={3}
           >
             {profile ? "LOGOUT" : "LOGIN"}
           </Button>
-          <Button bg='primary' color='light' w='150px' borderRadius={0} onClick={() => navigate('/Register')} mb={3}>
+          <Button bg='primary' color='light' w="150px" borderRadius={0} onClick={() => navigate('/Register')} mb={3}>
               REGISTER
           </Button>
-        </Flex>}
-      </SlideFade>
+        </Flex>
+      </SlideFade>}
 
       <Flex
         fontSize='16px'
         fontWeight={600}
-        w={{base:"80% ", xl:"65%"}}
+        w={{base:"80% ", xl:"70%"}}
         justify='space-evenly'
         alignItems='center'
         display={{base:"none", lg:"flex"}}
@@ -122,16 +125,19 @@ function Header() {
         <Link as={ReactLink} to='/blog' _hover={{ color: 'primary' }} color={location.pathname ==="/blog"? "primary": "dark"}>
           OUR BLOG
         </Link>
+        {profile && <Link as={ReactLink} to='/dashboard' _hover={{ color: 'primary' }} color={location.pathname ==="/blog"? "primary": "dark"}>
+            DASHBOARD
+          </Link>}
         <Button
           bg='primary'
           color='light'
-          w='150px'
+          w={{lg:"90px",xl:"150px"}}
           borderRadius={0}
           onClick={handleClick}
         >
           {profile ? "LOGOUT" : "LOGIN"}
         </Button>
-        <Button bg='primary' color='light' w='150px' borderRadius={0} onClick={() => navigate('/Register')}>
+        <Button bg='primary' color='light' w={{lg:"90px",xl:"150px"}} borderRadius={0} onClick={() => navigate('/Register')}>
             REGISTER
         </Button>
       </Flex>

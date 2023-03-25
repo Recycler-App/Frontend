@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import { onAuthStateChanged, onIdTokenChanged } from 'firebase/auth';
 import { getDatabase, ref, get} from "firebase/database";
@@ -39,7 +39,7 @@ const UserContextProvider = ({ children }: any) => {
      
   }, [auth])
 
-  const getUserProfile = (id:string) => {
+  const getUserProfile = useCallback((id:string) => {
     // check if user exists in the database
     const db:any = getDatabase();
     const userRef = ref(db, `users/${id}`);
@@ -58,7 +58,14 @@ const UserContextProvider = ({ children }: any) => {
         })
       }
     })
-  }
+  },[toast])
+
+
+  useEffect(()=> {
+    if(user){
+      getUserProfile(user.uid)
+    }
+  }, [user, getUserProfile])
 
   return (
     <UserContext.Provider

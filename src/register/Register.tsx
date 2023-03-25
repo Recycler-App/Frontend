@@ -2,11 +2,21 @@ import React from 'react'
 import '../style/Register.css'
 import Sidebar from './Sidebar'
 // import Vector2 from '../assets/Vector2.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { Flex, Text } from '@chakra-ui/react'
+import Logo from '../svg/Logo'
 
 const Register = () => {
+  const navigate = useNavigate()
   return (
     <section className='d-md-flex regg-sec'>
+      <Flex onClick={() => navigate('/')} cursor='pointer' display={{base:"flex", md:"none"}} p={5}>
+        <Logo/>
+        <Text fontWeight={500} fontSize='25px'>
+          {' '}
+          Recycler
+        </Text>
+      </Flex>
       <article>
         <Sidebar />
       </article>

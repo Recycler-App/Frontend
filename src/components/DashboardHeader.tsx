@@ -1,17 +1,36 @@
-import { Badge, Box, Flex, IconButton, Link, Text } from "@chakra-ui/react";
-import React from "react";
+import { Badge, Box, Button, Flex, IconButton, Link, SlideFade, Text, useDisclosure } from "@chakra-ui/react";
+import React, { useContext } from "react";
 import { BsBell } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import Logo from "../svg/Logo";
 import { Link as ReactLink, useLocation, useNavigate } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai";
+import { RiMenu5Fill } from "react-icons/ri";
+import Alert from "./Alert";
+import { useUser } from "../context/UserContext";
+import { AuthenticationContext } from "../context/AuthenticationContext";
+import { signOut } from 'firebase/auth';
 
 function DashboardHeader() {
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { setProfile, storage }:any = useUser();
+  const { auth } = useContext(AuthenticationContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen:isMenuOpen , onToggle } = useDisclosure();
+
+  const handleLogout = () => {
+    signOut(auth);
+    setProfile(null);
+    storage.removeItem("recyclerToken")
+    onClose();
+    navigate("/");
+  }
 
   return (
     <Flex
-      p={10}
+      px={{base:5, xl:10}}
+      py={{base:5, md:10}}
       color="dark"
       boxShadow="0px 2px 20px rgba(0, 0, 0, 0.25)"
       position="fixed"
@@ -21,6 +40,7 @@ function DashboardHeader() {
       w="100%"
       justify="space-between"
       alignItems="center"
+      flexWrap={{base:"wrap", md:"nowrap"}}
     >
       <Flex onClick={() => navigate("/")} cursor="pointer">
         <Logo />
@@ -29,7 +49,7 @@ function DashboardHeader() {
           Recycler
         </Text>
       </Flex>
-      <Flex w="250px" position="absolute" bottom={0} mx="calc(50vw - 200px)" justify="space-between">
+      <Flex w="250px" position="absolute" bottom={0} mx="calc(50vw - 200px)" justify="space-between" display={{base:"none",md:"flex"}}>
         <Link
           as={ReactLink}
           to="/dashboard"
@@ -61,8 +81,22 @@ function DashboardHeader() {
           Profile
         </Link>
       </Flex>
+
       <Flex>
-        <Box position="relative" mr={5}>
+        <IconButton
+            aria-label="scroll"
+            icon={isMenuOpen ? <AiOutlineClose/> : <RiMenu5Fill />}
+            bg="transparent"
+            color="primary"
+            fontSize="30px"
+            display={{base:"block", lg:"none"}}
+            _hover={{
+              bg: "transparent",
+            }}
+            onClick={onToggle}
+            mr={3}
+        />
+        <Box position="relative" mr={3}>
           <IconButton
             aria-label="scroll"
             icon={<BsBell />}
@@ -93,6 +127,64 @@ function DashboardHeader() {
           }}
         />
       </Flex>
+
+      {isMenuOpen && <SlideFade in={isMenuOpen} offsetY='20px' className="mobile-dashboard-menu">
+        <Flex direction="column" alignItems="center" mt={7}>
+        <Link
+          as={ReactLink}
+          to="/dashboard"
+          fontWeight={500}
+          fontSize="20px"
+          color={location.pathname === "/dashboard" ? "#a6a6a6" : "dark"}
+          borderBottom={location.pathname === "/dashboard" ? "4px solid #0FA958" : "none"}
+          py={3}
+          _hover={{
+            textDecoration:"none"
+          }}
+          mb={3} 
+          onClick={onToggle}
+        >
+          Dashboard
+        </Link>
+        <Link
+          as={ReactLink}
+          to="/dashboard/profile"
+          fontWeight={500}
+          fontSize="20px"
+          color={
+            location.pathname === "/dashboard/profile" ? "#a6a6a6" : "dark"
+          }
+          borderBottom={location.pathname === "/dashboard/profile" ? "4px solid #0FA958" : "none"}
+          py={3}
+          _hover={{
+            textDecoration:"none"
+          }}
+          mb={3} 
+          onClick={onToggle}
+        >
+          Profile
+        </Link>
+          <Button
+            bg='primary'
+            color='light'
+            w='150px'
+            borderRadius={0}
+            onClick={onOpen}
+            mb={3}
+          >
+            LOGOUT
+          </Button>
+        </Flex>
+      </SlideFade>}
+      <Alert
+        title={"Log out"}
+        body={"Are you sure you want to log out?"}
+        actionText={"Proceed"}
+        action={() => handleLogout()}
+        isOpen={isOpen}
+        onClose={onClose}
+        colorScheme="red"
+      />
     </Flex>
   );
 }

@@ -21,7 +21,7 @@ function Input(props: Props  & InputProps) {
             borderColor="primary"
             boxShadow="2px 2px 20px 4px rgba(15, 169, 88, 0.1)"
             borderRadius={0}
-            h="55px"
+            h="44px"
             _focus={{
                 boxShadow:"2px 2px 20px 4px rgba(15, 169, 88, 0.1)",
                 borderColor:"primary"

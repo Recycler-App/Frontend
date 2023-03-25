@@ -3,10 +3,11 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } f
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import Side from './Side'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Text, useDisclosure, useToast } from '@chakra-ui/react'
+import { Box, Button, Text, useDisclosure, useToast, Flex } from '@chakra-ui/react'
 import { FcGoogle } from 'react-icons/fc'
 import { getDatabase, ref, get, set} from "firebase/database";
 import Alert from '../components/Alert'
+import Logo from '../svg/Logo'
 
 const Individual = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -94,6 +95,13 @@ const Individual = () => {
 
   return (
     <section className='d-md-flex regg-sec secc'>
+      <Flex onClick={() => navigate('/')} cursor='pointer' display={{base:"flex", md:"none"}} p={5}>
+        <Logo/>
+        <Text fontWeight={500} fontSize='25px'>
+          {' '}
+          Recycler
+        </Text>
+      </Flex>
       <article>
         <Side />
       </article>

@@ -88,8 +88,8 @@ function Login() {
   }, [profile, navigate])
 
   return (
-    <Flex w='100vw' h='100vh'>
-      <Box w='40%' bg='primary' h='100%' p={10}>
+    <Flex w='100vw' minH='100vh' flexDirection={{base:"column", md:"row"}}>
+      <Box w='40%' bg='primary' p={10} display={{base:"none", md:"block"}}>
         <Flex onClick={() => navigate('/')} cursor='pointer'>
           <Logo color='#fff' />
           <Text fontWeight={500} fontSize='25px'>
@@ -97,9 +97,9 @@ function Login() {
             Recycler
           </Text>
         </Flex>
-        <Box textAlign='center' w='70%' mx='auto' mt='calc(50vh - 350px)'>
+        <Box textAlign='center' w={{base:"100%", lg:'70%'}} mx='auto' mt={{base:"10vh", xl:'calc(50vh - 350px)'}}>
           <Image src={Img} mb={5} mx='auto' />
-          <Text color='light' fontSize='28px' fontWeight={500} mb={5}>
+          <Text color='light' fontSize='24px' fontWeight={500} mb={5}>
             Hey, it’s good to have you onboard Let’s get started!
           </Text>
           <Button
@@ -114,18 +114,25 @@ function Login() {
           </Button>
         </Box>
       </Box>
-      <Box position='relative' w='60%'>
-        <Image src={Img2} position='absolute' bottom='0' />
+      <Box position='relative' w={{base:"100%", md:'60%'}}>
+        <Image src={Img2} position='absolute' bottom='0' width={{base:"250px", md:"350px"}}/>
         <Help style={{ position: 'absolute', bottom: '50px', right: '50px' }} />
-        <Box textAlign='center' w='60%' mx='auto' mt='calc(50vh - 350px)'>
-          <Text fontWeight={500} fontSize='28px' color='dark' mb={10}>
+        <Flex onClick={() => navigate('/')} cursor='pointer' display={{base:"flex", md:"none"}} p={5}>
+          <Logo/>
+          <Text fontWeight={500} fontSize='25px'>
+            {' '}
+            Recycler
+          </Text>
+        </Flex>
+        <Box textAlign='center' w={{base:"80%",sm:"70%", md:'60%'}} mx='auto' my={{base:"10vh", xl:'calc(50vh - 350px)'}}>
+          <Text fontWeight={500} fontSize='24px' color='dark' mb={10}>
             Hey, welcome back it’s good to have you back onboard!
           </Text>
           <Text
             borderBottom='4px dashed #70D709'
             color='primary'
             fontWeight={600}
-            fontSize='40px'
+            fontSize='36px'
             w='max-content'
             mb={8}
             mx='auto'

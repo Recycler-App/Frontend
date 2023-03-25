@@ -62,7 +62,7 @@ const Footer = () => {
         fontWeight={500}
         color="accent"
         w={{ base: "100%",sm:"60%", lg: "30%", xl: "20%" }}
-        p={{ base: 5, md: 0 }}
+        p={{ base: 5, lg: 0 }}
       >
         <Text
           fontSize={{ base: "20px", md: "24px" }}

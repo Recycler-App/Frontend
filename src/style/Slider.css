@@ -12,3 +12,19 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.mobile-dashboard-menu{
+    display: none;
+}
+@media screen and (max-width:992px){
+    .mobile-menu{
+        width:calc(100vw - 40px);
+    }
+}
+
+@media screen and (max-width:767px){
+    .mobile-dashboard-menu{
+        display: block;
+        width:calc(100vw - 40px);
+    }
+}
