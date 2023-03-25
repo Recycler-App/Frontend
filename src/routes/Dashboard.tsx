@@ -2,6 +2,7 @@ import { Box, Button, Flex, IconButton, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { AiOutlinePhone } from "react-icons/ai";
 import { MdLocationOn, MdMail } from "react-icons/md";
+import { useNavigate } from "react-router";
 import { useUser } from "../context/UserContext";
 import Bin from "../svg/Bin";
 import Earn from "../svg/Earn";
@@ -10,23 +11,28 @@ import Recycle from "../svg/Recycle";
 import Sad from "../svg/Sad";
 
 function Dashboard() {
-    const { profile }:any = useUser()
+    const { profile }:any = useUser();
+    const navigate = useNavigate()
   const actions = [
     {
       icon: <Bin />,
       text: 'Smart Bin',
+      href:"/dashboard/bin"
     },
     {
       icon: <Earn />,
       text: 'Earn Money',
+      href:"/dashboard/earn"
     },
     {
       icon: <Order />,
       text: 'My Orders',
+      href:"/dashboard/orders"
     },
     {
       icon: <Recycle />,
       text: 'Recycling',
+      href:"/dashboard/recycle"
     },
   ]
 
@@ -135,6 +141,8 @@ function Dashboard() {
               borderColor='primary'
               justifyContent='center'
               alignItems='center'
+              onClick={() => navigate(action.href)}
+              cursor="pointer"
             >
               {action.icon}
             </Flex>

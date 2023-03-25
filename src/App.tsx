@@ -22,6 +22,8 @@ import Blog from './routes/Blog'
 import Dashboard from './routes/Dashboard'
 import Profile from './routes/Profile'
 import "./style/Slider.css";
+import DashboardInnerLayout from './layouts/DashboardInnerLayout'
+import Bin from './routes/Bin'
 
 const router = createBrowserRouter([
   {
@@ -75,8 +77,18 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: '/dashboard/profile',
-        element: <Profile />,
+        path: '/dashboard',
+        element: <DashboardInnerLayout />,
+        children: [
+          {
+            path: '/dashboard/profile',
+            element: <Profile />,
+          },
+          {
+            path: '/dashboard/bin',
+            element: <Bin />,
+          },
+        ]
       }
     ]
 
