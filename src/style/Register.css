@@ -66,6 +66,9 @@
   .reg-sec {
     display: block;
   }
+  .secc1 {
+    height: 100%;
+  }
   .iconText {
     font-weight: 500;
     font-size: 25px;
@@ -104,6 +107,9 @@
   }
   .secc {
     height: fit-content;
+  }
+  .secc1 {
+    height: 100%;
   }
   .main-img {
     margin: 0 auto;
