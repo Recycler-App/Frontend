@@ -27,12 +27,12 @@ import Delete from "../svg/Delete";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../style/Slider.css"
+import "../style/Slider.css";
 
 function Home() {
-  const { profile }:any = useUser();
+  const { profile }: any = useUser();
   const navigate = useNavigate();
   const services = [
     {
@@ -59,22 +59,21 @@ function Home() {
       text: "Cans",
     },
     {
-        src: ItemTwo,
-        text: "Pure water satchets",
+      src: ItemTwo,
+      text: "Pure water satchets",
     },
     {
-        src: ItemThree,
-        text: "Plastic Chairs",
+      src: ItemThree,
+      text: "Plastic Chairs",
     },
     {
-        src: ItemFour,
-        text: "Pet bottles",
+      src: ItemFour,
+      text: "Pet bottles",
     },
     {
-        src: ItemFive,
-        text: "Bottle caps",
+      src: ItemFive,
+      text: "Bottle caps",
     },
-   
   ];
 
   const partners = [
@@ -118,43 +117,43 @@ function Home() {
       src: PartnerTen,
       text: "Mottainai Limited",
     },
-  ]
+  ];
 
-  function PrevArrow(props:any) {
+  function PrevArrow(props: any) {
     const { onClick } = props;
     return (
       <IconButton
-          aria-label="scroll"
-          icon={<FaChevronLeft />}
-          bg="transparent"
-          color="primary"
-          fontSize="46px"
-          mx="auto"
-          mr={5}
-          _hover={{
-            bg: "transparent",
-          }}
-          onClick={onClick}
-        />
+        aria-label="scroll"
+        icon={<FaChevronLeft />}
+        bg="transparent"
+        color="primary"
+        fontSize="46px"
+        mx="auto"
+        mr={5}
+        _hover={{
+          bg: "transparent",
+        }}
+        onClick={onClick}
+      />
     );
   }
 
-  function NextArrow(props:any) {
+  function NextArrow(props: any) {
     const { onClick } = props;
     return (
       <IconButton
-          aria-label="scroll"
-          icon={<FaChevronRight />}
-          bg="transparent"
-          color="primary"
-          fontSize="46px"
-          mx="auto"
-          ml={5}
-          _hover={{
-            bg: "transparent",
-          }}
-          onClick={onClick}
-        />
+        aria-label="scroll"
+        icon={<FaChevronRight />}
+        bg="transparent"
+        color="primary"
+        fontSize="46px"
+        mx="auto"
+        ml={5}
+        _hover={{
+          bg: "transparent",
+        }}
+        onClick={onClick}
+      />
     );
   }
 
@@ -164,15 +163,38 @@ function Home() {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    prevArrow: <PrevArrow/>,
-    nextArrow: <NextArrow/>
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
     <>
       <Box
         backgroundImage={`url(${Bg})`}
-        minHeight="calc(100vh - 120px)"
+        minHeight={{base:"calc(100vh - 80px)", md:"calc(100vh - 120px)"}}
         backgroundAttachment="fixed"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
@@ -180,15 +202,19 @@ function Home() {
         color="light"
         position="relative"
       >
-        <Box w="75%" ml="50px" pt="calc(50vh - 279px)">
+        <Box
+          w={{ base: "calc(100% - 40px)", md: "75%" }}
+          ml={{ base: "20px", md: "50px" }}
+          pt={{ base: "calc(50vh - 250px)", sm:"calc(50vh - 220px)", md: "calc(50vh - 279px)" }}
+        >
           <Flex alignItems="center" mb={5}>
             <Logo />
-            <Text fontWeight={500} fontSize="32px">
+            <Text fontWeight={500} fontSize={{ base: "28px", md: "32px" }}>
               {" "}
               Recycler
             </Text>
           </Flex>
-          <Text fontWeight={500} fontSize="48px" mb={5}>
+          <Text fontWeight={500} fontSize={{ base: "28px", sm:"38px", md: "48px" }} mb={5}>
             “Become an Environmental Hero with Recycler - Transform Plastic
             Waste into a Sustainable Future!"
           </Text>
@@ -196,11 +222,11 @@ function Home() {
             bg="primary"
             color="light"
             px={10}
-            py={7}
+            py={{ base: 3, md: 7 }}
             borderRadius={0}
             mt={5}
             onClick={() => {
-              profile ? navigate("/dashboard") : navigate("/login")
+              profile ? navigate("/dashboard") : navigate("/login");
             }}
           >
             GET STARTED
@@ -223,12 +249,25 @@ function Home() {
         />
       </Box>
 
-      <Box px={10} my="100px" mx="50px">
-        <Text fontSize="32px" fontWeight="500" color="primary" mb={5}>
+      <Box
+        px={{ base: 0, sm: 5, md: 10 }}
+        my="100px"
+        mx={{ base: "20px", md: "50px" }}
+      >
+        <Text
+          fontSize={{ base: "28px", md: "32px" }}
+          fontWeight="500"
+          color="primary"
+          mb={5}
+        >
           We focus on waste recycling and the health of the ecosystem
         </Text>
-        <Flex alignItems="center" justify="space-between" color="#000000">
-          <Text fontSize="24px" fontWeight="400" w="65%">
+        <Flex alignItems="center" justify="space-between" color="#000000" flexDirection={{base:"column", sm:"row"}}>
+          <Text
+            fontSize={{ base: "20px", md: "24px" }}
+            fontWeight="400"
+            w={{base:"100%", sm:"65%"}}
+          >
             Recycler is a mission-driven company that is dedicated to raising
             awareness about the importance of recycling plastics. We believe
             that recycling plastics is essential in order to protect our planet
@@ -236,25 +275,46 @@ function Home() {
             platform that helps individuals and businesses across the world
             recycle plastic waste.
           </Text>
-          <Image src="./cuate.svg" w="30%" />
+          <Image src="./cuate.svg" w={{base:"100%", sm:"30%"}} mt={{base:5, sm:0}}/>
         </Flex>
-        <Text fontSize="24px" fontWeight="400" mt={3} color="#000000">
-          <Text fontSize="24px" fontWeight="500" color="primary" as="span">Our mission</Text> is to reduce plastic waste in the environment and create a
-          more sustainable future. We believe that recycling plastics is
-          essential in order to protect our planet and reduce our global
-          footprint, and effective and efficient way of recycling plastic waste.
-          That’s why we created this platform that offers a variety of services
-          and technologies to make the process of plastic recycling as easy and
-          hassle-free as possible.  </Text>
-          <Text fontSize="24px" fontWeight="400" mt={3} color="#000000">From our easy-to-use online portal to our
-          comprehensive services and technologies, we make sure that our clients
-          have access to the best possible recycling options.</Text>
+        <Text
+          fontSize={{ base: "20px", md: "24px" }}
+          fontWeight="400"
+          mt={3}
+          color="#000000"
+        >
+          <Text
+            fontSize={{ base: "20px", md: "24px" }}
+            fontWeight="500"
+            color="primary"
+            as="span"
+          >
+            Our mission
+          </Text>{" "}
+          is to reduce plastic waste in the environment and create a more
+          sustainable future. We believe that recycling plastics is essential in
+          order to protect our planet and reduce our global footprint, and
+          effective and efficient way of recycling plastic waste. That’s why we
+          created this platform that offers a variety of services and
+          technologies to make the process of plastic recycling as easy and
+          hassle-free as possible.{" "}
+        </Text>
+        <Text
+          fontSize={{ base: "20px", md: "24px" }}
+          fontWeight="400"
+          mt={3}
+          color="#000000"
+        >
+          From our easy-to-use online portal to our comprehensive services and
+          technologies, we make sure that our clients have access to the best
+          possible recycling options.
+        </Text>
 
         <Button
           bg="primary"
           color="light"
           px={10}
-          py={7}
+          py={{ base: 3, md: 7 }}
           borderRadius={0}
           mt={5}
         >
@@ -262,25 +322,30 @@ function Home() {
         </Button>
       </Box>
 
-      <Box px={10} my="100px" mx="50px">
-        <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
+      <Box
+        px={{ base: 0, sm: 5, md: 10 }}
+        my="100px"
+        mx={{ base: "20px", md: "50px" }}
+      >
+        <Text fontSize={{ base: "28px", md: "32px" }} fontWeight="500" color="primary" mb={10}>
           Get started with us
         </Text>
-        <Flex justify="space-between">
+        <Flex justify={{base:"center", sm:"space-between"}} flexWrap="wrap">
           {services.map((service) => (
             <Box
               boxShadow="0px 2px 10px rgba(15, 169, 88, 0.2)"
               w="22%"
-              minW="200px"
-              maxW="220px"
+              minW="220px"
+              maxW="230px"
               p={10}
               display="flex"
               flexDirection="column"
               alignItems="center"
               textAlign="center"
+              mb={{ base: 5, lg: 0 }}
             >
               <Box mb={3}>{service.icon}</Box>
-              <Text fontSize="24px" fontWeight="400">
+              <Text fontSize={{ base: "20px", md: "24px" }}fontWeight="400">
                 {service.text}
               </Text>
             </Box>
@@ -288,12 +353,19 @@ function Home() {
         </Flex>
       </Box>
 
-      <Flex px={10} my="100px" mx="50px" alignItems="center" justify="space-between">
-        <Box w="60%">
-          <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
+      <Flex
+        px={{ base: 0, sm: 5, md: 10 }}
+        my="100px"
+        mx={{ base: "20px", md: "50px" }}
+        alignItems="center"
+        justify="space-between"
+        flexDirection={{base:"column", md:"row"}}
+      >
+        <Box w={{base:"100%", md:"60%"}}>
+          <Text fontSize={{ base: "28px", md: "32px" }} fontWeight="500" color="primary" mb={10}>
             Our Services
           </Text>
-          <Text fontSize="24px" fontWeight="400" color="accent">
+          <Text fontSize={{ base: "20px", md: "24px" }} fontWeight="400" color="accent">
             Our Services Our services include collecting and transporting
             plastic waste, sorting and grading plastic waste, and finally,
             processing the plastic waste into usable products. We also offer a
@@ -303,41 +375,57 @@ function Home() {
             recycling solutions.
           </Text>
         </Box>
-        <Image src="./pana.svg" w="35%" />
+        <Image src="./pana.svg" w={{base:"100%", md:"35%"}} mt={{base:5, md:0}}/>
       </Flex>
 
-      <Flex px={10} my="100px" mx="50px" h="auto">
-        <Box bg="primary" color="light" p={10} w="50%">
-          <Text fontSize="32px" fontWeight="700" mb={10}>
+      <Flex
+        px={{ base: 0, sm: 5, md: 10 }}
+        my="100px"
+        mx={{ base: "20px", md: "50px" }}
+        h="auto"
+        direction={{ base: "column-reverse", md: "row" }}
+      >
+        <Box bg="primary" color="light" p={{base:5, sm:10}} w={{ base: "100%", md: "50%" }}>
+          <Text fontSize={{ base: "28px", md: "32px" }} fontWeight="700" mb={10}>
             What Happens?
           </Text>
-          <Text fontSize="24px" fontWeight="500" mb={5}>
+          <Text fontSize={{ base: "20px", md: "24px" }} fontWeight="500" mb={5}>
             After collection, recyclables are sent to a recovery facility to be
             sorted, cleaned, and processed into materials that can be used in
             manufacturing.
           </Text>
         </Box>
-        <Box 
-            backgroundImage={`url(${BgTwo})`}
-            backgroundPosition="center"
-            backgroundRepeat="no-repeat"
-            backgroundSize="cover"
-            w="50%"
+        <Box
+          backgroundImage={`url(${BgTwo})`}
+          backgroundPosition="center"
+          backgroundRepeat="no-repeat"
+          backgroundSize="cover"
+          w={{ base: "100%", md: "50%" }}
+          h={{ base: "300px", md: "auto" }}
         >
-            <Delete style={{marginLeft:"auto", marginRight:"auto", marginTop:"64px"}}/>
-
+          <Delete
+            style={{
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: "64px",
+            }}
+          />
         </Box>
       </Flex>
 
-      <Box px={10} my="100px" mx="50px">
-        <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
-        Our Partners
+      <Box
+        px={{ base: 0, sm: 5, md: 10 }}
+        my="100px"
+        mx={{ base: "20px", md: "50px" }}
+      >
+        <Text fontSize={{ base: "28px", md: "32px" }} fontWeight="500" color="primary" mb={10}>
+          Our Partners
         </Text>
         <Slider {...settings}>
           {partners.map((partner, i) => (
             <Box
               w="24%"
-              minW="220px"
+              // minW="220px"
               maxW="240px"
               h="200px"
               p={5}
@@ -348,24 +436,28 @@ function Home() {
               boxShadow="0px 2px 20px rgba(0, 0, 0, 0.1)"
               border="2px solid"
               borderColor="primary"
-              bg={i===2 ? "primary" :"light"}
-              color={i===2 ? "light" :"dark"}
+              bg={i === 2 ? "primary" : "light"}
+              color={i === 2 ? "light" : "dark"}
               mb={10}
             >
-              <Image src={partner.src} mb={5} mx="auto"/>
+              <Image src={partner.src} mb={5} mx="auto" maxH="60px" />
               <Text fontSize="16px" fontWeight="500" textTransform="uppercase">
                 {partner.text}
               </Text>
             </Box>
           ))}
-        </Slider> 
+        </Slider>
       </Box>
 
-      <Box px={10} my="100px" mx="50px">
-        <Text fontSize="32px" fontWeight="500" color="primary" mb={10}>
-        Our Collectibles
+      <Box
+        px={{ base: 0, sm: 5, md: 10 }}
+        my="100px"
+        mx={{ base: "20px", md: "50px" }}
+      >
+        <Text fontSize={{ base: "28px", md: "32px" }} fontWeight="500" color="primary" mb={10}>
+          Our Collectibles
         </Text>
-        <Flex justify="space-between">
+        <Flex justify={{base:"center", sm:"space-between"}} flexWrap="wrap">
           {collectibles.map((collectible) => (
             <Box
               w="22%"
@@ -377,7 +469,7 @@ function Home() {
               alignItems="center"
               textAlign="center"
             >
-              <Image src={collectible.src}/>
+              <Image src={collectible.src} />
               <Text fontSize="16px" fontWeight="500">
                 {collectible.text}
               </Text>

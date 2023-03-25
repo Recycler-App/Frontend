@@ -9,7 +9,7 @@ function ExternalLayout() {
     return (
         <Box minH="100vh">
             <Header/>
-                <Box mt="120px">
+                <Box mt={{base:"80px", md:"120px"}}>
                     <Outlet/>
                 </Box>
             <Footer/>
