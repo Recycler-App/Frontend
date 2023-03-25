@@ -48,7 +48,7 @@ function Dashboard() {
         >
           <Box textAlign='center'>
             <Image
-              src={profile.img || "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
+              src={profile?.img || "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
               alt="user-image"
               borderRadius="50%"
               boxSize="120px"
