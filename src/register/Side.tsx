@@ -6,7 +6,7 @@ import { MdArrowBack } from 'react-icons/md'
 
 const Side = () => {
   return (
-    <section className='reg-sec secc p-4'>
+    <section className='reg-sec secc1 p-4'>
       <Link to='/'>
         <nav className='d-flex navicon'>
           <img
