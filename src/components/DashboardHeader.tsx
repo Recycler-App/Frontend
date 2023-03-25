@@ -4,7 +4,7 @@ import { BsBell } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import Logo from "../svg/Logo";
 import { Link as ReactLink, useLocation, useNavigate } from "react-router-dom";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLogout } from "react-icons/ai";
 import { RiMenu5Fill } from "react-icons/ri";
 import Alert from "./Alert";
 import { useUser } from "../context/UserContext";
@@ -125,6 +125,20 @@ function DashboardHeader() {
           _hover={{
             bg: "transparent",
           }}
+          mr={{base:0, md:3}}
+        />
+
+        <IconButton
+          aria-label="scroll"
+          icon={<AiOutlineLogout />}
+          bg="transparent"
+          color="primary"
+          fontSize="30px"
+          onClick={onOpen}
+          _hover={{
+            bg: "transparent",
+          }}
+          display={{base:"none", md:"block"}}
         />
       </Flex>
 
