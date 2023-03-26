@@ -15,10 +15,10 @@ const root = ReactDOM.createRoot(container)
 root.render(
   <AuthenticationContextProvider>
     <UserContextProvider>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <ColorModeScript />
       <App />
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
     </UserContextProvider>
   </AuthenticationContextProvider>
 )

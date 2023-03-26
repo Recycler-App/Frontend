@@ -56,10 +56,11 @@ function Dashboard() {
         >
           <Box textAlign='center'>
             <Image
-              src={profile?.img || "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"}
+              src={profile?.img}
               alt="user-image"
               borderRadius="50%"
               boxSize="120px"
+              fallbackSrc="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
             />
             <Text textTransform="uppercase" mt={2}>{profile?.name.split(" ")[0]}</Text>
           </Box>

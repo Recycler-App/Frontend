@@ -2,7 +2,8 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import { onAuthStateChanged, onIdTokenChanged } from 'firebase/auth';
 import { getDatabase, ref, get} from "firebase/database";
-import { useToast } from '@chakra-ui/react';
+import { Flex, Image, useToast } from '@chakra-ui/react';
+import Loader from "../assets/loader.gif"
 
 const UserContext: any = createContext({})
 
@@ -11,9 +12,11 @@ const UserContextProvider = ({ children }: any) => {
   const storage = window.localStorage;
   const [user, setUser] = useState<any>(null); //firebase user object
   const [profile, setProfile] = useState<any>(null) //user profile
+  const [userLoading, setUserLoading ] = useState(true)
   const { auth } = useContext(AuthenticationContext)
 
   useEffect(()=> {
+    setUserLoading(true)
     onIdTokenChanged(auth, async (user) => {
         if(!user){
           setUser(null)
@@ -23,23 +26,25 @@ const UserContextProvider = ({ children }: any) => {
           setUser(user)
           storage.setItem("recyclerToken",token)
         }
-        // setLoading(false)
+        setUserLoading(false)
     })
   },[auth, storage])
 
   useEffect(()=>{
+    setUserLoading(true)
       onAuthStateChanged(auth, (user) => {
         if (user) {
           setUser(user)
         } else {
           setUser(null)
         }
-        // setLoading(false)
+        setUserLoading(false)
       });
      
   }, [auth])
 
   const getUserProfile = useCallback((id:string) => {
+    setUserLoading(true)
     // check if user exists in the database
     const db:any = getDatabase();
     const userRef = ref(db, `users/${id}`);
@@ -57,6 +62,7 @@ const UserContextProvider = ({ children }: any) => {
           isClosable: true,
         })
       }
+      setUserLoading(false)
     })
   },[toast])
 
@@ -77,10 +83,13 @@ const UserContextProvider = ({ children }: any) => {
         storage,
         getUserProfile
       }}
-    >
-        {console.log(profile)}
-        {console.log(user)}
-      {children}
+    > 
+      {userLoading ? 
+      <Flex justify="center" alignItems="center" h="100vh">
+        <Image src={Loader}/>
+      </Flex>
+      :
+      children}
     </UserContext.Provider>
   )
 }

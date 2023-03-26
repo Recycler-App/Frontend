@@ -366,7 +366,7 @@ function Home() {
             Our Services
           </Text>
           <Text fontSize={{ base: "20px", md: "24px" }} fontWeight="400" color="accent">
-            Our Services Our services include collecting and transporting
+            Our Services include collecting and transporting
             plastic waste, sorting and grading plastic waste, and finally,
             processing the plastic waste into usable products. We also offer a
             variety of technologies, such as state-of-the-art optical sorting

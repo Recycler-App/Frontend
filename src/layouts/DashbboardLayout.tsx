@@ -6,14 +6,14 @@ import Footer from '../components/Footer'
 import { useUser } from '../context/UserContext'
 
 function DashboardLayout() {
-    const { profile }:any = useUser();
+    const { profile, user }:any = useUser();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!profile){
+        if(!profile && !user){
             navigate("/")
         }
-       },[profile, navigate])
+       },[profile, navigate, user])
     return (
         <Box minH="100vh">
             <DashboardHeader/>
