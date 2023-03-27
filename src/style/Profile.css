@@ -6,7 +6,7 @@
 .art-profile img {
   margin: 0 auto;
   border-radius: 50px;
-    object-fit: cover;
+  object-fit: cover;
 }
 .profile-two {
   margin-left: 2rem;
@@ -26,6 +26,9 @@
   font-size: 16px;
   line-height: 20px;
   color: #0fa958;
+}
+.div-orderr {
+  /* justify-content: space-between !important; */
 }
 .total-earn {
   border: 1px solid #ffffff;
@@ -55,6 +58,9 @@
   }
   .sec-profile2 {
     transform: translateX(12px);
+  }
+  .div-orderr {
+    /* justify-content: space-between !important; */
   }
 }
 @media (min-width: 1024px) {

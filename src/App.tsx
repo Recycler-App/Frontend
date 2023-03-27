@@ -25,6 +25,7 @@ import "./style/Slider.css";
 import DashboardInnerLayout from './layouts/DashboardInnerLayout'
 import Bin from './routes/Bin'
 import Earn from './routes/Earn'
+import MyOrder from './routes/MyOrder'
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/earn',
             element: <Earn />,
+          },
+          {
+            path: '/dashboard/orders',
+            element: <MyOrder />,
           },
         ]
       }
