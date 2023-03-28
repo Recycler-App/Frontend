@@ -26,6 +26,7 @@ import DashboardInnerLayout from './layouts/DashboardInnerLayout'
 import Bin from './routes/Bin'
 import Earn from './routes/Earn'
 import MyOrder from './routes/MyOrder'
+import BusinessProfile from './routes/BusinessProfile'
 
 const router = createBrowserRouter([
   {
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/orders',
             element: <MyOrder />,
+          },
+          {
+            path: '/dashboard/business/profile',
+            element: <BusinessProfile />,
           },
         ]
       }

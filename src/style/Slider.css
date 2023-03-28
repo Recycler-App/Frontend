@@ -16,6 +16,11 @@
 .mobile-dashboard-menu{
     display: none;
 }
+
+.pac-container {
+    margin-top: -150px;
+}
+
 @media screen and (max-width:992px){
     .mobile-menu{
         width:calc(100vw - 40px);

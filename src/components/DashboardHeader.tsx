@@ -14,7 +14,7 @@ import { signOut } from 'firebase/auth';
 function DashboardHeader() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { setProfile, storage }:any = useUser();
+  const { profile,setProfile, storage }:any = useUser();
   const { auth } = useContext(AuthenticationContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen:isMenuOpen , onToggle } = useDisclosure();
@@ -66,13 +66,13 @@ function DashboardHeader() {
         </Link>
         <Link
           as={ReactLink}
-          to="/dashboard/profile"
+          to={profile.userType === "individual" ? "/dashboard/profile": "/dashboard/business/profile"}
           fontWeight={500}
           fontSize="20px"
           color={
-            location.pathname === "/dashboard/profile" ? "#a6a6a6" : "dark"
+            location.pathname === "/dashboard/profile" || location.pathname==="/dashboard/business/profile" ? "#a6a6a6" : "dark"
           }
-          borderBottom={location.pathname === "/dashboard/profile" ? "4px solid #0FA958" : "none"}
+          borderBottom={location.pathname === "/dashboard/profile" || location.pathname=== "/dashboard/business/profile" ? "4px solid #0FA958" : "none"}
           py={3}
           _hover={{
             textDecoration:"none"
@@ -162,13 +162,13 @@ function DashboardHeader() {
         </Link>
         <Link
           as={ReactLink}
-          to="/dashboard/profile"
+          to={profile.userType === "individual" ? "/dashboard/profile": "/dashboard/business/profile"}
           fontWeight={500}
           fontSize="20px"
           color={
-            location.pathname === "/dashboard/profile" ? "#a6a6a6" : "dark"
+            location.pathname === "/dashboard/profile" || location.pathname==="/dashboard/business/profile" ? "#a6a6a6" : "dark"
           }
-          borderBottom={location.pathname === "/dashboard/profile" ? "4px solid #0FA958" : "none"}
+          borderBottom={location.pathname === "/dashboard/profile" || location.pathname=== "/dashboard/business/profile" ? "4px solid #0FA958" : "none"}
           py={3}
           _hover={{
             textDecoration:"none"

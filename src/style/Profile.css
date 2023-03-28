@@ -5,8 +5,9 @@
 }
 .art-profile img {
   margin: 0 auto;
-  border-radius: 50px;
+  border-radius: 50%;
   object-fit: cover;
+  width: 120px;
 }
 .profile-two {
   margin-left: 2rem;
@@ -16,9 +17,16 @@
 }
 .profile-three {
   margin-left: 1.3rem;
-  color: #fb1b1b;
+  color: rgb(164, 149, 13);
   font-weight: 600;
   line-height: 20px;
+}
+
+.profile-four{
+  margin-left: 2rem;
+  color: #fb1b1b;
+  font-weight: 600;
+  line-height: 20px; 
 }
 .logoutt,
 .useracc {
@@ -27,9 +35,7 @@
   line-height: 20px;
   color: #0fa958;
 }
-.div-orderr {
-  /* justify-content: space-between !important; */
-}
+
 .total-earn {
   border: 1px solid #ffffff;
   background: #ffffff;
@@ -59,9 +65,7 @@
   .sec-profile2 {
     transform: translateX(12px);
   }
-  .div-orderr {
-    /* justify-content: space-between !important; */
-  }
+  
 }
 @media (min-width: 1024px) {
   .logoutt,

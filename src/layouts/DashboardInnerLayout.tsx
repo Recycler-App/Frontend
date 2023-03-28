@@ -28,20 +28,37 @@ function DashboardInnerLayout() {
         <article className="mt-3 text-center mb-5 mb-md-0">
           <div>
             <p>
-              Complete Orders <span className="profile-two">25</span>
+              Complete Orders <span className="profile-two">0</span>
             </p>
           </div>
           <div>
             <p>
-              Incomplete Orders <span className="profile-three">26</span>
+              Incomplete Orders <span className="profile-three">0</span>
             </p>
           </div>
           <div>
             <p>
-              Cancelled Orders <span className="profile-two">27</span>
+              Cancelled Orders <span className="profile-four">0</span>
             </p>
           </div>
         </article>
+        {/* <article className="mt-3 text-center mb-5 mb-md-0">
+          <div>
+            <p className="d-flex">
+              Complete Orders: <span className="profile-two">These are orders that have successfully been sent, accepted and delivered to partner companies or collection centers</span>
+            </p>
+          </div>
+          <div>
+            <p>
+              Incomplete Orders <span className="profile-three">These are orders that have successfully been sent, but still pending acceptance or yet to be delivered to partner companies or collection centers</span>
+            </p>
+          </div>
+          <div>
+            <p>
+              Cancelled Orders <span className="profile-two">These are orders that have successfully been sent, but declined by the selected company or collection center</span>
+            </p>
+          </div>
+        </article> */}
         {/* <article className="mt-5 p-3 mb-3">
           <p className="logoutt">Log Out</p>
         </article> */}

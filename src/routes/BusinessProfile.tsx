@@ -6,15 +6,15 @@ import { useUser } from '../context/UserContext'
 import { getDatabase, ref, get, set} from "firebase/database";
 import _ from "lodash";
 
-const Profile = () => {
+const BusinessProfile = () => {
   const db:any = getDatabase();
   const toast = useToast();
   const { profile, user, setProfile }:any = useUser();
   const [loading, setLoading] = useState(false)
   const [values, setValues] = useState<any>({
     img:null,
-    firstName:"",
-    lastName:"",
+    businessName:"",
+    cac:null,
     name:"",
     email:"",
     phone:"",
@@ -168,12 +168,12 @@ const Profile = () => {
         <article className='art-griid mt-md-3'>
           <div className='mb-3 mt-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
-              First Name
+              Business Name(Approved by CAC)
             </label>
             <input
               type='text'
-              onChange={(e) => handleInputChange("firstName", e)}
-              value={values.firstName}
+              onChange={(e) => handleInputChange("businessName", e)}
+              value={values.businessName}
               // required
               className='form-control'
               id='exampleInputEmail1'
@@ -182,12 +182,12 @@ const Profile = () => {
           </div>
           <div className='mb-3 mt-md-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
-              Last Name
+              CAC Number
             </label>
             <input
-              type='text'
-              onChange={(e) => handleInputChange("lastName", e)}
-              value={values.lastName}
+              type='number'
+              onChange={(e) => handleInputChange("cac", e)}
+              value={values.cac}
               // required
               className='form-control'
               id='exampleInputEmail1'
@@ -212,7 +212,7 @@ const Profile = () => {
           </div>
           <div className='mb-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
-              Email Address
+              Business Email Address
             </label>
             <input
               type='email'
@@ -242,7 +242,7 @@ const Profile = () => {
           </div>
           <div className='mb-3'>
             <label htmlFor='exampleInputEmail1' className='form-label'>
-              Address
+              Company Office Address
             </label>
             <input
               type='text'
@@ -333,4 +333,4 @@ const Profile = () => {
   )
 }
 
-export default Profile
+export default BusinessProfile
