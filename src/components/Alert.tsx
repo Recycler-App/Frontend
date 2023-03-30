@@ -13,8 +13,8 @@ import React, { useRef } from "react"
 type AlertProps = {
     title: string;
     body: any;
-    actionText: string;
-    action : () => void;
+    actionText?: string;
+    action? : () => void;
     isOpen: boolean;
     onClose:any;
 }
@@ -41,11 +41,11 @@ export default function Alert({title, body, actionText, action, isOpen, onClose,
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose} borderRadius="0px">
-                Cancel
+                Close
               </Button>
-              <Button color="light" borderRadius="0px" onClick={action} ml={3} _focus={{boxShadow:"none"}} {...actionButtonProps}>
+              {action && <Button color="light" borderRadius="0px" onClick={action} ml={3} _focus={{boxShadow:"none"}} {...actionButtonProps}>
                 {actionText}
-              </Button>
+              </Button>}
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>

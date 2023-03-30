@@ -11,15 +11,19 @@ function Map({
   _onClick,
   apiHasLoaded,
 }: any) {
+
   const Marker = ({ text }: any) => <div><Icon as={MdLocationOn} color="primary" boxSize={8}/>
   <p style={{display:"none"}}>{text}</p></div>;
+
   const { center, zoom, draggable, lat, lng, address } = mapState;
+
   const defaultCenter= {
     lat: 6.4541,
     lng: 3.3947
   }
+  
   return (
-    <Box w="100%" h={{base:"70vh", md:"100%"}} mb={{base:10, md:0}}>
+    <Box w="100%" h={{base:"70vh", md:"100%"}} maxH="600px" mb={{base:10, md:0}}>
       <GoogleMapReact
         defaultCenter={defaultCenter}
         center={center}

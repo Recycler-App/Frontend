@@ -8,6 +8,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { getDatabase, ref, get, set} from "firebase/database";
 import Alert from '../components/Alert'
 import Logo from '../svg/Logo'
+import Success from '../svg/Success'
 
 const Individual = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -214,8 +215,8 @@ const Individual = () => {
       <Alert
         title={"Sign up successful"}
         body={<Box display="flex" flexDirection="column" alignItems="center">
-          <iframe src="https://embed.lottiefiles.com/animation/73392" title="success"></iframe>
-          <Text>You can proceed to login to your newly created account.</Text>
+          <Success/>
+          <Text mt={10}>You can proceed to login to your newly created account.</Text>
         </Box>}
         actionText={"Proceed"}
         action={() => navigate("/login")}

@@ -1,6 +1,7 @@
 import React, { createContext } from 'react'
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
+import { getStorage } from "firebase/storage";
 
 export const AuthenticationContext = createContext()
 
@@ -21,11 +22,14 @@ const AuthenticationContextProvider = ({ children }) => {
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
 
+  const storage = getStorage(app);
+
   return (
     <AuthenticationContext.Provider
       value={{
         firebaseConfig,
-        auth
+        auth,
+        storage
       }}
     >
       {children}

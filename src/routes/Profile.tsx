@@ -1,16 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import '../style/Profile.css'
-import { FormControl, FormLabel, Image, Icon, Input, Button, useToast, Text } from '@chakra-ui/react'
+import { FormControl, FormLabel, Image, Icon, Input, Button, useToast, Text, Progress, Flex } from '@chakra-ui/react'
 import { BiImageAdd } from "react-icons/bi"
 import { useUser } from '../context/UserContext'
 import { getDatabase, ref, get, set} from "firebase/database";
 import _ from "lodash";
+import { ref as StorageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { AuthenticationContext } from '../context/AuthenticationContext'
 
 const Profile = () => {
   const db:any = getDatabase();
+  const { storage } = useContext(AuthenticationContext)
   const toast = useToast();
   const { profile, user, setProfile }:any = useUser();
   const [loading, setLoading] = useState(false)
+  const [percent, setPercent] = useState(0);
   const [values, setValues] = useState<any>({
     img:null,
     firstName:"",
@@ -26,6 +30,38 @@ const Profile = () => {
     lat:null,
     long:null
   })
+  
+  const handleFileChange = (e:any) => {
+    const file = e.target.files[0];
+    if (!file) {
+    alert("Please upload an image first!");
+    }
+    
+    const storageRef = StorageRef(storage, `/files/${file.name}`);
+    
+    // progress can be paused and resumed. It also exposes progress updates.
+    // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    
+    uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      const percent = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        
+        // update progress
+        setPercent(percent);
+        },
+        (err) => console.log(err),
+        () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          setValues((prev:any) => ({...prev, img: url}))
+          // console.log(url);
+        });
+    });
+  };
 
   const filterPlace = (obj:any, key:string) => {
     let arr = obj.address_components.filter((x:any) => x.types.includes(key))
@@ -60,16 +96,6 @@ const Profile = () => {
       }))
     });
   }, []);
-
-  const handleFileChange = (e:any) => {
-    const reader: FileReader = new FileReader();
-    const file = e.target.files[0];
-
-    reader.onloadend = () => {
-      setValues((prev:any) => ({...prev, img: reader.result}))
-    };
-    reader.readAsDataURL(file);
-  };
 
   const handleInputChange = (name:string, e:any) => {
     setValues((prev:any) => ({...prev, [name]: e.target.value}))
@@ -164,6 +190,10 @@ const Profile = () => {
             opacity="0"
           />
         </FormControl>
+        {percent !==0 && <Flex my={3} alignItems="center">
+          <Progress colorScheme='green' hasStripe size='sm' value={percent} width="115px" mr={3}/>
+          <Text>{percent}%</Text>
+        </Flex>}
         <Text fontSize={"sm"} mt={2}>Click the image to change it</Text>
         <article className='art-griid mt-md-3'>
           <div className='mb-3 mt-3'>

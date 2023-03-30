@@ -51,7 +51,6 @@ const UserContextProvider = ({ children }: any) => {
     get(userRef).then((snapshot:any) => {
       if(snapshot.exists()) {
         setProfile(snapshot.val())
-        console.log(snapshot.val())
       } else {
         toast({
           title: 'OOPS!',

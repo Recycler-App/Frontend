@@ -65,6 +65,7 @@ function Login() {
           duration: 4000,
           isClosable: true,
         })
+        setLoadingTwo(false)
       }
       setLoadingTwo(false)
       }).catch((error:any) => {

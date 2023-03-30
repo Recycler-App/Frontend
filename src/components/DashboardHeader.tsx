@@ -66,7 +66,7 @@ function DashboardHeader() {
         </Link>
         <Link
           as={ReactLink}
-          to={profile.userType === "individual" ? "/dashboard/profile": "/dashboard/business/profile"}
+          to={profile?.userType === "individual" ? "/dashboard/profile": "/dashboard/business/profile"}
           fontWeight={500}
           fontSize="20px"
           color={
@@ -162,7 +162,7 @@ function DashboardHeader() {
         </Link>
         <Link
           as={ReactLink}
-          to={profile.userType === "individual" ? "/dashboard/profile": "/dashboard/business/profile"}
+          to={profile?.userType === "individual" ? "/dashboard/profile": "/dashboard/business/profile"}
           fontWeight={500}
           fontSize="20px"
           color={

@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../style/Profile.css";
 // import Ellipse1 from "../assets/Ellipse1.png";
 import { Outlet } from "react-router";
 import { Flex } from "@chakra-ui/react";
 import { useUser } from "../context/UserContext";
+import {
+  getDatabase,
+  ref,
+  get,
+  equalTo,
+  orderByChild,
+  query,
+} from "firebase/database";
+import { snapshotToArray } from "../utils/helper";
 
 function DashboardInnerLayout() {
-    const { profile }:any = useUser();
+    const { profile, user }:any = useUser();
+    const db: any = getDatabase();
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+      const req = query(
+        ref(db, "recycle_requests"),
+        orderByChild("requestedBy"),
+        equalTo(user.uid)
+      );
+      get(req).then((snapshot: any) => {
+        setOrders(snapshotToArray(snapshot));
+      });
+    }, [db, user]);
+
+    const completed = orders.filter((x:any) => x.status==="completed")
+  const inCompleted = orders.filter((x:any) => x.status==="pending")
+  const cancelled = orders.filter((x:any) => x.status==="cancelled")
+
   return (
     <Flex
       minH="calc(100vh- 120px)"
@@ -28,17 +55,17 @@ function DashboardInnerLayout() {
         <article className="mt-3 text-center mb-5 mb-md-0">
           <div>
             <p>
-              Complete Orders <span className="profile-two">0</span>
+              Complete Orders <span className="profile-two">{completed.length || 0}</span>
             </p>
           </div>
           <div>
             <p>
-              Incomplete Orders <span className="profile-three">0</span>
+              Incomplete Orders <span className="profile-three">{inCompleted.length || 0}</span>
             </p>
           </div>
           <div>
             <p>
-              Cancelled Orders <span className="profile-four">0</span>
+              Cancelled Orders <span className="profile-four">{cancelled.length || 0}</span>
             </p>
           </div>
         </article>

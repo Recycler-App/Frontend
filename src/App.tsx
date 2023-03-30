@@ -27,6 +27,7 @@ import Bin from './routes/Bin'
 import Earn from './routes/Earn'
 import MyOrder from './routes/MyOrder'
 import BusinessProfile from './routes/BusinessProfile'
+import ViewRequest from './routes/ViewRequest'
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/orders',
             element: <MyOrder />,
+          },
+          {
+            path: '/dashboard/orders/:id',
+            element: <ViewRequest />,
           },
           {
             path: '/dashboard/business/profile',

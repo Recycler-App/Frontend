@@ -58,7 +58,7 @@ const AboutUs = () => {
             <div className='teamImg text-center mt-md-3'>
               <img
                 className='mt-3 mt-md-2'
-                src='https://storage.googleapis.com/bucket-assets_recycler-380620/quickstart-folder/maureen.png'
+                src='https://firebasestorage.googleapis.com/v0/b/recycler-app-132e2.appspot.com/o/files%2FMaureen%20dp.jpeg?alt=media&token=2e726ff3-1bf8-4ebd-8a43-26b8a45a5b86'
                 alt='maureen'
               />
               <div className='p-3 div-one'>
