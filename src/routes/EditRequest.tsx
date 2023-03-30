@@ -19,17 +19,22 @@ import {
   Progress,
   useToast,
   useDisclosure,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineSearch } from "react-icons/ai";
-import { ref as StorageRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  ref as StorageRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import Map from "../components/Map";
-import SuccessAlert from '../components/Alert'
+import SuccessAlert from "../components/Alert";
 import {
   getDatabase,
   ref,
   get,
-  push,
+  set,
   equalTo,
   orderByChild,
   query,
@@ -39,8 +44,11 @@ import { snapshotToArray } from "../utils/helper";
 import { BiImageAdd } from "react-icons/bi";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import Success from "../svg/Success";
+import { useParams } from "react-router";
+import _ from "lodash";
 
-function Bin() {
+function EditRequest() {
+  const params = useParams();
   const [mapState, setMapState] = useState({
     mapApiLoaded: false,
     mapInstance: null,
@@ -63,38 +71,65 @@ function Bin() {
   const [percent, setPercent] = useState(0);
   const { profile, user }: any = useUser();
   const db: any = getDatabase();
-  const { storage } = useContext(AuthenticationContext)
+  const { storage } = useContext(AuthenticationContext);
+  const [details, setDetails] = useState<any>(null);
   const [values, setValues] = useState<any>({
     requestedBy: user.uid,
-    status:"pending",
-    seller: (profile?.firstName && profile?.lastName) ? (profile?.firstName + " "+profile?.lastName) : profile?.name,
+    status: "pending",
+    seller:
+      profile?.firstName && profile?.lastName
+        ? profile?.firstName + " " + profile?.lastName
+        : profile?.name,
     buyer: "",
     quantity: "",
     price: "",
     delivery: "",
     pictures: null,
-    buyerId:"",
-    location:null
+    buyerId: "",
+    location: null,
   });
 
-  useEffect(()=> {
-    setValues((prev:any) => ({
-      ...prev, 
+  useEffect(() => {
+    const req = ref(db, `recycle_requests/${params.id}`);
+    get(req)
+      .then((snapshot: any) => {
+        if (snapshot.exists()) {
+          setValues((prev: any) => ({
+            ...prev,
+            ...snapshot.val(),
+          }));
+          setDetails(snapshot.val());
+        } else {
+          return;
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [params, db]);
+
+  useEffect(() => {
+    setValues((prev: any) => ({
+      ...prev,
       requestedBy: user.uid,
-      status:"pending",
-      seller: (profile?.firstName && profile?.lastName) ? (profile?.firstName + " "+profile?.lastName) : profile?.name
-    }))
-  },[user, profile])
+      status: "pending",
+      seller:
+        profile?.firstName && profile?.lastName
+          ? profile?.firstName + " " + profile?.lastName
+          : profile?.name,
+    }));
+  }, [user, profile]);
 
   const filterPlace = (obj: any, key: string) => {
     let arr = obj.address_components.filter((x: any) => x.types.includes(key));
     return arr[0].long_name;
   };
 
-  const filterBusinessByCity = useCallback((city: string) => {
-    const res = biz.filter((x: any) => x?.city === city);
-    setBiz(res);
-  },[biz]);
+  const filterBusinessByCity = useCallback(
+    (city: string) => {
+      const res = biz.filter((x: any) => x?.city === city);
+      setBiz(res);
+    },
+    [biz]
+  );
 
   const _generateAddress = useCallback(
     (lat?: any, lng?: any) => {
@@ -112,9 +147,9 @@ function Bin() {
                   address: results[0].formatted_address,
                 };
               });
-                filterBusinessByCity(
+              filterBusinessByCity(
                 filterPlace(results[0], "administrative_area_level_2")
-                );
+              );
             } else {
               window.alert("No results found");
             }
@@ -136,7 +171,7 @@ function Bin() {
         // restrict your search to a specific country, or an array of countries
         componentRestrictions: { country: ["ng"] },
       };
-    //   const autoCompleteRef:any = useRef();
+      //   const autoCompleteRef:any = useRef();
       const addPlace = (place: any) => {
         setMapState((prev): any => {
           return {
@@ -153,7 +188,10 @@ function Bin() {
       };
 
       const autoComplete = new mapApi.places.Autocomplete(searchInput, options);
-      const autoCompletePickup = new mapApi.places.Autocomplete(addressRef, options);
+      const autoCompletePickup = new mapApi.places.Autocomplete(
+        addressRef,
+        options
+      );
       const onPlaceChanged = ({ mapInstance }: any = mapState) => {
         const place = autoComplete.getPlace();
 
@@ -172,10 +210,10 @@ function Bin() {
       autoComplete.bindTo("bounds", mapInstance);
       autoCompletePickup.addListener("place_changed", async function () {
         const place = await autoCompletePickup.getPlace();
-        setValues((prev:any) => ({
-        ...prev, 
-        location: place
-        }))
+        setValues((prev: any) => ({
+          ...prev,
+          location: place,
+        }));
       });
     }
   }, [mapState, searchInput, _generateAddress, addressRef]);
@@ -186,7 +224,7 @@ function Bin() {
     }
   };
 
-//   FETCH USER'S CURRENT LOCATION
+  //   FETCH USER'S CURRENT LOCATION
   const setCurrentLocation = () => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position: any) => {
@@ -287,72 +325,65 @@ function Bin() {
   };
 
   const handleSubmit = () => {
-    setLoading(true)
-    const req = ref(db, `recycle_requests`);
-    push(req , values).then(() => {
-        onOpen()
-        setLoading(false)
-        setValues({
-            requestedBy: user.uid,
-            status:"pending",
-            seller: (profile?.firstName && profile?.lastName) ? (profile?.firstName + " "+profile?.lastName) : profile?.name,
-            buyer: "",
-            quantity: "",
-            price: "",
-            delivery: "",
-            pictures: null,
-            buyerId:"",
-            location:null
-        })
+    setLoading(true);
+    const req = ref(db, `recycle_requests/${params.id}`);
+    set(req, values)
+      .then(() => {
+        onOpen();
+        setLoading(false);
       })
-      .catch(err => {
+      .catch((err:any) => {
         toast({
-          title: 'OOPS!',
+          title: "OOPS!",
           description: "An error occured trying to process this request",
-          status: 'error',
-          variant: 'left-accent',
+          status: "error",
+          variant: "left-accent",
           duration: 4000,
           isClosable: true,
-        })
-        setLoading(false)
-    })
-  }
-
-    // HANDLING OF IMAGE UPLOAD TO FIREBASE STORAGE
-    const handleFileChange = (e:any) => {
-        const file = e.target.files[0];
-        if (!file) {
-        alert("Please upload an image first!");
-        }
-        
-        const storageRef = StorageRef(storage, `/files/${file.name}`);
-        
-        // progress can be paused and resumed. It also exposes progress updates.
-        // Receives the storage reference and the file to upload.
-        const uploadTask = uploadBytesResumable(storageRef, file);
-        
-        uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-            const percent = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            
-            // update progress
-            setPercent(percent);
-            },
-            (err) => console.log(err),
-            () => {
-            // download url
-            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                if(values.pictures){
-                    setValues((prev:any) => ({...prev, pictures: [...values.pictures, url]}))
-                } else{
-                    setValues((prev:any) => ({...prev, pictures: [url]}))
-                }
-            });
         });
-      };
+        setLoading(false);
+      });
+  };
+
+  // HANDLING OF IMAGE UPLOAD TO FIREBASE STORAGE
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0];
+    if (!file) {
+      alert("Please upload an image first!");
+    }
+
+    const storageRef = StorageRef(storage, `/files/${file.name}`);
+
+    // progress can be paused and resumed. It also exposes progress updates.
+    // Receives the storage reference and the file to upload.
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        // update progress
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        // download url
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          if (values.pictures) {
+            setValues((prev: any) => ({
+              ...prev,
+              pictures: [...values.pictures, url],
+            }));
+          } else {
+            setValues((prev: any) => ({ ...prev, pictures: [url] }));
+          }
+        });
+      }
+    );
+  };
 
   return (
     <Box
@@ -364,7 +395,7 @@ function Bin() {
       <Box borderBottom="0.5px solid rgba(0, 0, 0, 0.1)" py={2} px={10}>
         <Text fontSize="18px" fontWeight={500} color="primary">
           {" "}
-          Smart Bin
+          Edit Recycle Request
         </Text>
       </Box>
       <Box px={5} py={10}>
@@ -419,17 +450,16 @@ function Bin() {
                 mb={5}
                 id="option_select"
                 onChange={(e) => {
-                    handleInputChange("buyerId", e)
-                    let sel:any = document.getElementById("option_select")
-                    setValues((prev: any) => ({ ...prev, buyer: sel?.options[sel.selectedIndex].text }))
-
+                  handleInputChange("buyerId", e);
+                  let sel: any = document.getElementById("option_select");
+                  setValues((prev: any) => ({
+                    ...prev,
+                    buyer: sel?.options[sel.selectedIndex].text,
+                  }));
                 }}
               >
                 {biz.map((x: any) => (
-                  <option
-                    value={x.key}
-                    key={x.key}
-                  >
+                  <option value={x.key} key={x.key}>
                     {x.businessName || x.name}
                   </option>
                 ))}
@@ -485,25 +515,27 @@ function Bin() {
                 <option value="agent">Agent pickup</option>
               </Select>
             </Box>
-            {values.delivery === "agent" && <Box mb={5}>
-              <Text mb={2}>Select pickup location</Text>
-              <Input
-                border="1px solid rgba(15, 169, 88, 0.2)"
-                borderRadius={0}
-                ref={(ref) => {
+            {values.delivery === "agent" && (
+              <Box mb={5}>
+                <Text mb={2}>Select pickup location</Text>
+                <Input
+                  border="1px solid rgba(15, 169, 88, 0.2)"
+                  borderRadius={0}
+                  ref={(ref) => {
                     if (ref) {
                       setAddressRef(ref);
                     }
                   }}
-                h="40px"
-                _focus={{
-                  boxShadow: "none",
-                  borderColor: "primary",
-                }}
-                onChange={(e) => handleInputChange("location", e)}
-                value={values.location ? values.location.name :  ""}
-              />
-            </Box>}
+                  h="40px"
+                  _focus={{
+                    boxShadow: "none",
+                    borderColor: "primary",
+                  }}
+                  onChange={(e) => handleInputChange("location", e)}
+                  value={values.location ? values.location.name : ""}
+                />
+              </Box>
+            )}
             <Box mb={5}>
               <Text mb={2}>Upload pictures of your recyclables (max 2)</Text>
               <FormControl
@@ -514,70 +546,81 @@ function Bin() {
                 width="80%"
                 overflow="hidden"
                 position="relative"
-                bg={"#fff"} 
+                bg={"#fff"}
                 pos="relative"
-                >
+              >
                 <FormLabel
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    m="0"
-                    p={!values.img ? "24px" : "0px"}
-                    height="115px"
-                >       
-                    <Icon as={BiImageAdd} color="primary" fontSize="30px"/>
-                    
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  m="0"
+                  p={!values.img ? "24px" : "0px"}
+                  height="115px"
+                >
+                  <Icon as={BiImageAdd} color="primary" fontSize="30px" />
                 </FormLabel>
                 <Input
-                    type="file"
-                    onChange={handleFileChange}
-                    title=" "
-                    p="0"
-                    borderRadius="none"
-                    cursor="pointer"
-                    border="none"
-                    focusBorderColor="none"
-                    height="115px"
-                    position="absolute"
-                    top="0"
-                    left="0"
-                    bottom="0"
-                    opacity="0"
-                    isDisabled={values.pictures && values.pictures.length === 2}
+                  type="file"
+                  onChange={handleFileChange}
+                  title=" "
+                  p="0"
+                  borderRadius="none"
+                  cursor="pointer"
+                  border="none"
+                  focusBorderColor="none"
+                  height="115px"
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  bottom="0"
+                  opacity="0"
+                  isDisabled={values.pictures && values.pictures.length === 2}
                 />
-                {percent !==0 && <Flex my={3} alignItems="center">
-                <Progress colorScheme='green' hasStripe size='sm' value={percent} width="115px" mr={3}/>
-                <Text>{percent}%</Text>
-                </Flex>}
-                </FormControl>
+                {percent !== 0 && (
+                  <Flex my={3} alignItems="center">
+                    <Progress
+                      colorScheme="green"
+                      hasStripe
+                      size="sm"
+                      value={percent}
+                      width="115px"
+                      mr={3}
+                    />
+                    <Text>{percent}%</Text>
+                  </Flex>
+                )}
+              </FormControl>
 
-                <Flex my={5}>
-                    {values.pictures && values.pictures.map((pic:string, i:any) => (
-                        <Box p={2} pos="relative" key={i}>
-                            <Image
-                                src={pic}
-                                alt=""
-                                height="115px"
-                                width="115px"
-                            />
-                            <IconButton
-                                aria-label="delete"
-                                icon={<AiOutlineDelete/>}
-                                bg="light"
-                                color="primary"
-                                fontSize="18px"
-                                boxSize={"24px"}
-                                _hover={{
-                                    bg: "light"
-                                }}
-                                onClick={() => setValues((prev:any) => ({...prev, pictures: values.pictures.filter((x:any) => x !== pic)}))}
-                                pos="absolute"
-                                top="10px"
-                                right="10px"
-                            />
-                        </Box>
-                    ))}
-                </Flex>
+              <Flex my={5}>
+                {values.pictures &&
+                  values.pictures.map((pic: string, i: any) => (
+                    <Box p={2} pos="relative" key={i}>
+                      <Image src={pic} alt="" height="115px" width="115px" />
+                      <IconButton
+                        aria-label="delete"
+                        icon={<AiOutlineDelete />}
+                        bg="light"
+                        color="primary"
+                        fontSize="18px"
+                        boxSize={"24px"}
+                        _hover={{
+                          bg: "light",
+                        }}
+                        onClick={() =>
+                          setValues((prev: any) => ({
+                            ...prev,
+                            pictures: values.pictures.filter(
+                              (x: any) => x !== pic
+                            ),
+                          }))
+                        }
+                        pos="absolute"
+                        top="10px"
+                        right="10px"
+                      />
+                    </Box>
+                  ))}
+              </Flex>
             </Box>
           </Box>
           <Box w={{ base: "100%", md: "48%" }}>
@@ -616,16 +659,42 @@ function Bin() {
             />
           </Box>
         </Flex>
-        <Button bg="primary" color="light" w="150px" borderRadius={0} mb={5} onClick={handleSubmit} isLoading={loading}>
-          SUBMIT
-        </Button>
+        <ButtonGroup display="flex" justifyContent="space-between" w="100%">
+          <Button
+            bg="primary"
+            color="light"
+            w="150px"
+            borderRadius={0}
+            mb={5}
+            onClick={() => setValues((prev: any) => ({ ...prev, ...details }))}
+            isLoading={loading}
+            isDisabled={_.isEqual(details, values)}
+          >
+            RESET
+          </Button>
+
+          <Button
+            bg="primary"
+            color="light"
+            w="150px"
+            borderRadius={0}
+            mb={5}
+            onClick={handleSubmit}
+            isLoading={loading}
+            isDisabled={_.isEqual(details, values)}
+          >
+            SUBMIT
+          </Button>
+        </ButtonGroup>
       </Box>
       <SuccessAlert
         title={"SUCCESS"}
-        body={<Box display="flex" flexDirection="column" alignItems="center">
-          <Success/>
-          <Text mt={10}>The company will contact you as soon as they approve your request</Text>
-        </Box>}
+        body={
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <Success />
+            <Text mt={10}>The request has been edited succefully</Text>
+          </Box>
+        }
         isOpen={isOpen}
         onClose={onClose}
         bg="primary"
@@ -634,4 +703,4 @@ function Bin() {
   );
 }
 
-export default Bin;
+export default EditRequest;

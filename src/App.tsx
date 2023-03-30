@@ -28,6 +28,9 @@ import Earn from './routes/Earn'
 import MyOrder from './routes/MyOrder'
 import BusinessProfile from './routes/BusinessProfile'
 import ViewRequest from './routes/ViewRequest'
+import RecycleRequests from './routes/RecycleRequests'
+import ViewRequestBusiness from './routes/ViewRequestBusiness'
+import EditRequest from './routes/EditRequest'
 
 const router = createBrowserRouter([
   {
@@ -105,8 +108,20 @@ const router = createBrowserRouter([
             element: <ViewRequest />,
           },
           {
+            path: '/dashboard/orders/edit/:id',
+            element: <EditRequest />,
+          },
+          {
             path: '/dashboard/business/profile',
             element: <BusinessProfile />,
+          },
+          {
+            path: '/dashboard/business/recycle-requests',
+            element: <RecycleRequests />,
+          },
+          {
+            path: '/dashboard/business/recycle-requests/:id',
+            element: <ViewRequestBusiness />,
           },
         ]
       }

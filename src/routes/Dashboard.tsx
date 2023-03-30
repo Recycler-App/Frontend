@@ -41,7 +41,7 @@ function Dashboard() {
     {
       icon: <Bin />,
       text: 'Recycle Requests',
-      href:"/dashboard/bin"
+      href:"/dashboard/business/recycle-requests"
     },
     {
       icon: <Earn />,

@@ -20,19 +20,31 @@ function DashboardInnerLayout() {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-      const req = query(
-        ref(db, "recycle_requests"),
-        orderByChild("requestedBy"),
-        equalTo(user.uid)
-      );
-      get(req).then((snapshot: any) => {
-        setOrders(snapshotToArray(snapshot));
-      });
-    }, [db, user]);
+      if(profile?.userType ==="individual"){
+        const req = query(
+          ref(db, "recycle_requests"),
+          orderByChild("requestedBy"),
+          equalTo(user?.uid)
+        );
+        get(req).then((snapshot: any) => {
+          setOrders(snapshotToArray(snapshot));
+        });
+      } else{
+        const req = query(
+          ref(db, "recycle_requests"),
+          orderByChild("buyerId"),
+          equalTo(user?.uid)
+        );
+        get(req).then((snapshot: any) => {
+          setOrders(snapshotToArray(snapshot));
+        });
+      }
+    }, [db, profile, user]);
 
     const completed = orders.filter((x:any) => x.status==="completed")
-  const inCompleted = orders.filter((x:any) => x.status==="pending")
+  const inCompleted = orders.filter((x:any) => x.status==="pending" || x.status==="approved")
   const cancelled = orders.filter((x:any) => x.status==="cancelled")
+
 
   return (
     <Flex

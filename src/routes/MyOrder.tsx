@@ -93,7 +93,7 @@ const MyOrder = () => {
   );
 
   const completed = orders.filter((x:any) => x.status==="completed")
-  const inCompleted = orders.filter((x:any) => x.status==="pending")
+  const inCompleted = orders.filter((x:any) => x.status==="pending" || x.status==="approved")
   const cancelled = orders.filter((x:any) => x.status==="cancelled")
 
   return (

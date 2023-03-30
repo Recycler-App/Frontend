@@ -6,34 +6,35 @@ import {
     Image,
     ButtonGroup,
     Badge,
-    Icon,
-    useDisclosure
+    useDisclosure,
+    Icon
   } from "@chakra-ui/react";
   import {
     getDatabase,
     ref,
     get,
-    set,
-    remove
+    set
   } from "firebase/database";
 import { useEffect, useState } from "react";
-import { CgDanger } from "react-icons/cg";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import Alert from "../components/Alert";
   import { useUser } from "../context/UserContext";
 import Success from "../svg/Success";
+import { CgDanger } from "react-icons/cg"
   
-  function ViewRequest() {
+  function ViewRequestBusiness() {
     const params = useParams();
-    const navigate = useNavigate()
     const { profile }: any = useUser();
     const [ show, setShow] = useState(false)
     const [details, setDetails] = useState<any>(null)
+    const [ approving, setApproving ] = useState(false)
+    const [ disapproving, setDisapproving ] = useState(false)
     const [ completing, setCompleting ] = useState(false)
     const db: any = getDatabase();
-    const [deleting, setDeleting] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { isOpen: isConfirmDeleteOpen, onOpen:onConfirmDeleteOpen, onClose:onConfirmDeleteClose } = useDisclosure();
+    const { isOpen:isDeclineOpen, onOpen:onDeclineOpen, onClose:onDeclineClose } = useDisclosure();
+    const { isOpen: isConfirmApproveOpen, onOpen:onConfirmApproveOpen, onClose:onConfirmApproveClose } = useDisclosure();
+    const { isOpen:isConfirmDeclineOpen, onOpen:onConfirmDeclineOpen, onClose:onConfirmDeclineClose } = useDisclosure();
    
    useEffect(() => {
     const req = ref(db, `recycle_requests/${params.id}`);
@@ -59,22 +60,34 @@ import Success from "../svg/Success";
     }
    }
 
-   const deleteRequest = () => {
-    setDeleting(true)
+   const approveRequest = () => {
+    
+    setApproving(true)
     const req = ref(db, `recycle_requests/${params.id}`);
-    remove(req).then(() => {
-        setDeleting(false)
-        onOpen();
-        navigate("/dashboard/orders")
-      });
+    set(req, {
+        ...details,
+        status:"approved"
+    })
+    setApproving(false)
+    onOpen();
 
    }
 
+   const declineRequest = () => {
+    setDisapproving(true)
+    const req = ref(db, `recycle_requests/${params.id}`);
+    set(req, {
+        ...details,
+        status:"declined"
+    })
+    setDisapproving(false)
+    onDeclineOpen();
+   }
 
    const markAsCompleted = () => {
     setCompleting(true)
     const req = ref(db, `recycle_requests/${params.id}`);
-    if(details.buyerCompleted === true){
+    if(details.sellerCompleted === true){
         set(req, {
             ...details,
             status:"completed"
@@ -83,14 +96,13 @@ import Success from "../svg/Success";
     } else{
         set(req, {
             ...details,
-            sellerCompleted:true,
+            buyerCompleted:true,
         })
         setCompleting(false)
     }
     
    }
      
-  
     return (
       <Box
         w={{ base: "100%", md: "66.66666667%" }}
@@ -182,7 +194,7 @@ import Success from "../svg/Success";
                         px={5}
                         alignItems="center"
                     >
-                        {(profile.firstName && profile.lastName)? profile.firstName+" "+ profile.lastName : profile.name}
+                        {(details && details?.seller) || ""}
                     </Flex>
                 </Box>
 
@@ -221,7 +233,7 @@ import Success from "../svg/Success";
                         px={5}
                         alignItems="center"
                     >
-                       &#8358;{details && details.price}
+                       &#8358;{details && details?.price}
                     </Flex>
                 </Box>
 
@@ -242,7 +254,7 @@ import Success from "../svg/Success";
                         View Images
                     </Flex>
                     {show && <Flex my={3}>
-                        {details && details.pictures.map((pic:string, i:any) => (
+                        {details && details?.pictures.map((pic:string, i:any) => (
                             <Box p={2} pos="relative" key={i}>
                                 <Image
                                     src={pic}
@@ -256,35 +268,49 @@ import Success from "../svg/Success";
                 </Box>
             </Box>
           </Flex>
-          {details?.status === "pending" && <ButtonGroup display="flex" justifyContent="space-between" w="100%">
-          <Button bg="primary" color="light" w="150px" borderRadius={0} mb={5} onClick={() => navigate(`/dashboard/orders/edit/${params.id}`)}>
-            EDIT REQUEST
+          {details?.status==="pending" && <ButtonGroup display="flex" justifyContent="space-between" w="100%">
+          <Button bg="primary" color="light" w="180px" borderRadius={0} mb={5} onClick={onConfirmApproveOpen} isLoading={approving}>
+            APPROVE REQUEST
           </Button>
-          <Button bg="error" color="light" w="150px" borderRadius={0} mb={5} onClick={onConfirmDeleteOpen} isLoading={deleting}>
-            DELETE REQUEST
+          <Button bg="error" color="light" w="180px" borderRadius={0} mb={5} onClick={onConfirmDeclineOpen} isLoading={disapproving}>
+            DECLINE REQUEST
           </Button>
           </ButtonGroup>}
           {details?.status === "approved" && 
           <Box w={{ base: "100%", md: "48%" }}>
-            <Text color="primary" fontSize="sm" mb={3}>Mark as completed only when you have received or the agent has picked up the recyclable from the seller</Text>
+            <Text color="primary" fontSize="sm" mb={3}>Mark as completed only when you have received or the agent has picked up the recyclable from the seller. The agreed price will also be sent to the seller</Text>
             <Button bg="primary" color="light" w="200px" borderRadius={0} mb={5} onClick={markAsCompleted} isLoading={completing}>
                 Mark as completed
             </Button>
           </Box>}
-          
         </Box>
+        <Alert
+            title={"CONFIRM APPROVAL"}
+            body={<Box display="flex" flexDirection="column" alignItems="center">
+            <Success/>
+            <Text mt={10}>Are you sure you want to approve this request?</Text>
+            </Box>}
+            isOpen={isConfirmApproveOpen}
+            onClose={onConfirmApproveClose}
+            actionText={"Proceed"}
+            action={() => {
+                onConfirmApproveClose()
+                approveRequest()
+            }}
+            bg="primary"
+        />
         <Alert
             title={"CONFIRM DELETE"}
             body={<Box display="flex" flexDirection="column" alignItems="center">
             <Icon as={CgDanger} color="darkorange" boxSize="120px"/>
-            <Text mt={10}>Are you sure you want to delete this request?</Text>
+            <Text mt={10}>Are you sure you want to decline this request?</Text>
             </Box>}
-            isOpen={isConfirmDeleteOpen}
-            onClose={onConfirmDeleteClose}
+            isOpen={isConfirmDeclineOpen}
+            onClose={onConfirmDeclineClose}
             actionText={"Proceed"}
             action={() => {
-                onConfirmDeleteClose()
-                deleteRequest()
+                onConfirmDeclineClose()
+                declineRequest()
             }}
             bg="primary"
         />
@@ -292,7 +318,17 @@ import Success from "../svg/Success";
             title={"SUCCESS"}
             body={<Box display="flex" flexDirection="column" alignItems="center">
             <Success/>
-            <Text mt={10}>You have successfully deleted this recycle request</Text>
+            <Text mt={10}>{`You have successfully declined the purchase ${details?.quantity}kg of recyclables from ${details?.seller}`}</Text>
+            </Box>}
+            isOpen={isDeclineOpen}
+            onClose={onDeclineClose}
+            bg="primary"
+        />
+        <Alert
+            title={"SUCCESS"}
+            body={<Box display="flex" flexDirection="column" alignItems="center">
+            <Success/>
+            <Text mt={10}>{`You have successfully approved the purchase ${details?.quantity}kg of recyclables from ${details?.seller}`}</Text>
             </Box>}
             isOpen={isOpen}
             onClose={onClose}
@@ -302,5 +338,5 @@ import Success from "../svg/Success";
     );
   }
   
-  export default ViewRequest;
+  export default ViewRequestBusiness;
   
