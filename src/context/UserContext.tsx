@@ -2,13 +2,13 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import { onAuthStateChanged, onIdTokenChanged } from 'firebase/auth';
 import { getDatabase, ref, get} from "firebase/database";
-import { Flex, Image, useToast } from '@chakra-ui/react';
+import { Flex, Image } from '@chakra-ui/react';
 import Loader from "../assets/loader.gif"
 
 const UserContext: any = createContext({})
 
 const UserContextProvider = ({ children }: any) => {
-  const toast = useToast()
+  // const toast = useToast()
   const storage = window.localStorage;
   const [user, setUser] = useState<any>(null); //firebase user object
   const [profile, setProfile] = useState<any>(null) //user profile
@@ -51,19 +51,20 @@ const UserContextProvider = ({ children }: any) => {
     get(userRef).then((snapshot:any) => {
       if(snapshot.exists()) {
         setProfile(snapshot.val())
-      } else {
-        toast({
-          title: 'OOPS!',
-          description: "An error occured trying to fetch profile details",
-          status: 'error',
-          variant: 'left-accent',
-          duration: 4000,
-          isClosable: true,
-        })
-      }
+      } 
+      // else {
+      //   toast({
+      //     title: 'OOPS!',
+      //     description: "An error occured trying to fetch profile details",
+      //     status: 'error',
+      //     variant: 'left-accent',
+      //     duration: 4000,
+      //     isClosable: true,
+      //   })
+      // }
       setUserLoading(false)
     })
-  },[toast])
+  },[])
 
 
   useEffect(()=> {
