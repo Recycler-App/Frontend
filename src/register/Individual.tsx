@@ -30,6 +30,7 @@ const Individual = () => {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
+        onOpen()
         set(ref(db, `users/${user.uid}`), {
           name: name,
           email: email,
@@ -38,7 +39,6 @@ const Individual = () => {
           userType: "individual"
         });
         setLoading(false)
-        onOpen()
       })
       .catch((error) => {
         toast({
@@ -70,6 +70,7 @@ const Individual = () => {
           isClosable: true,
         })
       } else {
+        onOpen()
         set(ref(db, `users/${user.uid}`), {
           name: user.displayName,
           email: user.email,
@@ -77,7 +78,6 @@ const Individual = () => {
           img: user.photoURL,
           userType: "individual"
         });
-        onOpen()
       }
       setLoadingTwo(false)
       }).catch((error:any) => {

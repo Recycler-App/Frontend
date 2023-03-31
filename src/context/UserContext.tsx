@@ -32,18 +32,20 @@ const UserContextProvider = ({ children }: any) => {
 
   useEffect(()=>{
     setUserLoading(true)
+    if(window.location.pathname !== "/Individual" && window.location.pathname !== "/Business"){
       onAuthStateChanged(auth, (user) => {
-        if (user && window.location.pathname !== "/Individual" && window.location.pathname !== "/Business") {
+        if (user) {
           setUser(user)
         } else {
           setUser(null)
         }
         setUserLoading(false)
       });
-     
+    }
   }, [auth])
 
   const getUserProfile = useCallback((id:string) => {
+    console.log("fetching profile")
     setUserLoading(true)
     // check if user exists in the database
     const db:any = getDatabase();
@@ -68,7 +70,7 @@ const UserContextProvider = ({ children }: any) => {
 
 
   useEffect(()=> {
-    if(user){
+    if(user && window.location.pathname !== "/Individual" && window.location.pathname !== "/Business" ){
       getUserProfile(user.uid)
     }
   }, [user, getUserProfile])
