@@ -345,7 +345,7 @@ function Dashboard() {
         <Box
           w="100%"
           boxShadow="0px 2px 15px 2px rgba(15, 169, 88, 0.15)"
-          p={10}
+          p={{base: 5, md:10}}
           minH="450px"
           mt="70px"
         >

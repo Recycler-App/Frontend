@@ -100,13 +100,13 @@ import {
       <section className="sec-profile sec-profile2 mt-3 p-4 col-md-8 p-md-4 gx-md-3">
         <Tabs colorScheme="green">
           <TabList>
-            <Tab>Complete Orders</Tab>
-            <Tab>Incomplete Orders</Tab>
-            <Tab>Cancelled Orders</Tab>
+            <Tab fontSize={{base:"sm", md:"md"}}>Complete Orders</Tab>
+            <Tab fontSize={{base:"sm", md:"md"}}>Incomplete Orders</Tab>
+            <Tab fontSize={{base:"sm", md:"md"}}>Cancelled Orders</Tab>
           </TabList>
   
           <TabPanels>
-            <TabPanel>
+            <TabPanel p={{base:0, md:4}}>
               {completed.length !== 0 ? <OrderTable data={completed}/>
               :<article className="text-center mt-5">
                 <Sad style={{ margin: "0px auto" }} />
@@ -125,7 +125,7 @@ import {
                 </Box>
               </article>}
             </TabPanel>
-            <TabPanel>
+            <TabPanel p={{base:0, md:4}}>
             {inCompleted.length !== 0 ? <OrderTable data={inCompleted}/>
               :<article className="text-center mt-5">
                 <Sad style={{ margin: "0px auto" }} />
@@ -144,7 +144,7 @@ import {
                 </Box>
               </article>}
             </TabPanel>
-            <TabPanel>
+            <TabPanel p={{base:0, md:4}}>
             {cancelled.length !== 0 ? <OrderTable data={cancelled}/>
               :<article className="text-center mt-5">
                 <Sad style={{ margin: "0px auto" }} />

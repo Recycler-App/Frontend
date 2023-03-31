@@ -111,7 +111,7 @@ import ReactIntense from 'react-intense'
           <Flex
             justify="space-between"
             mb={10}
-            flexDirection={{ base: "column-reverse", md: "row" }}
+            flexDirection={{ base: "column", md: "row" }}
           >
             <Box w={{ base: "100%", md: "48%" }}>
                 <Flex
@@ -144,7 +144,7 @@ import ReactIntense from 'react-intense'
                         px={5}
                         alignItems="center"
                     >
-                        {(details && details?.location.name) || profile.address}
+                        {(details && details?.delivery === "self") ? profile?.address : details?.location.name}
                     </Flex>
                 </Box>
 
