@@ -39,8 +39,10 @@ import { snapshotToArray } from "../utils/helper";
 import { BiImageAdd } from "react-icons/bi";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import Success from "../svg/Success";
+import { useNavigate } from "react-router";
 
 function Bin() {
+  const navigate = useNavigate()
   const [mapState, setMapState] = useState({
     mapApiLoaded: false,
     mapInstance: null,
@@ -174,7 +176,13 @@ function Bin() {
         const place = await autoCompletePickup.getPlace();
         setValues((prev:any) => ({
         ...prev, 
-        location: place
+        location: {
+          address_components: place.address_components,
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+          place_id: place.place_id,
+          name:place.name
+        }
         }))
       });
     }
@@ -628,6 +636,8 @@ function Bin() {
         </Box>}
         isOpen={isOpen}
         onClose={onClose}
+        actionText={"Go to dashboard"}
+        action={() => navigate("/dashboard")}
         bg="primary"
       />
     </Box>

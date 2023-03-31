@@ -12,7 +12,7 @@ import {
   import {
     getDatabase,
     ref,
-    get,
+    onValue,
     set,
     remove
   } from "firebase/database";
@@ -22,6 +22,7 @@ import { useNavigate, useParams } from "react-router";
 import Alert from "../components/Alert";
   import { useUser } from "../context/UserContext";
 import Success from "../svg/Success";
+import ReactIntense from 'react-intense'
   
   function ViewRequest() {
     const params = useParams();
@@ -34,17 +35,18 @@ import Success from "../svg/Success";
     const [deleting, setDeleting] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen: isConfirmDeleteOpen, onOpen:onConfirmDeleteOpen, onClose:onConfirmDeleteClose } = useDisclosure();
+    const { isOpen:isCompleteOpen, onOpen:onCompleteOpen, onClose:onCompleteClose } = useDisclosure();
+    const { isOpen:isConfirmCompleteOpen, onOpen:onConfirmCompleteOpen, onClose:onConfirmCompleteClose } = useDisclosure();
    
    useEffect(() => {
     const req = ref(db, `recycle_requests/${params.id}`);
-    get(req).then((snapshot:any) => {
+    onValue(req, (snapshot: any) => {
         if (snapshot.exists()) {
             setDetails(snapshot.val())
         } else{
             setDetails(null)
         }
     })
-    .catch(err => console.log(err))
    },[params, db])
 
    const getBadgecolor=(status:string) => {
@@ -80,6 +82,7 @@ import Success from "../svg/Success";
             status:"completed"
         })
         setCompleting(false)
+        onCompleteOpen()
     } else{
         set(req, {
             ...details,
@@ -141,7 +144,7 @@ import Success from "../svg/Success";
                         px={5}
                         alignItems="center"
                     >
-                        {(details && details?.location) || profile.address}
+                        {(details && details?.location.name) || profile.address}
                     </Flex>
                 </Box>
 
@@ -244,12 +247,7 @@ import Success from "../svg/Success";
                     {show && <Flex my={3}>
                         {details && details.pictures.map((pic:string, i:any) => (
                             <Box p={2} pos="relative" key={i}>
-                                <Image
-                                    src={pic}
-                                    alt=""
-                                    height="115px"
-                                    width="115px"
-                                />
+                                <ReactIntense src={pic} className="image-viewer" loader='uil-spin-css'/>
                             </Box>
                         ))}
                     </Flex>}
@@ -264,15 +262,42 @@ import Success from "../svg/Success";
             DELETE REQUEST
           </Button>
           </ButtonGroup>}
-          {details?.status === "approved" && 
+          {(details?.status === "approved" && !details?.sellerCompleted) &&
           <Box w={{ base: "100%", md: "48%" }}>
-            <Text color="primary" fontSize="sm" mb={3}>Mark as completed only when you have received or the agent has picked up the recyclable from the seller</Text>
-            <Button bg="primary" color="light" w="200px" borderRadius={0} mb={5} onClick={markAsCompleted} isLoading={completing}>
+            <Text color="primary" fontSize="sm" mb={3}>Mark as completed only when you have received payment from the company or agent.</Text>
+            <Button bg="primary" color="light" w="200px" borderRadius={0} mb={5} onClick={onConfirmCompleteOpen} isLoading={completing}>
                 Mark as completed
             </Button>
           </Box>}
           
         </Box>
+        <Alert
+            title={"CONFIRM COMPLETED"}
+            body={<Box display="flex" flexDirection="column" alignItems="center">
+            <Icon as={CgDanger} color="darkorange" boxSize="120px"/>
+            <Text mt={10}>Are you sure you want to mark this as completed?</Text>
+            </Box>}
+            isOpen={isConfirmCompleteOpen}
+            onClose={onConfirmCompleteClose}
+            actionText={"Proceed"}
+            action={() => {
+                onConfirmCompleteClose()
+                markAsCompleted()
+            }}
+            bg="primary"
+        />
+
+        <Alert
+            title={"SUCCESS"}
+            body={<Box display="flex" flexDirection="column" alignItems="center">
+            <Success/>
+            <Text mt={10}>{`You have successfully marked this transaction as completed`}</Text>
+            </Box>}
+            isOpen={isCompleteOpen}
+            onClose={onCompleteClose}
+            bg="primary"
+        />
+
         <Alert
             title={"CONFIRM DELETE"}
             body={<Box display="flex" flexDirection="column" alignItems="center">

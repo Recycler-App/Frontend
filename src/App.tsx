@@ -31,6 +31,8 @@ import ViewRequest from './routes/ViewRequest'
 import RecycleRequests from './routes/RecycleRequests'
 import ViewRequestBusiness from './routes/ViewRequestBusiness'
 import EditRequest from './routes/EditRequest'
+import Transaction from './routes/Transaction'
+import MyBusinessOrders from './routes/MyBusinessOrders'
 
 const router = createBrowserRouter([
   {
@@ -122,6 +124,14 @@ const router = createBrowserRouter([
           {
             path: '/dashboard/business/recycle-requests/:id',
             element: <ViewRequestBusiness />,
+          },
+          {
+            path: '/dashboard/business/transactions',
+            element: <Transaction/>,
+          },
+          {
+            path: '/dashboard/business/orders',
+            element: <MyBusinessOrders/>,
           },
         ]
       }

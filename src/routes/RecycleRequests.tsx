@@ -6,7 +6,7 @@ import Sad from '../svg/Sad'
 import {
     getDatabase,
     ref,
-    get,
+    onValue,
     equalTo,
     orderByChild,
     query,
@@ -25,7 +25,7 @@ function RecycleRequests() {
         orderByChild("buyerId"),
         equalTo(user.uid)
         );
-        get(req).then((snapshot: any) => {
+        onValue(req, (snapshot: any) => {
         setOrders(snapshotToArray(snapshot));
         });
     }, [db, user]);
@@ -40,7 +40,7 @@ function RecycleRequests() {
                     Seller’s Name
                 </Th>
                 <Th fontSize="16px" color="dark">
-                    Seller’s Location
+                    Delivery
                 </Th>
                 <Th fontSize="16px" color="dark">
                   Quantity(kg)
@@ -54,7 +54,7 @@ function RecycleRequests() {
                   {x.seller}
                 </Td>
                 <Td color="#A6A6A6" fontSize="16px">
-                  {x.location || x.delivery}
+                  {x?.delivery}
                 </Td>
                 <Td color="#A6A6A6" fontSize="16px">
                   {x.quantity}

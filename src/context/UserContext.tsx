@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import { onAuthStateChanged, onIdTokenChanged } from 'firebase/auth';
-import { getDatabase, ref, get} from "firebase/database";
+import { getDatabase, ref, onValue} from "firebase/database";
 import { Flex, Image, useToast } from '@chakra-ui/react';
 import Loader from "../assets/loader.gif"
 
@@ -48,7 +48,7 @@ const UserContextProvider = ({ children }: any) => {
     // check if user exists in the database
     const db:any = getDatabase();
     const userRef = ref(db, `users/${id}`);
-    get(userRef).then((snapshot:any) => {
+    onValue(userRef, (snapshot:any) => {
       if(snapshot.exists()) {
         setProfile(snapshot.val())
       } else {

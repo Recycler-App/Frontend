@@ -22,7 +22,7 @@ import Sad from "../svg/Sad";
 import {
   getDatabase,
   ref,
-  get,
+  onValue,
   equalTo,
   orderByChild,
   query,
@@ -41,7 +41,7 @@ const MyOrder = () => {
       orderByChild("requestedBy"),
       equalTo(user.uid)
     );
-    get(req).then((snapshot: any) => {
+    onValue(req, (snapshot: any) => {
       setOrders(snapshotToArray(snapshot));
     });
   }, [db, user]);
@@ -94,7 +94,7 @@ const MyOrder = () => {
 
   const completed = orders.filter((x:any) => x.status==="completed")
   const inCompleted = orders.filter((x:any) => x.status==="pending" || x.status==="approved")
-  const cancelled = orders.filter((x:any) => x.status==="cancelled")
+  const cancelled = orders.filter((x:any) => x.status==="declined")
 
   return (
     <section className="sec-profile sec-profile2 mt-3 p-4 col-md-8 p-md-4 gx-md-3">
@@ -111,7 +111,7 @@ const MyOrder = () => {
             :<article className="text-center mt-5">
               <Sad style={{ margin: "0px auto" }} />
               <p className="mt-3 earn-pp mt-md-4">
-                Oops! You don’t have any order history yet.{" "}
+                Oops! You don’t have any completed order history yet.{" "}
               </p>
               <Box w={{ base: "100%", md: "80%", lg: "70%" }} mx="auto">
                 <p className="mt-3 mt-md-3 earn-pp">
@@ -130,7 +130,7 @@ const MyOrder = () => {
             :<article className="text-center mt-5">
               <Sad style={{ margin: "0px auto" }} />
               <p className="mt-3 earn-pp mt-md-4">
-                Oops! You don’t have any order history yet.{" "}
+                Oops! You don’t have any incomplete order history yet.{" "}
               </p>
               <Box w={{ base: "100%", md: "80%", lg: "70%" }} mx="auto">
                 <p className="mt-3 mt-md-3 earn-pp">
@@ -149,7 +149,7 @@ const MyOrder = () => {
             :<article className="text-center mt-5">
               <Sad style={{ margin: "0px auto" }} />
               <p className="mt-3 earn-pp mt-md-4">
-                Oops! You don’t have any order history yet.{" "}
+                Oops! You don’t have any camcelled order history yet.{" "}
               </p>
               <Box w={{ base: "100%", md: "80%", lg: "70%" }} mx="auto">
                 <p className="mt-3 mt-md-3 earn-pp">

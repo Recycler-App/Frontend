@@ -12,7 +12,7 @@ import {
   import {
     getDatabase,
     ref,
-    get,
+    onValue,
     set
   } from "firebase/database";
 import { useEffect, useState } from "react";
@@ -21,6 +21,7 @@ import Alert from "../components/Alert";
   import { useUser } from "../context/UserContext";
 import Success from "../svg/Success";
 import { CgDanger } from "react-icons/cg"
+import ReactIntense from 'react-intense'
   
   function ViewRequestBusiness() {
     const params = useParams();
@@ -33,19 +34,21 @@ import { CgDanger } from "react-icons/cg"
     const db: any = getDatabase();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { isOpen:isDeclineOpen, onOpen:onDeclineOpen, onClose:onDeclineClose } = useDisclosure();
+    const { isOpen:isCompleteOpen, onOpen:onCompleteOpen, onClose:onCompleteClose } = useDisclosure();
     const { isOpen: isConfirmApproveOpen, onOpen:onConfirmApproveOpen, onClose:onConfirmApproveClose } = useDisclosure();
     const { isOpen:isConfirmDeclineOpen, onOpen:onConfirmDeclineOpen, onClose:onConfirmDeclineClose } = useDisclosure();
+    const { isOpen:isConfirmCompleteOpen, onOpen:onConfirmCompleteOpen, onClose:onConfirmCompleteClose } = useDisclosure();
    
    useEffect(() => {
     const req = ref(db, `recycle_requests/${params.id}`);
-    get(req).then((snapshot:any) => {
+    onValue(req, (snapshot:any) => {
         if (snapshot.exists()) {
             setDetails(snapshot.val())
         } else{
             setDetails(null)
         }
     })
-    .catch(err => console.log(err))
+    // .catch(err => console.log(err))
    },[params, db])
 
    const getBadgecolor=(status:string) => {
@@ -93,6 +96,7 @@ import { CgDanger } from "react-icons/cg"
             status:"completed"
         })
         setCompleting(false)
+        onCompleteOpen();
     } else{
         set(req, {
             ...details,
@@ -100,7 +104,6 @@ import { CgDanger } from "react-icons/cg"
         })
         setCompleting(false)
     }
-    
    }
      
     return (
@@ -145,7 +148,7 @@ import { CgDanger } from "react-icons/cg"
                 </Flex>
 
                 <Box mb={5}>
-                    <Text mb={2} fontWeight={600}>Seller Address</Text>
+                    <Text mb={2} fontWeight={600}>Seller Address/ Pickup </Text>
                     <Flex
                         border="1px solid rgba(15, 169, 88, 0.2)"
                         borderRadius={0}
@@ -153,7 +156,7 @@ import { CgDanger } from "react-icons/cg"
                         px={5}
                         alignItems="center"
                     >
-                        {(details && details?.location) || profile.address}
+                        {(details && details?.delivery === "self") ? profile?.address : details?.location.name}
                     </Flex>
                 </Box>
 
@@ -255,14 +258,9 @@ import { CgDanger } from "react-icons/cg"
                     </Flex>
                     {show && <Flex my={3}>
                         {details && details?.pictures.map((pic:string, i:any) => (
-                            <Box p={2} pos="relative" key={i}>
-                                <Image
-                                    src={pic}
-                                    alt=""
-                                    height="115px"
-                                    width="115px"
-                                />
-                            </Box>
+                             <Box p={2} pos="relative" key={i}>
+                             <ReactIntense src={pic} className="image-viewer" loader='uil-spin-css'/>
+                         </Box>
                         ))}
                     </Flex>}
                 </Box>
@@ -276,10 +274,10 @@ import { CgDanger } from "react-icons/cg"
             DECLINE REQUEST
           </Button>
           </ButtonGroup>}
-          {details?.status === "approved" && 
+          {(details?.status === "approved" && !details?.buyerCompleted) &&
           <Box w={{ base: "100%", md: "48%" }}>
-            <Text color="primary" fontSize="sm" mb={3}>Mark as completed only when you have received or the agent has picked up the recyclable from the seller. The agreed price will also be sent to the seller</Text>
-            <Button bg="primary" color="light" w="200px" borderRadius={0} mb={5} onClick={markAsCompleted} isLoading={completing}>
+            <Text color="primary" fontSize="sm" mb={3}>Mark as completed only when you have received or the agent has picked up the recyclable from the seller. The agreed price should have also been sent to the seller</Text>
+            <Button bg="primary" color="light" w="200px" borderRadius={0} mb={5} onClick={onConfirmCompleteOpen} isLoading={completing}>
                 Mark as completed
             </Button>
           </Box>}
@@ -312,6 +310,32 @@ import { CgDanger } from "react-icons/cg"
                 onConfirmDeclineClose()
                 declineRequest()
             }}
+            bg="primary"
+        />
+
+        <Alert
+            title={"CONFIRM COMPLETED"}
+            body={<Box display="flex" flexDirection="column" alignItems="center">
+            <Icon as={CgDanger} color="darkorange" boxSize="120px"/>
+            <Text mt={10}>Are you sure you want to mark this as completed?</Text>
+            </Box>}
+            isOpen={isConfirmCompleteOpen}
+            onClose={onConfirmCompleteClose}
+            actionText={"Proceed"}
+            action={() => {
+                onConfirmCompleteClose()
+                markAsCompleted()
+            }}
+            bg="primary"
+        />
+        <Alert
+            title={"SUCCESS"}
+            body={<Box display="flex" flexDirection="column" alignItems="center">
+            <Success/>
+            <Text mt={10}>{`You have successfully marked this transaction as completed`}</Text>
+            </Box>}
+            isOpen={isCompleteOpen}
+            onClose={onCompleteClose}
             bg="primary"
         />
         <Alert

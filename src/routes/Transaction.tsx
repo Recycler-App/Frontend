@@ -21,7 +21,7 @@ import {
 } from "firebase/database";
 import { snapshotToArray } from "../utils/helper";
 
-const Earn = () => {
+const Transaction = () => {
   const { user }: any = useUser();
   const db: any = getDatabase();
   const [orders, setOrders] = useState([]);
@@ -29,7 +29,7 @@ const Earn = () => {
   useEffect(() => {
     const req = query(
       ref(db, "recycle_requests"),
-      orderByChild("requestedBy"),
+      orderByChild("buyerId"),
       equalTo(user.uid)
     );
     onValue(req, (snapshot: any) => {
@@ -47,7 +47,7 @@ const Earn = () => {
     }
    }
 
-  const earnings:any = orders.filter((x:any) => x.status!=="pending" &&  x.status!=="declined")
+  const tx:any = orders.filter((x:any) => x.status!=="pending" &&  x.status!=="declined")
 
   const OrderTable = ({data}:any) => (
     <TableContainer>
@@ -90,11 +90,11 @@ const Earn = () => {
     </TableContainer>
   );
 
-  const getTotalEarnings = () => {
+  const getTotalCollection= () => {
     let init = 0;
-    for(let i=0; i<earnings.length; i++){
-      let currPrice = earnings[i]?.price;
-      init = init + Number(currPrice);
+    for(let i=0; i<tx.length; i++){
+      let currQuantity = tx[i]?.quantity;
+      init = init + Number(currQuantity);
     }
     return init;
   }
@@ -102,30 +102,30 @@ const Earn = () => {
   return (
     <section className='sec-profile sec-profile2 mt-3 p-4 col-md-8 p-md-4 gx-md-3'>
       <div>
-        <h5 className='useracc'>Earnings</h5>
+        <h5 className='useracc'>Transactions</h5>
         <hr className='EarnHr mt-3' />
       </div>
       <article className='mt-5 total-earn p-5 text-center'>
-        <h5>Total Earnings</h5>
-        <h4 className='mt-4 useracc'>&#8358; {earnings.length === 0 ? 0.00 : getTotalEarnings()}</h4>
+        <h5>Total Collection</h5>
+        <h4 className='mt-4 useracc'>{tx.length === 0 ? 0.00 : getTotalCollection()}kg</h4>
       </article>
       <article className='mt-5 art-earnn'>
         <div>
-          <h5>Breakdown of Earnings</h5>
+          <h5>Breakdown of Collections</h5>
           <hr className='EarnHr mt-3' />
         </div>
-        {earnings.length === 0 ? <div className='text-center mt-4'>
+        {tx.length === 0 ? <div className='text-center mt-4'>
           <Sad style={{ margin: '0px auto' }} />
           <p className='mt-3 earn-pp'>Oops! You don’t have any earning history yet. </p>
           <p className='mt-3 mt-md-2 earn-pp'>
-            When you start selling your recyclables, you will see your earnings
+            When you start approving recycle requests, you will see your collections
             breakdown here.
           </p>
         </div>: 
-        <OrderTable data={earnings}/>}
+        <OrderTable data={tx}/>}
       </article>
     </section>
   )
 }
 
-export default Earn
+export default Transaction

@@ -7,7 +7,7 @@ import { useUser } from "../context/UserContext";
 import {
   getDatabase,
   ref,
-  get,
+  onValue,
   equalTo,
   orderByChild,
   query,
@@ -26,7 +26,7 @@ function DashboardInnerLayout() {
           orderByChild("requestedBy"),
           equalTo(user?.uid)
         );
-        get(req).then((snapshot: any) => {
+        onValue(req, (snapshot: any) => {
           setOrders(snapshotToArray(snapshot));
         });
       } else{
@@ -35,7 +35,7 @@ function DashboardInnerLayout() {
           orderByChild("buyerId"),
           equalTo(user?.uid)
         );
-        get(req).then((snapshot: any) => {
+        onValue(req, (snapshot: any) => {
           setOrders(snapshotToArray(snapshot));
         });
       }
@@ -43,7 +43,7 @@ function DashboardInnerLayout() {
 
     const completed = orders.filter((x:any) => x.status==="completed")
   const inCompleted = orders.filter((x:any) => x.status==="pending" || x.status==="approved")
-  const cancelled = orders.filter((x:any) => x.status==="cancelled")
+  const cancelled = orders.filter((x:any) => x.status==="declined")
 
 
   return (
