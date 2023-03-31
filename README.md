@@ -10,7 +10,7 @@ Recycler is a web application built to help achieve Sustainable Development Goal
 
 * ReactJS: A user interface development library based on JavaScript. We used this library to put together our project.
 
-* Firebase: Google Firebase is a collection of backend cloud computing services and application development platforms. We used this BaaS to store users data.
+* Firebase: Google Firebase is a collection of backend cloud computing services and application development platforms. We used this BaaS to store users data, using the firebase realtime database. Also, the Authentication feature which provides easy-to-use SDKs to authenticate users.
 
 * Google Cloud: Google Cloud offers client libraries that make it simple to create and manage resources. We used this cloud platform to store our assets. 
 
@@ -24,7 +24,16 @@ Recycler is a web application built to help achieve Sustainable Development Goal
 
 * Figma: Figma is an online user interface (UI) tool for designing, collaborating, and prototyping.
 
+ * Netlify for deployment.
 
+## How to run this application
+
+Note: An env file should be created to store the firebase keys/SDKs.
+
+## Links
+* url: https://recycler.dev/
+* Figma: https://www.figma.com/file/N4mkDJSsgJWMrkYOjSjq7c/recycler?node-id=94%3A324&t=nPjicTBKF7qiRCT4-1
+* Video demo: https://youtu.be/Ff9mqwBx5No
 ## Contributing to Recycler
 
 Pull requests are the best way to propose changes to the codebase. Would you like to add/remove anything to make Recycler better? Follow these steps:
