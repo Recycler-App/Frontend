@@ -65,9 +65,13 @@ const Profile = () => {
 
   const filterPlace = (obj:any, key:string) => {
     let arr = obj.address_components.filter((x:any) => x.types.includes(key))
-    return arr[0].long_name;
+    if(arr.length !==0){
+      return arr[0].long_name;
+    } else {
+      return ""
+    }
+    
   }
-
   const autoCompleteRef:any = useRef();
   const inputRef:any = useRef();
   useEffect(() => {

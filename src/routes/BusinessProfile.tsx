@@ -34,7 +34,12 @@ const BusinessProfile = () => {
 
   const filterPlace = (obj:any, key:string) => {
     let arr = obj.address_components.filter((x:any) => x.types.includes(key))
-    return arr[0].long_name;
+    if(arr.length !==0){
+      return arr[0].long_name;
+    } else {
+      return ""
+    }
+    
   }
 
   const autoCompleteRef:any = useRef();
@@ -53,6 +58,7 @@ const BusinessProfile = () => {
 
     autoCompleteRef.current.addListener("place_changed", async function () {
       const place = await autoCompleteRef.current.getPlace();
+      console.log(place)
       setValues((prev:any) => ({
         ...prev, 
         address:place.name,

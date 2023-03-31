@@ -118,10 +118,15 @@ function EditRequest() {
     }));
   }, [user, profile]);
 
-  const filterPlace = (obj: any, key: string) => {
-    let arr = obj.address_components.filter((x: any) => x.types.includes(key));
-    return arr[0].long_name;
-  };
+  const filterPlace = (obj:any, key:string) => {
+    let arr = obj.address_components.filter((x:any) => x.types.includes(key))
+    if(arr.length !==0){
+      return arr[0].long_name;
+    } else {
+      return ""
+    }
+    
+  }
 
   const filterBusinessByCity = useCallback(
     (city: string) => {
