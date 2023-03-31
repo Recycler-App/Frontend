@@ -1,14 +1,14 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { AuthenticationContext } from '../context/AuthenticationContext'
 import { onAuthStateChanged, onIdTokenChanged } from 'firebase/auth';
-import { getDatabase, ref, get} from "firebase/database";
-import { Flex, Image } from '@chakra-ui/react';
+import { getDatabase, ref, onValue} from "firebase/database";
+import { Flex, Image, useToast } from '@chakra-ui/react';
 import Loader from "../assets/loader.gif"
 
 const UserContext: any = createContext({})
 
 const UserContextProvider = ({ children }: any) => {
-  // const toast = useToast()
+  const toast = useToast()
   const storage = window.localStorage;
   const [user, setUser] = useState<any>(null); //firebase user object
   const [profile, setProfile] = useState<any>(null) //user profile
@@ -33,7 +33,7 @@ const UserContextProvider = ({ children }: any) => {
   useEffect(()=>{
     setUserLoading(true)
       onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (user && window.location.pathname !== "/Individual" && window.location.pathname !== "/Business") {
           setUser(user)
         } else {
           setUser(null)
@@ -48,23 +48,23 @@ const UserContextProvider = ({ children }: any) => {
     // check if user exists in the database
     const db:any = getDatabase();
     const userRef = ref(db, `users/${id}`);
-    get(userRef).then((snapshot:any) => {
+    onValue(userRef, (snapshot:any) => {
       if(snapshot.exists()) {
         setProfile(snapshot.val())
       } 
-      // else {
-      //   toast({
-      //     title: 'OOPS!',
-      //     description: "An error occured trying to fetch profile details",
-      //     status: 'error',
-      //     variant: 'left-accent',
-      //     duration: 4000,
-      //     isClosable: true,
-      //   })
-      // }
+      else {
+        toast({
+          title: 'OOPS!',
+          description: "An error occured trying to fetch profile details",
+          status: 'error',
+          variant: 'left-accent',
+          duration: 4000,
+          isClosable: true,
+        })
+      }
       setUserLoading(false)
     })
-  },[])
+  },[toast])
 
 
   useEffect(()=> {
